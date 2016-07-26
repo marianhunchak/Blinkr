@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="userCell" rowHeight="90" id="KGk-i7-Jjw" customClass="MGUserCell">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="89"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9oa-LI-1UI">
+                        <rect key="frame" x="8" y="8" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="7yO-LF-lgX"/>
+                            <constraint firstAttribute="width" constant="70" id="XqN-9X-oyc"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name Surname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wR0-ht-ZHe">
+                        <rect key="frame" x="86" y="8" width="306" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="ZLa-IF-aqn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wf3-PN-mbR" customClass="HCSStarRatingView">
+                        <rect key="frame" x="86" y="35" width="109" height="16"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="109" id="HrF-Ue-Yc0"/>
+                            <constraint firstAttribute="height" constant="16" id="oQ3-5Y-M19"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="YES"/>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="accurateHalfStars" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Phone number" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xr9-Id-eGu">
+                        <rect key="frame" x="83" y="53" width="306" height="25"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="bBc-IJ-jor"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
+                    </textView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnK-SI-BVi">
+                        <rect key="frame" x="277" y="35" width="112" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="112" id="3op-Hd-DRL"/>
+                            <constraint firstAttribute="height" constant="25" id="ki7-fG-yyk"/>
+                        </constraints>
+                        <state key="normal" title="Send message">
+                            <color key="titleColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="sendMessageBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kKU-su-mn0"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9oa-LI-1UI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="0gt-DU-XMS"/>
+                    <constraint firstItem="Wf3-PN-mbR" firstAttribute="top" secondItem="wR0-ht-ZHe" secondAttribute="bottom" constant="6" id="CCA-sj-Evi"/>
+                    <constraint firstItem="Wf3-PN-mbR" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="8" id="EoB-x9-dhI"/>
+                    <constraint firstItem="9oa-LI-1UI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Evq-wQ-wdM"/>
+                    <constraint firstItem="wR0-ht-ZHe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NSg-T6-mXP"/>
+                    <constraint firstItem="wR0-ht-ZHe" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="8" id="Uzy-07-d4Z"/>
+                    <constraint firstAttribute="trailing" secondItem="gnK-SI-BVi" secondAttribute="trailing" constant="11" id="aA1-ci-BbX"/>
+                    <constraint firstItem="gnK-SI-BVi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="dcr-8E-3yp"/>
+                    <constraint firstItem="xr9-Id-eGu" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="5" id="sGp-od-C5A"/>
+                    <constraint firstItem="xr9-Id-eGu" firstAttribute="top" secondItem="Wf3-PN-mbR" secondAttribute="bottom" constant="2" id="ur0-0L-OAZ"/>
+                    <constraint firstAttribute="trailing" secondItem="xr9-Id-eGu" secondAttribute="trailing" constant="11" id="xEC-vY-Jqv"/>
+                    <constraint firstAttribute="trailing" secondItem="wR0-ht-ZHe" secondAttribute="trailing" constant="8" id="xL3-Xl-euC"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nameLabel" destination="wR0-ht-ZHe" id="Myb-IO-q2s"/>
+                <outlet property="phoneTextField" destination="xr9-Id-eGu" id="Qhn-uG-qk0"/>
+                <outlet property="rateView" destination="Wf3-PN-mbR" id="fuL-5q-IbK"/>
+                <outlet property="sendMessageButton" destination="gnK-SI-BVi" id="sZH-Oh-g7n"/>
+                <outlet property="userImageView" destination="9oa-LI-1UI" id="QO6-hE-qrg"/>
+            </connections>
+            <point key="canvasLocation" x="538" y="403"/>
+        </tableViewCell>
+    </objects>
+</document>

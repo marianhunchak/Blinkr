@@ -15,6 +15,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "HCSStarRatingView.h"
 #import "UIView+Layer.h"
+#import "MGEditMyProfileViewController.h"
 
 
 @interface MGMyProfileViewController ()
@@ -45,7 +46,7 @@
     
     [self fetchUserProfile];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileUpdatedHandling:) name:PROFILE_UPDATED_KEY object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileUpdatedHandling:) name:PROFILE_UPDATED_KEY object:nil];
     
 }
 
@@ -180,11 +181,11 @@
 
 - (void)editMyProfileAction:(UIBarButtonItem *) sender {
     
-//    MGEditMyProfileViewController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGEditMyProfileViewController"];
-//    editMyProfileViewController.userInfo = _userInfo;
-//    editMyProfileViewController.userImage = _profileImage.image;
-//
-//    [self.navigationController pushViewController:editMyProfileViewController animated:YES];
+    MGEditMyProfileViewController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGEditMyProfileViewController"];
+    editMyProfileViewController.userInfo = _userInfo;
+    editMyProfileViewController.userImage = _profileImage.image;
+
+    [self.navigationController pushViewController:editMyProfileViewController animated:YES];
 }
 
 #pragma mark - Notifications

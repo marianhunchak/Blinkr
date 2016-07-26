@@ -31,7 +31,7 @@
 
 #define colorWithRGB(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
 
-#define navigationBarColor [UIColor colorWithRed:255.0/255.0 green:90.0/255.0 blue:95.0/255.0 alpha:1.0]
+#define mainAppColor RGBHColor(0xFF8858)
 
 
 #endif /* Global_h */

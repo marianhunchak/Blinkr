@@ -15,4 +15,17 @@
                  firebaseToken:(NSString *)firebaseToken
                 withCompletion:(ObjectCompletionBlock)completionBlock;
 
++ (void)updateMyProfileWithID:(NSInteger)userID
+                   parameters:(NSDictionary *)params
+               withCompletion:(ObjectCompletionBlock)completionBlock;
+
++ (void) searchUsersWithString:(NSString *) searchString
+                withCompletion:(ArrayCompletionBlock)completionBlock;
+
++ (void)updateCurrentUserLocationWithLatitude:(double)latitude
+                                    longitude:(double)longitude
+                               withCompletion:(ObjectCompletionBlock)completionBlock;
+
++ (void)getNearestUsersWithRadius:(NSInteger)radius withCompletion:(ArrayCompletionBlock)completionBlock;
+
 @end

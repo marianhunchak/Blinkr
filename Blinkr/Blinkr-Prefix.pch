@@ -16,8 +16,11 @@
 #import "MGNetworkManager.h"
 #import "Global.h"
 
+
 #define FACEBOOK_TOKEN_KEY @"facebook_token_key"
 #define ACCESS_TOKEN_KEY @"access_token_key"
 #define PROFILE_PICTURE_URL @"profile_picture_url"
+#define PROFILE_UPDATED_KEY @"profile_UPDATED_KEY"
+#define PROFILE_ID_KEY @"profile_id_key"
 
 #endif /* Blinkr_Prefix_pch */

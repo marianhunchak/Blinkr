@@ -129,7 +129,11 @@
         self.loginButton.userInteractionEnabled = NO;
         self.viewForHiddenFB.hidden = NO;
     } else {
-        [sender setSelected:YES];
+        [UIView animateWithDuration:0.25 animations:^{
+            [sender setSelected:YES];
+        }];
+        
+        
         self.loginButton.userInteractionEnabled = YES;
         self.viewForHiddenFB.hidden = YES;
     }

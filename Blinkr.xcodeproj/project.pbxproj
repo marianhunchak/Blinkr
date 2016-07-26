@@ -14,8 +14,6 @@
 		843F3ADD1D46204E00F4CE03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843F3ADC1D46204E00F4CE03 /* Assets.xcassets */; };
 		843F3AE01D46204E00F4CE03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843F3ADE1D46204E00F4CE03 /* LaunchScreen.storyboard */; };
 		843F3AE91D46259200F4CE03 /* SignInController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3AE81D46259200F4CE03 /* SignInController.m */; };
-		843F3AFE1D46303000F4CE03 /* checkBoxOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 843F3AFC1D46303000F4CE03 /* checkBoxOn.png */; };
-		843F3AFF1D46303000F4CE03 /* checkBoxOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 843F3AFD1D46303000F4CE03 /* checkBoxOff.png */; };
 		843F3B031D46359D00F4CE03 /* MGNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B021D46359D00F4CE03 /* MGNetworkManager.m */; };
 		843F3B0A1D46407400F4CE03 /* MGBlinkrController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B091D46407400F4CE03 /* MGBlinkrController.m */; };
 		843F3B0D1D4641F900F4CE03 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843F3B0C1D4641F900F4CE03 /* MapKit.framework */; };
@@ -29,6 +27,16 @@
 		843F3B461D467F4F00F4CE03 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B451D467F4F00F4CE03 /* NSData+Base64.m */; };
 		843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B481D467F5700F4CE03 /* UIView+Layer.m */; };
 		843F3B4C1D467F6100F4CE03 /* NSString+ValidateValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */; };
+		844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */; };
+		844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42781D479E7300E80A2D /* MGUserCell.m */; };
+		844F427B1D479E7300E80A2D /* MGUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F42791D479E7300E80A2D /* MGUserCell.xib */; };
+		844F427E1D47A3C500E80A2D /* MGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F427D1D47A3C500E80A2D /* MGUser.m */; };
+		844F42801D47B14D00E80A2D /* checkBoxOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 844F427F1D47B14D00E80A2D /* checkBoxOff.png */; };
+		844F42831D47B4E300E80A2D /* checkBoxOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 844F42821D47B4E300E80A2D /* checkBoxOn.png */; };
+		844F42861D47B72500E80A2D /* MGUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42851D47B72500E80A2D /* MGUserProfileViewController.m */; };
+		844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42891D47C52900E80A2D /* MGMapAnnotation.m */; };
+		844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F428C1D47C6F900E80A2D /* MGUserView.m */; };
+		844F42901D47C72500E80A2D /* MGUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F428F1D47C72500E80A2D /* MGUserView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +50,6 @@
 		843F3AE11D46204E00F4CE03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843F3AE71D46259200F4CE03 /* SignInController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInController.h; sourceTree = "<group>"; };
 		843F3AE81D46259200F4CE03 /* SignInController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInController.m; sourceTree = "<group>"; };
-		843F3AFC1D46303000F4CE03 /* checkBoxOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxOn.png; sourceTree = "<group>"; };
-		843F3AFD1D46303000F4CE03 /* checkBoxOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxOff.png; sourceTree = "<group>"; };
 		843F3B001D46342300F4CE03 /* Blinkr-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blinkr-Prefix.pch"; sourceTree = "<group>"; };
 		843F3B011D46359D00F4CE03 /* MGNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGNetworkManager.h; sourceTree = "<group>"; };
 		843F3B021D46359D00F4CE03 /* MGNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGNetworkManager.m; sourceTree = "<group>"; };
@@ -72,6 +78,22 @@
 		843F3B481D467F5700F4CE03 /* UIView+Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layer.m"; sourceTree = "<group>"; };
 		843F3B4A1D467F6100F4CE03 /* NSString+ValidateValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ValidateValue.h"; sourceTree = "<group>"; };
 		843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateValue.m"; sourceTree = "<group>"; };
+		844F42741D4795B900E80A2D /* MGEditMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGEditMyProfileViewController.h; sourceTree = "<group>"; };
+		844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGEditMyProfileViewController.m; sourceTree = "<group>"; };
+		844F42771D479E7300E80A2D /* MGUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserCell.h; sourceTree = "<group>"; };
+		844F42781D479E7300E80A2D /* MGUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserCell.m; sourceTree = "<group>"; };
+		844F42791D479E7300E80A2D /* MGUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGUserCell.xib; sourceTree = "<group>"; };
+		844F427C1D47A3C500E80A2D /* MGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUser.h; sourceTree = "<group>"; };
+		844F427D1D47A3C500E80A2D /* MGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUser.m; sourceTree = "<group>"; };
+		844F427F1D47B14D00E80A2D /* checkBoxOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxOff.png; sourceTree = "<group>"; };
+		844F42821D47B4E300E80A2D /* checkBoxOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBoxOn.png; sourceTree = "<group>"; };
+		844F42841D47B72500E80A2D /* MGUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserProfileViewController.h; sourceTree = "<group>"; };
+		844F42851D47B72500E80A2D /* MGUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserProfileViewController.m; sourceTree = "<group>"; };
+		844F42881D47C52900E80A2D /* MGMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMapAnnotation.h; sourceTree = "<group>"; };
+		844F42891D47C52900E80A2D /* MGMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMapAnnotation.m; sourceTree = "<group>"; };
+		844F428B1D47C6F900E80A2D /* MGUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserView.h; sourceTree = "<group>"; };
+		844F428C1D47C6F900E80A2D /* MGUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserView.m; sourceTree = "<group>"; };
+		844F428F1D47C72500E80A2D /* MGUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGUserView.xib; sourceTree = "<group>"; };
 		C179CC6A4B88800FD674C1F1 /* Pods-Blinkr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blinkr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blinkr/Pods-Blinkr.release.xcconfig"; sourceTree = "<group>"; };
 		C51476BE49BBB444C8860E81 /* Pods-Blinkr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blinkr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Blinkr/Pods-Blinkr.debug.xcconfig"; sourceTree = "<group>"; };
 		FA0F0953A0F71AA274C124D7 /* libPods-Blinkr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Blinkr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +174,10 @@
 		843F3AF21D462F2D00F4CE03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				844F42881D47C52900E80A2D /* MGMapAnnotation.h */,
+				844F42891D47C52900E80A2D /* MGMapAnnotation.m */,
+				844F427C1D47A3C500E80A2D /* MGUser.h */,
+				844F427D1D47A3C500E80A2D /* MGUser.m */,
 				843F3B3B1D467F0600F4CE03 /* MGFetchUserInfo.h */,
 				843F3B3C1D467F0600F4CE03 /* MGFetchUserInfo.m */,
 			);
@@ -161,6 +187,10 @@
 		843F3AF31D462F3700F4CE03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				844F428E1D47C6FE00E80A2D /* MGUserCell */,
+				844F428B1D47C6F900E80A2D /* MGUserView.h */,
+				844F428C1D47C6F900E80A2D /* MGUserView.m */,
+				844F428F1D47C72500E80A2D /* MGUserView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -173,6 +203,7 @@
 				843F3B111D46496200F4CE03 /* SearchController */,
 				843F3B371D467B3E00F4CE03 /* MessagesController */,
 				843F3B4D1D4680CC00F4CE03 /* MyProfileViewController */,
+				844F42871D47B72C00E80A2D /* UserProfileViewController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -191,8 +222,8 @@
 		843F3AF61D462F7000F4CE03 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				843F3AFC1D46303000F4CE03 /* checkBoxOn.png */,
-				843F3AFD1D46303000F4CE03 /* checkBoxOff.png */,
+				844F42821D47B4E300E80A2D /* checkBoxOn.png */,
+				844F427F1D47B14D00E80A2D /* checkBoxOff.png */,
 				843F3ADC1D46204E00F4CE03 /* Assets.xcassets */,
 			);
 			name = Resources;
@@ -300,10 +331,31 @@
 		843F3B4D1D4680CC00F4CE03 /* MyProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
+				844F42741D4795B900E80A2D /* MGEditMyProfileViewController.h */,
+				844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */,
 				843F3B381D467E9B00F4CE03 /* MGMyProfileViewController.h */,
 				843F3B391D467E9B00F4CE03 /* MGMyProfileViewController.m */,
 			);
 			name = MyProfileViewController;
+			sourceTree = "<group>";
+		};
+		844F42871D47B72C00E80A2D /* UserProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				844F42841D47B72500E80A2D /* MGUserProfileViewController.h */,
+				844F42851D47B72500E80A2D /* MGUserProfileViewController.m */,
+			);
+			name = UserProfileViewController;
+			sourceTree = "<group>";
+		};
+		844F428E1D47C6FE00E80A2D /* MGUserCell */ = {
+			isa = PBXGroup;
+			children = (
+				844F42771D479E7300E80A2D /* MGUserCell.h */,
+				844F42781D479E7300E80A2D /* MGUserCell.m */,
+				844F42791D479E7300E80A2D /* MGUserCell.xib */,
+			);
+			name = MGUserCell;
 			sourceTree = "<group>";
 		};
 		8E91DD9D96E80C97A708892C /* Frameworks */ = {
@@ -377,10 +429,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844F42831D47B4E300E80A2D /* checkBoxOn.png in Resources */,
+				844F42801D47B14D00E80A2D /* checkBoxOff.png in Resources */,
 				843F3AE01D46204E00F4CE03 /* LaunchScreen.storyboard in Resources */,
-				843F3AFF1D46303000F4CE03 /* checkBoxOff.png in Resources */,
-				843F3AFE1D46303000F4CE03 /* checkBoxOn.png in Resources */,
+				844F42901D47C72500E80A2D /* MGUserView.xib in Resources */,
 				843F3ADD1D46204E00F4CE03 /* Assets.xcassets in Resources */,
+				844F427B1D479E7300E80A2D /* MGUserCell.xib in Resources */,
 				843F3ADB1D46204E00F4CE03 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,11 +504,17 @@
 				843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */,
 				843F3B0A1D46407400F4CE03 /* MGBlinkrController.m in Sources */,
 				843F3B031D46359D00F4CE03 /* MGNetworkManager.m in Sources */,
+				844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */,
 				843F3AE91D46259200F4CE03 /* SignInController.m in Sources */,
 				843F3B101D46491500F4CE03 /* MGSearchController.m in Sources */,
+				844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */,
 				843F3B401D467F2F00F4CE03 /* HCSStarRatingView.m in Sources */,
 				843F3B461D467F4F00F4CE03 /* NSData+Base64.m in Sources */,
 				843F3B3D1D467F0600F4CE03 /* MGFetchUserInfo.m in Sources */,
+				844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */,
+				844F427E1D47A3C500E80A2D /* MGUser.m in Sources */,
+				844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */,
+				844F42861D47B72500E80A2D /* MGUserProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
