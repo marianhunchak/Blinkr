@@ -10,8 +10,9 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "MGUser.h"
+#import "Chat.h"
 
-static NSString *mainURL = @"http://104.236.251.210/api/v1";
+static NSString *mainURL = @"http://159.203.188.80/api/v1/";
 
 @implementation MGNetworkManager
 #pragma mark - Manager methods
@@ -33,11 +34,13 @@ static NSString *mainURL = @"http://104.236.251.210/api/v1";
 
 
 + (void)loginWithFacebookToken:(NSString *)facebookToken
-                firebaseToken:(NSString *)firebaseToken
+                firebaseToken:(NSString *)fiToken
                 withCompletion:(ObjectCompletionBlock)completionBlock {
     
+    NSString *firebaseToken = [[NSUserDefaults standardUserDefaults] stringForKey:FIREBASE_TOKEN_KEY];
+    
     NSDictionary *params = @{@"token": facebookToken,
-                             @"firebase_token": @"it_is_not_valid_token",
+                             @"firebase_token": firebaseToken,
                              @"device_type": @"ios"};
     
     [[MGNetworkManager manager] POST:@"login" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -164,5 +167,51 @@ static NSString *mainURL = @"http://104.236.251.210/api/v1";
         
     }];
 }
+
++ (void)sendMessangerNotificationWihtParams:(NSDictionary *)params
+                               withCompletion:(ObjectCompletionBlock)completionBlock {
+
+    [[MGNetworkManager manager] POST:@"messenger_notification" parameters:params progress:nil
+     
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+             
+             NSLog(@"Response object - %@", responseObject);
+             
+             completionBlock(responseObject, nil);
+             
+         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             
+             NSLog(@"Error - %@", [error localizedDescription]);
+             completionBlock(nil, error);
+             
+    }];
+}
+
++ (void)getAllNotificationsWithCompletion:(ArrayCompletionBlock)completionBlock {
+    
+    [[MGNetworkManager manager] GET:@"notifications" parameters:nil progress:nil
+     
+        success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            if (completionBlock) {
+                
+                NSMutableArray *responseArray = [NSMutableArray array];
+                
+                for (NSDictionary *lnotifDict in responseObject) {
+                    
+                    [responseArray addObject:[Chat initWithNotificationDict:lnotifDict]];
+                }
+                
+                completionBlock(responseArray, nil);
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            completionBlock(nil, error);
+            
+    }];
+    
+}
+
 
 @end

@@ -209,7 +209,7 @@
                            @"name":_nameTextField.text,
                            @"email":_emailTextField.text,
                            @"phone_number":_phoneNumberTextField.text,
-                           @"tesla_model":_teslaModelTextField.text,
+                           @"car_model":_teslaModelTextField.text,
                            @"license_plate":_licensePlateTextField.text,
                            @"bio":_bioTextView.text,
                            @"show_license_plate":@(_showLicensePlateSwitch.on),
@@ -219,7 +219,7 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:json];
     
-    if (_profileImage.image != nil && [_profileImage.image isEqual:_userImage]) {
+    if (_profileImage.image != nil && ![_profileImage.image isEqual:_userImage]) {
         NSData *imageData = UIImageJPEGRepresentation(_profileImage.image, 0.5);
         NSString *imageDataEncodedeString = [imageData base64EncodedString];
         

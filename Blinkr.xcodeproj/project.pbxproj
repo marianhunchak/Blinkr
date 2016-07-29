@@ -37,6 +37,12 @@
 		844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42891D47C52900E80A2D /* MGMapAnnotation.m */; };
 		844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F428C1D47C6F900E80A2D /* MGUserView.m */; };
 		844F42901D47C72500E80A2D /* MGUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F428F1D47C72500E80A2D /* MGUserView.xib */; };
+		84FB0D6E1D4A23C200AF0C92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */; };
+		84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D771D4A4DB500AF0C92 /* MGChatController.m */; };
+		84FB0D7E1D4A679900AF0C92 /* MGMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D7C1D4A679900AF0C92 /* MGMessageCell.m */; };
+		84FB0D7F1D4A679900AF0C92 /* MGMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84FB0D7D1D4A679900AF0C92 /* MGMessageCell.xib */; };
+		84FB0D831D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D811D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld */; };
+		84FB0D8D1D4BAC3E00AF0C92 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D8B1D4BAC3E00AF0C92 /* Chat.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +100,15 @@
 		844F428B1D47C6F900E80A2D /* MGUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserView.h; sourceTree = "<group>"; };
 		844F428C1D47C6F900E80A2D /* MGUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserView.m; sourceTree = "<group>"; };
 		844F428F1D47C72500E80A2D /* MGUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGUserView.xib; sourceTree = "<group>"; };
+		84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84FB0D761D4A4DB500AF0C92 /* MGChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGChatController.h; sourceTree = "<group>"; };
+		84FB0D771D4A4DB500AF0C92 /* MGChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGChatController.m; sourceTree = "<group>"; };
+		84FB0D7B1D4A679900AF0C92 /* MGMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMessageCell.h; sourceTree = "<group>"; };
+		84FB0D7C1D4A679900AF0C92 /* MGMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMessageCell.m; sourceTree = "<group>"; };
+		84FB0D7D1D4A679900AF0C92 /* MGMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGMessageCell.xib; sourceTree = "<group>"; };
+		84FB0D821D4BA8CF00AF0C92 /* Blinkr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blinkr.xcdatamodel; sourceTree = "<group>"; };
+		84FB0D8A1D4BAC3E00AF0C92 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
+		84FB0D8B1D4BAC3E00AF0C92 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		C179CC6A4B88800FD674C1F1 /* Pods-Blinkr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blinkr.release.xcconfig"; path = "Pods/Target Support Files/Pods-Blinkr/Pods-Blinkr.release.xcconfig"; sourceTree = "<group>"; };
 		C51476BE49BBB444C8860E81 /* Pods-Blinkr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blinkr.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Blinkr/Pods-Blinkr.debug.xcconfig"; sourceTree = "<group>"; };
 		FA0F0953A0F71AA274C124D7 /* libPods-Blinkr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Blinkr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +157,7 @@
 		843F3ACC1D46204E00F4CE03 /* Blinkr */ = {
 			isa = PBXGroup;
 			children = (
+				84FB0D801D4BA87D00AF0C92 /* DB */,
 				843F3AF51D462F5E00F4CE03 /* Application */,
 				843F3AF11D462F2700F4CE03 /* MVC */,
 				843F3AF81D462FB000F4CE03 /* Helpers */,
@@ -187,10 +203,9 @@
 		843F3AF31D462F3700F4CE03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84FB0D7A1D4A674900AF0C92 /* MessageCell */,
+				84FB0D791D4A673D00AF0C92 /* MGUserView */,
 				844F428E1D47C6FE00E80A2D /* MGUserCell */,
-				844F428B1D47C6F900E80A2D /* MGUserView.h */,
-				844F428C1D47C6F900E80A2D /* MGUserView.m */,
-				844F428F1D47C72500E80A2D /* MGUserView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -202,6 +217,7 @@
 				843F3B0B1D46407800F4CE03 /* BlinkrController */,
 				843F3B111D46496200F4CE03 /* SearchController */,
 				843F3B371D467B3E00F4CE03 /* MessagesController */,
+				84FB0D751D4A4D9600AF0C92 /* ChatController */,
 				843F3B4D1D4680CC00F4CE03 /* MyProfileViewController */,
 				844F42871D47B72C00E80A2D /* UserProfileViewController */,
 			);
@@ -215,6 +231,7 @@
 				843F3AD11D46204E00F4CE03 /* AppDelegate.m */,
 				843F3AE11D46204E00F4CE03 /* Info.plist */,
 				843F3B001D46342300F4CE03 /* Blinkr-Prefix.pch */,
+				84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */,
 			);
 			name = Application;
 			sourceTree = "<group>";
@@ -358,6 +375,45 @@
 			name = MGUserCell;
 			sourceTree = "<group>";
 		};
+		84FB0D751D4A4D9600AF0C92 /* ChatController */ = {
+			isa = PBXGroup;
+			children = (
+				84FB0D761D4A4DB500AF0C92 /* MGChatController.h */,
+				84FB0D771D4A4DB500AF0C92 /* MGChatController.m */,
+			);
+			name = ChatController;
+			sourceTree = "<group>";
+		};
+		84FB0D791D4A673D00AF0C92 /* MGUserView */ = {
+			isa = PBXGroup;
+			children = (
+				844F428B1D47C6F900E80A2D /* MGUserView.h */,
+				844F428C1D47C6F900E80A2D /* MGUserView.m */,
+				844F428F1D47C72500E80A2D /* MGUserView.xib */,
+			);
+			name = MGUserView;
+			sourceTree = "<group>";
+		};
+		84FB0D7A1D4A674900AF0C92 /* MessageCell */ = {
+			isa = PBXGroup;
+			children = (
+				84FB0D7B1D4A679900AF0C92 /* MGMessageCell.h */,
+				84FB0D7C1D4A679900AF0C92 /* MGMessageCell.m */,
+				84FB0D7D1D4A679900AF0C92 /* MGMessageCell.xib */,
+			);
+			name = MessageCell;
+			sourceTree = "<group>";
+		};
+		84FB0D801D4BA87D00AF0C92 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				84FB0D811D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld */,
+				84FB0D8A1D4BAC3E00AF0C92 /* Chat.h */,
+				84FB0D8B1D4BAC3E00AF0C92 /* Chat.m */,
+			);
+			name = DB;
+			sourceTree = "<group>";
+		};
 		8E91DD9D96E80C97A708892C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +459,11 @@
 					843F3AC91D46204E00F4CE03 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 327RWWLVED;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -430,7 +491,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				844F42831D47B4E300E80A2D /* checkBoxOn.png in Resources */,
+				84FB0D6E1D4A23C200AF0C92 /* GoogleService-Info.plist in Resources */,
 				844F42801D47B14D00E80A2D /* checkBoxOff.png in Resources */,
+				84FB0D7F1D4A679900AF0C92 /* MGMessageCell.xib in Resources */,
 				843F3AE01D46204E00F4CE03 /* LaunchScreen.storyboard in Resources */,
 				844F42901D47C72500E80A2D /* MGUserView.xib in Resources */,
 				843F3ADD1D46204E00F4CE03 /* Assets.xcassets in Resources */,
@@ -496,6 +559,7 @@
 			files = (
 				843F3B4C1D467F6100F4CE03 /* NSString+ValidateValue.m in Sources */,
 				843F3B3A1D467E9B00F4CE03 /* MGMyProfileViewController.m in Sources */,
+				84FB0D7E1D4A679900AF0C92 /* MGMessageCell.m in Sources */,
 				843F3B151D464E9600F4CE03 /* CCMRadarView.swift in Sources */,
 				843F3B361D467B3A00F4CE03 /* MGMessagesController.m in Sources */,
 				843F3B431D467F4200F4CE03 /* NSDictionary+Accessors.m in Sources */,
@@ -505,14 +569,17 @@
 				843F3B0A1D46407400F4CE03 /* MGBlinkrController.m in Sources */,
 				843F3B031D46359D00F4CE03 /* MGNetworkManager.m in Sources */,
 				844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */,
+				84FB0D8D1D4BAC3E00AF0C92 /* Chat.m in Sources */,
 				843F3AE91D46259200F4CE03 /* SignInController.m in Sources */,
 				843F3B101D46491500F4CE03 /* MGSearchController.m in Sources */,
 				844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */,
 				843F3B401D467F2F00F4CE03 /* HCSStarRatingView.m in Sources */,
 				843F3B461D467F4F00F4CE03 /* NSData+Base64.m in Sources */,
 				843F3B3D1D467F0600F4CE03 /* MGFetchUserInfo.m in Sources */,
+				84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */,
 				844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */,
 				844F427E1D47A3C500E80A2D /* MGUser.m in Sources */,
+				84FB0D831D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld in Sources */,
 				844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */,
 				844F42861D47B72500E80A2D /* MGUserProfileViewController.m in Sources */,
 			);
@@ -580,7 +647,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -621,7 +688,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -641,8 +708,83 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Blinkr/Blinkr-Prefix.pch";
 				INFOPLIST_FILE = Blinkr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"Bolts\"",
+					"-l\"FBSDKCoreKit\"",
+					"-l\"FBSDKLoginKit\"",
+					"-l\"FBSDKShareKit\"",
+					"-l\"JSQMessagesViewController\"",
+					"-l\"JSQSystemSoundPlayer\"",
+					"-l\"SAMHUDView\"",
+					"-l\"SevenSwitch\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AdSupport\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleInterchangeUtilities\"",
+					"-framework",
+					"\"GoogleSymbolUtilities\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"Accounts\"",
+					"-weak_framework",
+					"\"AudioToolbox\"",
+					"-weak_framework",
+					"\"CoreGraphics\"",
+					"-weak_framework",
+					"\"CoreLocation\"",
+					"-weak_framework",
+					"\"Foundation\"",
+					"-weak_framework",
+					"\"QuartzCore\"",
+					"-weak_framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"Social\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-licucore",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.midgets.blinkr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Blinkr/Blinkr-Bridging-Header.h";
@@ -663,8 +805,83 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Blinkr/Blinkr-Prefix.pch";
 				INFOPLIST_FILE = Blinkr/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"Bolts\"",
+					"-l\"FBSDKCoreKit\"",
+					"-l\"FBSDKLoginKit\"",
+					"-l\"FBSDKShareKit\"",
+					"-l\"JSQMessagesViewController\"",
+					"-l\"JSQSystemSoundPlayer\"",
+					"-l\"SAMHUDView\"",
+					"-l\"SevenSwitch\"",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AdSupport\"",
+					"-framework",
+					"\"AddressBook\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"GoogleInterchangeUtilities\"",
+					"-framework",
+					"\"GoogleSymbolUtilities\"",
+					"-framework",
+					"\"GoogleUtilities\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-weak_framework",
+					"\"Accounts\"",
+					"-weak_framework",
+					"\"AudioToolbox\"",
+					"-weak_framework",
+					"\"CoreGraphics\"",
+					"-weak_framework",
+					"\"CoreLocation\"",
+					"-weak_framework",
+					"\"Foundation\"",
+					"-weak_framework",
+					"\"QuartzCore\"",
+					"-weak_framework",
+					"\"Security\"",
+					"-weak_framework",
+					"\"Social\"",
+					"-weak_framework",
+					"\"UIKit\"",
+					"-licucore",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.midgets.blinkr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Blinkr/Blinkr-Bridging-Header.h";
@@ -693,6 +910,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84FB0D811D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84FB0D821D4BA8CF00AF0C92 /* Blinkr.xcdatamodel */,
+			);
+			currentVersion = 84FB0D821D4BA8CF00AF0C92 /* Blinkr.xcdatamodel */;
+			path = Blinkr.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 843F3AC21D46204E00F4CE03 /* Project object */;
 }

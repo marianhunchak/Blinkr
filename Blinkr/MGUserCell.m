@@ -10,7 +10,6 @@
 #import "HCSStarRatingView.h"
 #import "UIImageView+AFNetworking.h"
 
-
 @interface MGUserCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -51,6 +50,10 @@
 }
 
 - (IBAction)sendMessageBtnPressed:(UIButton *)sender {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(userCellDelegateSendMessageBtnPressed)]) {
+        [self.delegate userCellDelegateSendMessageBtnPressed];
+    }
     
 }
 

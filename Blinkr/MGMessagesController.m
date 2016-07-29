@@ -7,15 +7,26 @@
 //
 
 #import "MGMessagesController.h"
+#import "MGChatController.h"
+#import "MGMessageCell.h"
+@import Firebase;
 
-@interface MGMessagesController ()
+@interface MGMessagesController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) NSArray *chatsArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
+
+static NSString *cellIdentifier = @"messageCell";
 
 @implementation MGMessagesController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UINib *nib = [UINib nibWithNibName:@"MGMessageCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:cellIdentifier];
 
 }
 
@@ -29,17 +40,37 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableViewDataSource
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+//    return [_chatsArray count];
+    return 20;
 }
-*/
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MGMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 90.f;
+}
+
 
 @end

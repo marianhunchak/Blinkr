@@ -9,8 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "MGUser.h"
 
+@class MGUserCell;
+
+@protocol MGUserCellDelegate <NSObject>
+
+- (void)userCellDelegateSendMessageBtnPressed;
+
+@end
+
 @interface MGUserCell : UITableViewCell
 
 @property (strong, nonatomic) MGUser *user;
+@property (weak, nonatomic) id <MGUserCellDelegate> delegate;
 
 @end

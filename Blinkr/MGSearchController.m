@@ -10,8 +10,9 @@
 #import "MGUserCell.h"
 #import "MGNetworkManager.h"
 #import "MGUserProfileViewController.h"
+#import "MGChatController.h"
 
-@interface MGSearchController () <UISearchBarDelegate>
+@interface MGSearchController () <UISearchBarDelegate, MGUserCellDelegate>
 
 @property (strong, nonatomic) UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray *usersArray;
@@ -49,6 +50,7 @@ static NSString *cellReuseIdentifier = @"userCell";
     [super viewWillAppear:animated];
 
     [self.tabBarController.navigationItem setHidesBackButton:YES];
+    self.tabBarController.navigationItem.title = @"";
     self.tabBarController.navigationItem.titleView = _searchBar;
 }
 
@@ -69,6 +71,7 @@ static NSString *cellReuseIdentifier = @"userCell";
     
     MGUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier];
     
+    cell.delegate = self;
     cell.user = _usersArray[indexPath.row];
     
     return cell;
@@ -152,6 +155,15 @@ static NSString *cellReuseIdentifier = @"userCell";
         [weakSelf.refreshControl endRefreshing];
         
     }];
+}
+
+#pragma mark - MGUserCellDelegate
+
+- (void)userCellDelegateSendMessageBtnPressed {
+   
+    MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark - Actions

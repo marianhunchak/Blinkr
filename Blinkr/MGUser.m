@@ -23,7 +23,7 @@
     lUser.licensePlate = [NSString validateValue:dict[@"license_plate"]];
     lUser.phoneNumber = [NSString validateValue:dict[@"phone_number"]];
     lUser.rate = [dict floatForKey:@"rate"];
-    lUser.teslaModel = [NSString validateValue:dict[@"tesla_model"]];
+    lUser.teslaModel = [NSString validateValue:dict[@"car_model"]];
     lUser.bio = [NSString validateValue:dict[@"bio"]];
 
     lUser.showEmail = [dict boolForKey:@"show_email"];

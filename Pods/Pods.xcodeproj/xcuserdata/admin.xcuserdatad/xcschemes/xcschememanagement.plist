@@ -29,6 +29,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JSQMessagesViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JSQSystemSoundPlayer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>MagicalRecord.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Blinkr.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,12 +67,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2B1D61AC8FC8F0F7AA4E46CC76927A12</key>
+		<key>1A4404F758C8AFC523D60B1BA54AA30B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>330506394F5D510664A686D42B780704</key>
+		<key>2B1D61AC8FC8F0F7AA4E46CC76927A12</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,12 +92,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD9342D20F2A3F4574E4657843B86EF1</key>
+		<key>9308FBFAB7AA4B2E1F7E89900FD73EF0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F0547B6C7E96F0D271A6ECFD605D10E3</key>
+		<key>970652F710523C086681ADE2A82DAED4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B102F209C1FA58D0EB9EA7852A3527E3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D54AB3ECEB9A8FBA15D4F73CBE326692</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC3AA9C133E03B49A42BE3FF14BF5F19</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -19,7 +19,7 @@
                    parameters:(NSDictionary *)params
                withCompletion:(ObjectCompletionBlock)completionBlock;
 
-+ (void) searchUsersWithString:(NSString *) searchString
++ (void)searchUsersWithString:(NSString *) searchString
                 withCompletion:(ArrayCompletionBlock)completionBlock;
 
 + (void)updateCurrentUserLocationWithLatitude:(double)latitude
@@ -27,5 +27,10 @@
                                withCompletion:(ObjectCompletionBlock)completionBlock;
 
 + (void)getNearestUsersWithRadius:(NSInteger)radius withCompletion:(ArrayCompletionBlock)completionBlock;
+
++ (void)sendMessangerNotificationWihtParams:(NSDictionary *)params
+                             withCompletion:(ObjectCompletionBlock)completionBlock;
+
++ (void)getAllNotificationsWithCompletion:(ArrayCompletionBlock)completionBlock;
 
 @end

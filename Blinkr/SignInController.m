@@ -10,6 +10,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SAMHUDView.h"
+@import FirebaseAuth;
+@import Firebase;
 
 #define SBSI_GO_TO_TabBarController @"showTabBarController"
 
@@ -38,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loginButton.readPermissions = @[@"email"];
+    self.loginButton.readPermissions = @[@"public_profile", @"email"];
     self.loginButton.delegate = self;
     self.loginButton.userInteractionEnabled = NO;
     
@@ -66,8 +68,7 @@
 #pragma mark - Private methods
 
 - (void) pushController {
-    
-        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:ACCESS_TOKEN_KEY];
+
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:ACCESS_TOKEN_KEY]) {
         
@@ -90,29 +91,54 @@
 
 - (void)  loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     
-    if([FBSDKAccessToken currentAccessToken] != nil) {
-
-        NSString *facebookToken = [FBSDKAccessToken currentAccessToken].tokenString;
+    if(error == nil) {
         
-        [[NSUserDefaults standardUserDefaults] setObject:facebookToken forKey:FACEBOOK_TOKEN_KEY];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        NSString *facebookToken = [[FBSDKAccessToken currentAccessToken] tokenString];
+
+        
+//        FIRDatabaseReference *rootRef= [[FIRDatabase database] reference];
+        
+        FIRAuthCredential *credential = [FIRFacebookAuthProvider
+                                         credentialWithAccessToken:facebookToken];
+        
         
         SAMHUDView *hd = [[SAMHUDView alloc] initWithTitle:@"Authorization..." loading:YES];
         [hd show];
         
-        [MGNetworkManager loginWithFacebookToken:facebookToken firebaseToken:nil withCompletion:^(id object, NSError *error) {
-            
-            if (object) {
-                
-                [hd completeAndDismissWithTitle:@"Authorized"];
-                [self pushController];
-                
-            } else {
-                
-                 [hd failAndDismissWithTitle:[error localizedDescription]];
-            }
-            
+        [[FIRAuth auth] signInWithCredential:credential
+                                  completion:^(FIRUser *user, NSError *error) {
+                                      if (error) {
+                                          NSLog(@"Login failed. %@", error);
+                                          
+                                          [hd failAndDismissWithTitle:[error localizedDescription]];
+                                          
+                                      } else {
+                                          
+                                          NSLog(@"_____________________%@_________________%@",facebookToken, user.uid);
+                                          
+//                                          [[NSUserDefaults standardUserDefaults] setObject:authData.token forKey:FIREBASE_TOKEN_KEY];
+                                          [[NSUserDefaults standardUserDefaults] setObject:facebookToken forKey:FACEBOOK_TOKEN_KEY];
+                                          [[NSUserDefaults standardUserDefaults] synchronize];
+                                          
+                                          [MGNetworkManager loginWithFacebookToken:facebookToken firebaseToken:nil withCompletion:^(id object, NSError *error) {
+                                              
+                                              if (object) {
+                                                  
+                                                  [hd completeAndDismissWithTitle:@"Authorized"];
+                                                  [self pushController];
+                                                  
+                                              } else {
+                                                  
+                                                  [hd failAndDismissWithTitle:[error localizedDescription]];
+                                              }
+                                              
+                                          }];
+                                          
+                                      }
+
         }];
+ 
     }
 }
 

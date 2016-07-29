@@ -23,7 +23,7 @@
         self.licensePlate = [NSString validateValue:responsObject[@"license_plate"]];
         self.phoneNumber = [NSString validateValue:responsObject[@"phone_number"]];
         self.rate = [responsObject floatForKey:@"rate"];
-        self.teslaModel = [NSString validateValue:responsObject[@"tesla_model"]];
+        self.teslaModel = [NSString validateValue:responsObject[@"car_model"]];
         self.bio = [NSString validateValue:responsObject[@"bio"]];
         self.userID = [responsObject integerForKey:@"id"];
         self.userToken = responsObject[@"authorization"][@"access_token"];

@@ -1,4 +1,4 @@
-platform :ios, ‘9.0’
+platform :ios, ‘8.0’
 
 def framework_pods
     pod 'SAMHUDView'
@@ -8,6 +8,12 @@ def framework_pods
     pod "FBSDKLoginKit"
     pod "FBSDKShareKit"
     pod 'SevenSwitch', '~> 1.4’
+    pod 'JSQMessagesViewController'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Core'
+    pod 'Firebase/Database'
+    pod 'Firebase/Messaging’
+    pod "MagicalRecord"
 end
 
 target ‘Blinkr’ do
