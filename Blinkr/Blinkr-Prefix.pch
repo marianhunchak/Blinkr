@@ -24,6 +24,7 @@
 #define PROFILE_PICTURE_URL @"profile_picture_url"
 #define PROFILE_UPDATED_KEY @"profile_UPDATED_KEY"
 #define PROFILE_ID_KEY @"profile_id_key"
+#define PROFILE_NAME_KEY @"profile_name_key"
 
 
 #endif /* Blinkr_Prefix_pch */

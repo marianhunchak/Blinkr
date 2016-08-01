@@ -10,4 +10,10 @@
 
 @interface MGMessageCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
+@property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (strong, nonatomic) NSString *channel;
+
 @end

@@ -81,8 +81,16 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // should be done.
     NSString *refreshedToken = [[FIRInstanceID instanceID] token];
     
-    [[NSUserDefaults standardUserDefaults] setObject:refreshedToken forKey:FIREBASE_TOKEN_KEY];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (refreshedToken != nil ) {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:refreshedToken forKey:FIREBASE_TOKEN_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [MGNetworkManager refreshFirebaseToken:refreshedToken withCompletion:^(id object, NSError *error) {
+        }];
+        
+    }
+
     NSLog(@"InstanceID token: %@", refreshedToken);
     
     // Connect to FCM since connection may have failed when attempted before having a token.

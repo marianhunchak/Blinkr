@@ -8,6 +8,9 @@
 
 #import "MGChatController.h"
 #import "JSQMessages.h"
+#import "MGNetworkManager.h"
+#import "MGChannelUtil.h"
+#import "Chat.h"
 @import Firebase;
 
 @interface MGChatController ()
@@ -16,6 +19,7 @@
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageView;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageView;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+
 
 @end
 
@@ -30,8 +34,11 @@
     
     _messages = [NSMutableArray array];
     
-    self.senderId = @"14";
-    self.senderDisplayName = @"Marian Hunchak";
+    self.senderId = [NSString stringWithFormat:@"%ld", [[NSUserDefaults standardUserDefaults] integerForKey:PROFILE_ID_KEY]];
+    self.senderDisplayName = [[NSUserDefaults standardUserDefaults] stringForKey:PROFILE_NAME_KEY];
+    if (self.channel == nil) {
+        self.channel = [MGChannelUtil getChannelWithSenderId:[self.senderId integerValue] recieverId:self.recieverID];
+    }
     self.title = @"Chat";
     [self setupBubbles];
     
@@ -65,9 +72,15 @@
     
 }
 
-- (void) addMessageWithSenderID:(NSString *) senderID text:(NSString *) text {
+- (void) addMessageWithSenderID:(NSString *) senderID text:(NSString *) text senderName:(NSString *) name dateString:(NSString *) dateString {
     
-    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderID senderDisplayName:@"Marian Hunchak" date:[NSDate date] text:text];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.ZZZ"];
+    
+    NSDate *date = [dateFormatter dateFromString:dateString];
+    
+    JSQMessage *message = [[JSQMessage alloc] initWithSenderId:senderID senderDisplayName:name date:date text:text];
     [_messages addObject:message];
     
 }
@@ -75,12 +88,14 @@
 - (void) observeMessages {
     // 1
     
-    FIRDatabaseReference *chatRef = [_ref child:@"14_15"];
+    FIRDatabaseReference *chatRef = [_ref child:_channel];
     FIRDatabaseQuery *messagesQuery = [chatRef queryLimitedToLast:25];
     
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"]];
+        [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"] senderName:snapshot.value[@"author"] dateString:snapshot.value[@"date"]];
+
+//        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
         
         [self finishReceivingMessage];
         
@@ -215,12 +230,12 @@
 
 - (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date {
     
-    FIRDatabaseReference *chatRef = [_ref child:@"14_15"];
+    FIRDatabaseReference *chatRef = [_ref child:_channel];
 
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"YYYY-mm-dd HH:mm:ss.ZZZ"];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.ZZZ"];
     
     NSDictionary *messageItem = @{
                                   @"author": senderDisplayName,
@@ -229,14 +244,39 @@
                                   @"senderId": senderId
                         };
     
-    FIRDatabaseReference *messageRef = [chatRef childByAutoId];
-    [messageRef setValue:messageItem];
+        FIRDatabaseReference *messageRef = [chatRef childByAutoId];
+        [messageRef setValue:messageItem];
+        
+        // 4
+        [JSQSystemSoundPlayer jsq_playMessageSentSound];
+        
+        // 5
+        [self finishSendingMessage];
     
-    // 4
-    [JSQSystemSoundPlayer jsq_playMessageSentSound];
+    NSDictionary *params = @{
+        @"receiver_id": @(_recieverID),
+        @"sender_id": senderId,
+        @"title": @"Message notification",
+        @"text": text,
+        @"channel": _channel
+        };
     
-    // 5
-    [self finishSendingMessage];
+    [MGNetworkManager sendMessangerNotificationWihtParams:params withCompletion:^(id object, NSError *error) {
+ 
+    }];
+    
+    Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
+    
+    if (!lChat) {
+        
+        lChat = [Chat MR_createEntity];
+        lChat.channel = _channel;
+        lChat.chatName = _recieverName;
+    }
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    
 }
 
 @end

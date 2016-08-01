@@ -1,5 +1,5 @@
 //
-//  Chat.h
+//  Message.h
 //  Blinkr
 //
 //  Created by Admin on 8/1/16.
@@ -11,12 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Chat : NSManagedObject
+@interface Message : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (instancetype)initWithNotificationDict:(NSDictionary *)dict;
 
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "Chat+CoreDataProperties.h"
+#import "Message+CoreDataProperties.h"

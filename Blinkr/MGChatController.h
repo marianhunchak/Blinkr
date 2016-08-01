@@ -11,4 +11,8 @@
 
 @interface MGChatController : JSQMessagesViewController
 
+@property (assign, nonatomic) NSInteger recieverID;
+@property (strong, nonatomic) NSString *recieverName;
+@property (strong, nonatomic) NSString *channel;
+
 @end

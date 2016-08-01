@@ -7,18 +7,42 @@
 //
 
 #import "MGMessageCell.h"
+#import "JSQMessagesTimestampFormatter.h"
+@import Firebase;
 
 @implementation MGMessageCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setChannel:(NSString *)channel {
+    _channel = channel;
+    
+    FIRDatabaseReference *ref = [[FIRDatabase database] reference];
+    FIRDatabaseReference *chatRef = [ref child:channel];
+    FIRDatabaseQuery *messagesQuery = [chatRef queryLimitedToLast:1];
+    
+    [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        _messageLabel.text = snapshot.value[@"message"];
+//        _userNameLabel.text = snapshot.value[@"author"];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        
+        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.ZZZ"];
+        
+        NSDate *date = [dateFormatter dateFromString:snapshot.value[@"date"]];
+        
+        if (date) {
+            _timeLabel.text = [[[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:date] string];
+        }
+        
+    }];
+    
 }
+
 
 @end

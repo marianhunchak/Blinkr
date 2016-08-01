@@ -33,4 +33,7 @@
 
 + (void)getAllNotificationsWithCompletion:(ArrayCompletionBlock)completionBlock;
 
++ (void)refreshFirebaseToken:(NSString *) firebaseToken
+              withCompletion:(ObjectCompletionBlock)completionBlock;
+
 @end

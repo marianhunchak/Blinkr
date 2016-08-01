@@ -13,7 +13,7 @@
 
 @protocol MGUserCellDelegate <NSObject>
 
-- (void)userCellDelegateSendMessageBtnPressed;
+- (void)userCellDelegateSendMessageBtnPressed:(MGUserCell *) cell;
 
 @end
 

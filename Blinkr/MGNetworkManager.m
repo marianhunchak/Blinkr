@@ -10,7 +10,7 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "MGUser.h"
-#import "Chat.h"
+#import "Message.h"
 
 static NSString *mainURL = @"http://159.203.188.80/api/v1/";
 
@@ -49,6 +49,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
             
             [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"authorization"][@"access_token"] forKey:ACCESS_TOKEN_KEY];
             [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"picture"][@"small_picture_url"] forKey:PROFILE_PICTURE_URL];
+            [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"name"] forKey:PROFILE_NAME_KEY];
             [[NSUserDefaults standardUserDefaults] setInteger:[responseObject[@"id"] integerValue] forKey:PROFILE_ID_KEY];
             
             NSLog(@"Picture - %@", [[NSUserDefaults standardUserDefaults] objectForKey:PROFILE_PICTURE_URL]);
@@ -169,7 +170,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
 }
 
 + (void)sendMessangerNotificationWihtParams:(NSDictionary *)params
-                               withCompletion:(ObjectCompletionBlock)completionBlock {
+                             withCompletion:(ObjectCompletionBlock)completionBlock {
 
     [[MGNetworkManager manager] POST:@"messenger_notification" parameters:params progress:nil
      
@@ -199,7 +200,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
                 
                 for (NSDictionary *lnotifDict in responseObject) {
                     
-                    [responseArray addObject:[Chat initWithNotificationDict:lnotifDict]];
+                    [responseArray addObject:[Message initWithNotificationDict:lnotifDict]];
                 }
                 
                 completionBlock(responseArray, nil);
@@ -210,6 +211,26 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
             completionBlock(nil, error);
             
     }];
+    
+}
+
++ (void)refreshFirebaseToken:(NSString *) firebaseToken
+             withCompletion:(ObjectCompletionBlock)completionBlock {
+    
+    NSDictionary *params = @{@"firebase_token": firebaseToken};
+    
+    [[MGNetworkManager manager] POST:@"refresh_firebase_token" parameters:params progress:nil
+     
+                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                 
+                                 NSLog(@"Response object - %@", responseObject);
+                                 
+                             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                 
+                                 
+                                 NSLog(@"Error - %@", [error localizedDescription]);
+                                 
+                             }];
     
 }
 

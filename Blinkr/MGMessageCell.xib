@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,29 +15,62 @@
                 <rect key="frame" x="0.0" y="0.0" width="396" height="69"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="67Y-m5-i25">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="67Y-m5-i25">
                         <rect key="frame" x="8" y="8" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="LSa-y6-fnp"/>
+                            <constraint firstAttribute="height" constant="50" id="jht-Q5-ugD"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGO-Pg-cRJ">
-                        <rect key="frame" x="66" y="8" width="185" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sGO-Pg-cRJ">
+                        <rect key="frame" x="66" y="8" width="198" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="vSx-mi-A6z"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJS-7A-3Un">
-                        <rect key="frame" x="259" y="8" width="129" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oJS-7A-3Un">
+                        <rect key="frame" x="272" y="8" width="116" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Rs9-OW-EeM"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Here wil be recieved message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bki-Lm-5ey">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bki-Lm-5ey">
                         <rect key="frame" x="66" y="37" width="322" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="hAs-BC-5e5"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="67Y-m5-i25" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0Jz-TS-8V9"/>
+                    <constraint firstItem="oJS-7A-3Un" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="5V0-y5-BtO"/>
+                    <constraint firstItem="bki-Lm-5ey" firstAttribute="leading" secondItem="67Y-m5-i25" secondAttribute="trailing" constant="8" id="8Z1-9N-0fi"/>
+                    <constraint firstItem="sGO-Pg-cRJ" firstAttribute="leading" secondItem="67Y-m5-i25" secondAttribute="trailing" constant="8" id="ADM-qb-NXr"/>
+                    <constraint firstItem="sGO-Pg-cRJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Jye-Hp-zpd"/>
+                    <constraint firstItem="bki-Lm-5ey" firstAttribute="top" secondItem="sGO-Pg-cRJ" secondAttribute="bottom" constant="8" id="Kfp-jz-jdE"/>
+                    <constraint firstAttribute="trailing" secondItem="bki-Lm-5ey" secondAttribute="trailing" constant="8" id="OTZ-6o-Fw3"/>
+                    <constraint firstItem="oJS-7A-3Un" firstAttribute="leading" secondItem="sGO-Pg-cRJ" secondAttribute="trailing" constant="8" id="amj-7p-vno"/>
+                    <constraint firstAttribute="trailing" secondItem="oJS-7A-3Un" secondAttribute="trailing" constant="8" id="fwZ-hS-PpG"/>
+                    <constraint firstAttribute="bottom" secondItem="bki-Lm-5ey" secondAttribute="bottom" constant="11" id="haf-Rb-Wq9"/>
+                    <constraint firstItem="sGO-Pg-cRJ" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="hzS-7f-YJJ"/>
+                    <constraint firstItem="67Y-m5-i25" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="m1B-Gx-axE"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="messageLabel" destination="bki-Lm-5ey" id="4sh-qc-l2j"/>
+                <outlet property="timeLabel" destination="oJS-7A-3Un" id="Agk-Uz-cFh"/>
+                <outlet property="userImageView" destination="67Y-m5-i25" id="lHS-8o-Hwg"/>
+                <outlet property="userNameLabel" destination="sGO-Pg-cRJ" id="Kfz-Fw-pEe"/>
+            </connections>
             <point key="canvasLocation" x="504" y="243"/>
         </tableViewCell>
     </objects>

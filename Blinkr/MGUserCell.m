@@ -51,8 +51,8 @@
 
 - (IBAction)sendMessageBtnPressed:(UIButton *)sender {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(userCellDelegateSendMessageBtnPressed)]) {
-        [self.delegate userCellDelegateSendMessageBtnPressed];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(userCellDelegateSendMessageBtnPressed:)]) {
+        [self.delegate userCellDelegateSendMessageBtnPressed:self];
     }
     
 }
