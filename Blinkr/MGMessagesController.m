@@ -12,6 +12,7 @@
 #import "MGNetworkManager.h"
 #import "Chat.h"
 #import "Message.h"
+#import "UIImageView+AFNetworking.h"
 
 @import Firebase;
 
@@ -58,6 +59,8 @@ static NSString *cellIdentifier = @"messageCell";
                     lChat = [Chat MR_createEntity];
                     lChat.channel = lMessage.channel;
                     lChat.chatName = lMessage.senderName;
+                    lChat.receiverId = lMessage.sender_id;
+                    lChat.chatImageURL = lMessage.senderPictureURL;
                 }
             }
             
@@ -66,6 +69,8 @@ static NSString *cellIdentifier = @"messageCell";
             [self.tableView reloadData];
         }
     }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,9 +97,9 @@ static NSString *cellIdentifier = @"messageCell";
     MGMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     Chat *lChat = _chatsArray[indexPath.row];
-    
     cell.userNameLabel.text = lChat.chatName;
     cell.channel = lChat.channel;
+    [cell.userImageView setImageWithURL:[NSURL URLWithString:lChat.chatImageURL] placeholderImage:[UIImage imageNamed:@"user"]];
     
     return cell;
 }
@@ -106,6 +111,10 @@ static NSString *cellIdentifier = @"messageCell";
     MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
     Chat *lChat = _chatsArray[indexPath.row];
     vc.channel = lChat.channel;
+    vc.receiverId = [lChat.receiverId integerValue];
+    vc.chatName = lChat.chatName;
+    vc.chatImageURL = lChat.chatImageURL;
+    self.tabBarController.navigationItem.title = @"";
     [self.navigationController pushViewController:vc animated:YES];
     
 }

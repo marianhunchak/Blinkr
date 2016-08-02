@@ -7,16 +7,12 @@
 //
 
 #import "MGMyProfileViewController.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import "MGNetworkManager.h"
 #import "MGFetchUserInfo.h"
 #import "MGNetworkManager.h"
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import "UIImageView+AFNetworking.h"
 #import "HCSStarRatingView.h"
 #import "UIView+Layer.h"
-#import "MGEditMyProfileViewController.h"
-
+#import "MGOptionsController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface MGMyProfileViewController ()
 
@@ -60,11 +56,8 @@
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = @"Profile";
     
-    UIBarButtonItem *logOutBtn = [[UIBarButtonItem alloc] initWithTitle:@"Log Out" style:UIBarButtonItemStylePlain target:self action:@selector(logOutBtnPressed:)];
-    self.tabBarController.navigationItem.leftBarButtonItem = logOutBtn;
-    
-    UIBarButtonItem *editBtn = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editMyProfileAction:)];
-    self.tabBarController.navigationItem.rightBarButtonItem = editBtn;
+    UIBarButtonItem *optionsBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"optionsIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptionsController:)];
+    self.tabBarController.navigationItem.rightBarButtonItem = optionsBtn;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -168,23 +161,11 @@
 
 #pragma mark - Actions
 
-- (void)logOutBtnPressed:(UIBarButtonItem *) sender {
+- (void)showOptionsController:(UIBarButtonItem *) sender {
     
-    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
-    [loginManager logOut];
-    [FBSDKAccessToken setCurrentAccessToken:nil];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:ACCESS_TOKEN_KEY];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-    
-}
-
-
-- (void)editMyProfileAction:(UIBarButtonItem *) sender {
-    
-    MGEditMyProfileViewController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGEditMyProfileViewController"];
-    editMyProfileViewController.userInfo = _userInfo;
-    editMyProfileViewController.userImage = _profileImage.image;
-
+    MGOptionsController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGOptionsController"];
+//    editMyProfileViewController.userInfo = _userInfo;
+//    editMyProfileViewController.userImage = _profileImage.image;
     [self.navigationController pushViewController:editMyProfileViewController animated:YES];
 }
 

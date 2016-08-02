@@ -234,5 +234,25 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     
 }
 
++ (void)deleteNotificationWithID:(NSInteger) notificationID
+                  withCompletion:(ObjectCompletionBlock)completionBlock {
+    
+    NSString *requestString = [NSString stringWithFormat:@"notifications/%ld", notificationID];
+    
+    [[MGNetworkManager manager] DELETE:requestString parameters:nil
+     
+    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (completionBlock) {
+            completionBlock(responseObject, nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        completionBlock(nil, error);
+        
+    }];
+}
+
 
 @end

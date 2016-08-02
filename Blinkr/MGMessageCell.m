@@ -15,7 +15,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    
+    self.userImageView.layer.cornerRadius = _userImageView.frame.size.width / 2.0;
+    self.userImageView.layer.masksToBounds = YES;
+    self.userImageView.layer.borderWidth = 1.f;
+    self.userImageView.layer.borderColor = mainAppColor.CGColor;
 }
 
 - (void)setChannel:(NSString *)channel {

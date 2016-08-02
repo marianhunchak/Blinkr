@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "JSQMessagesViewController.h"
+#import "MGUser.h"
 
 @interface MGChatController : JSQMessagesViewController
 
-@property (assign, nonatomic) NSInteger recieverID;
-@property (strong, nonatomic) NSString *recieverName;
 @property (strong, nonatomic) NSString *channel;
+@property (assign, nonatomic) NSInteger receiverId;
+@property (strong, nonatomic) NSString *chatName;
+@property (strong, nonatomic) NSString *chatImageURL;
+@property (strong, nonatomic) MGUser *receiverUser;
 
 @end

@@ -36,4 +36,7 @@
 + (void)refreshFirebaseToken:(NSString *) firebaseToken
               withCompletion:(ObjectCompletionBlock)completionBlock;
 
++ (void)deleteNotificationWithID:(NSInteger) notificationID
+                  withCompletion:(ObjectCompletionBlock)completionBlock;
+
 @end

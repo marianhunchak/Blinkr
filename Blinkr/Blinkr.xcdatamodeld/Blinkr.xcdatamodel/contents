@@ -2,8 +2,10 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
     <entity name="Chat" representedClassName="Chat" syncable="YES">
         <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="chatImageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="chatName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="messagesArray" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="receiverId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES">
         <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
@@ -16,7 +18,7 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Chat" positionX="-63" positionY="45" width="128" height="120"/>
         <element name="Message" positionX="-63" positionY="-18" width="128" height="165"/>
-        <element name="Chat" positionX="-63" positionY="45" width="128" height="90"/>
     </elements>
 </model>

@@ -16,8 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Chat (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *channel;
+@property (nullable, nonatomic, retain) NSNumber *receiverId;
 @property (nullable, nonatomic, retain) NSString *chatName;
+@property (nullable, nonatomic, retain) NSString *chatImageURL;
 @property (nullable, nonatomic, retain) NSMutableArray *messagesArray;
+
 
 @end
 

@@ -162,8 +162,7 @@ static NSString *cellReuseIdentifier = @"userCell";
 - (void)userCellDelegateSendMessageBtnPressed:(MGUserCell *)cell {
    
     MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
-    vc.recieverID = cell.user.id_;
-    vc.recieverName = cell.user.name;
+    vc.receiverUser = cell.user;
     [self.navigationController pushViewController:vc animated:YES];
     
 }

@@ -16,5 +16,6 @@
 @dynamic channel;
 @dynamic messagesArray;
 @dynamic chatName;
-
+@dynamic chatImageURL;
+@dynamic receiverId;
 @end

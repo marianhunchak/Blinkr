@@ -11,6 +11,9 @@
 #import "MGNetworkManager.h"
 #import "MGChannelUtil.h"
 #import "Chat.h"
+#import "Message.h"
+#import "UIImageView+AFNetworking.h"
+
 @import Firebase;
 
 @interface MGChatController ()
@@ -19,7 +22,7 @@
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageView;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageView;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-
+@property (strong, nonatomic) UIImageView *receiverImageView;
 
 @end
 
@@ -27,19 +30,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+     
     
     self.ref = [[FIRDatabase database] reference];
     
+//    self.showLoadEarlierMessagesHeader = YES;
     
     _messages = [NSMutableArray array];
     
     self.senderId = [NSString stringWithFormat:@"%ld", [[NSUserDefaults standardUserDefaults] integerForKey:PROFILE_ID_KEY]];
     self.senderDisplayName = [[NSUserDefaults standardUserDefaults] stringForKey:PROFILE_NAME_KEY];
     if (self.channel == nil) {
-        self.channel = [MGChannelUtil getChannelWithSenderId:[self.senderId integerValue] recieverId:self.recieverID];
+        self.channel = [MGChannelUtil getChannelWithSenderId:[self.senderId integerValue] recieverId:_receiverId ? _receiverId : _receiverUser.id_];
     }
-    self.title = @"Chat";
+    self.title = self.chatName ? self.chatName : self.receiverUser.name;
     [self setupBubbles];
     
     // No avatars
@@ -47,7 +51,47 @@
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     [self observeMessages];
+    
+    
+    
+    
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button targetForAction:@selector(receiverBtnPressed) withSender:self];
+    
+    [button setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
+
+    button.frame = CGRectMake(0, 0, 40, 40);
+    
+    button.layer.cornerRadius = button.frame.size.height / 2.0;
+    button.layer.masksToBounds = YES;
+    button.layer.borderWidth = 1.f;
+    button.layer.borderColor = mainAppColor.CGColor;
+    
+    _receiverImageView = [[UIImageView alloc] init];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:_receiverUser.smallImageURL ? _receiverUser.smallImageURL : [NSURL URLWithString:_chatImageURL]];
+    
+    UIBarButtonItem *recieverBtn = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    self.navigationItem.rightBarButtonItem = recieverBtn;
+    
+    [_receiverImageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"user"]
+                                       success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                                           
+                                           [button setImage:image forState:UIControlStateNormal];
+                                           
+                                       } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+                                           
+                                       }];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -60,6 +104,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Actions 
+
+- (void)receiverBtnPressed {
+    
+    
 }
 
 #pragma mark - Private methods
@@ -94,10 +145,22 @@
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"] senderName:snapshot.value[@"author"] dateString:snapshot.value[@"date"]];
-
-//        [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
         
         [self finishReceivingMessage];
+        
+        Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@ AND text = %@", _channel, snapshot.value[@"message"]]];
+        
+        if (lMessage) {
+            [MGNetworkManager deleteNotificationWithID:lMessage.id_.integerValue withCompletion:^(id object, NSError *error) {
+                
+                if (object) {
+                    [lMessage MR_deleteEntity];
+                    NSInteger badgesCount = [[[self.tabBarController.tabBar.items objectAtIndex:2] badgeValue] integerValue];
+                    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:[NSString stringWithFormat:@"%ld", --badgesCount]];
+                }
+                
+            }];
+        }
         
     }];
 }
@@ -242,24 +305,24 @@
                                   @"date": [dateFormatter stringFromDate:date],
                                   @"message": text,
                                   @"senderId": senderId
-                        };
+                                  };
     
-        FIRDatabaseReference *messageRef = [chatRef childByAutoId];
-        [messageRef setValue:messageItem];
-        
-        // 4
-        [JSQSystemSoundPlayer jsq_playMessageSentSound];
-        
-        // 5
-        [self finishSendingMessage];
+    FIRDatabaseReference *messageRef = [chatRef childByAutoId];
+    [messageRef setValue:messageItem];
+    
+    // 4
+    [JSQSystemSoundPlayer jsq_playMessageSentSound];
+    
+    // 5
+    [self finishSendingMessage];
     
     NSDictionary *params = @{
-        @"receiver_id": @(_recieverID),
-        @"sender_id": senderId,
-        @"title": @"Message notification",
-        @"text": text,
-        @"channel": _channel
-        };
+                             @"receiver_id": _receiverId ? @(_receiverId) : @(_receiverUser.id_),
+                             @"sender_id": senderId,
+                             @"title": @"Message notification",
+                             @"text": text,
+                             @"channel": _channel
+                             };
     
     [MGNetworkManager sendMessangerNotificationWihtParams:params withCompletion:^(id object, NSError *error) {
  
@@ -271,7 +334,9 @@
         
         lChat = [Chat MR_createEntity];
         lChat.channel = _channel;
-        lChat.chatName = _recieverName;
+        lChat.chatName = _receiverUser.name;
+        lChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);
+        lChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
     }
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];

@@ -42,6 +42,8 @@
 		844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42891D47C52900E80A2D /* MGMapAnnotation.m */; };
 		844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F428C1D47C6F900E80A2D /* MGUserView.m */; };
 		844F42901D47C72500E80A2D /* MGUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F428F1D47C72500E80A2D /* MGUserView.xib */; };
+		845174C51D509E2D0080D71C /* MGOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845174C41D509E2D0080D71C /* MGOptionsController.m */; };
+		845174CC1D50A87B0080D71C /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 845174CB1D50A87B0080D71C /* UIAlertDialog.m */; };
 		84FB0D6E1D4A23C200AF0C92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */; };
 		84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D771D4A4DB500AF0C92 /* MGChatController.m */; };
 		84FB0D7E1D4A679900AF0C92 /* MGMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D7C1D4A679900AF0C92 /* MGMessageCell.m */; };
@@ -114,6 +116,10 @@
 		844F428B1D47C6F900E80A2D /* MGUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserView.h; sourceTree = "<group>"; };
 		844F428C1D47C6F900E80A2D /* MGUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserView.m; sourceTree = "<group>"; };
 		844F428F1D47C72500E80A2D /* MGUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGUserView.xib; sourceTree = "<group>"; };
+		845174C31D509E2D0080D71C /* MGOptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOptionsController.h; sourceTree = "<group>"; };
+		845174C41D509E2D0080D71C /* MGOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOptionsController.m; sourceTree = "<group>"; };
+		845174CA1D50A87B0080D71C /* UIAlertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertDialog.h; sourceTree = "<group>"; };
+		845174CB1D50A87B0080D71C /* UIAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertDialog.m; sourceTree = "<group>"; };
 		84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84FB0D761D4A4DB500AF0C92 /* MGChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGChatController.h; sourceTree = "<group>"; };
 		84FB0D771D4A4DB500AF0C92 /* MGChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGChatController.m; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 		843F3AF41D462F3C00F4CE03 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				845174C21D509E0E0080D71C /* OptionsController */,
 				843F3B071D46402C00F4CE03 /* SignInController */,
 				843F3B0B1D46407800F4CE03 /* BlinkrController */,
 				843F3B111D46496200F4CE03 /* SearchController */,
@@ -340,6 +347,7 @@
 		843F3B121D464E7F00F4CE03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				845174CD1D50A8830080D71C /* UIAlertDialog */,
 				8444BD291D4F839F009BB3C4 /* ChannelUtil */,
 				843F3B3E1D467F2F00F4CE03 /* HCSStarRatingView.h */,
 				843F3B3F1D467F2F00F4CE03 /* HCSStarRatingView.m */,
@@ -417,6 +425,24 @@
 				844F42791D479E7300E80A2D /* MGUserCell.xib */,
 			);
 			name = MGUserCell;
+			sourceTree = "<group>";
+		};
+		845174C21D509E0E0080D71C /* OptionsController */ = {
+			isa = PBXGroup;
+			children = (
+				845174C31D509E2D0080D71C /* MGOptionsController.h */,
+				845174C41D509E2D0080D71C /* MGOptionsController.m */,
+			);
+			name = OptionsController;
+			sourceTree = "<group>";
+		};
+		845174CD1D50A8830080D71C /* UIAlertDialog */ = {
+			isa = PBXGroup;
+			children = (
+				845174CA1D50A87B0080D71C /* UIAlertDialog.h */,
+				845174CB1D50A87B0080D71C /* UIAlertDialog.m */,
+			);
+			name = UIAlertDialog;
 			sourceTree = "<group>";
 		};
 		84FB0D751D4A4D9600AF0C92 /* ChatController */ = {
@@ -605,6 +631,7 @@
 				843F3B3A1D467E9B00F4CE03 /* MGMyProfileViewController.m in Sources */,
 				84FB0D7E1D4A679900AF0C92 /* MGMessageCell.m in Sources */,
 				843F3B151D464E9600F4CE03 /* CCMRadarView.swift in Sources */,
+				845174C51D509E2D0080D71C /* MGOptionsController.m in Sources */,
 				843F3B361D467B3A00F4CE03 /* MGMessagesController.m in Sources */,
 				843F3B431D467F4200F4CE03 /* NSDictionary+Accessors.m in Sources */,
 				843F3AD21D46204E00F4CE03 /* AppDelegate.m in Sources */,
@@ -626,6 +653,7 @@
 				843F3B3D1D467F0600F4CE03 /* MGFetchUserInfo.m in Sources */,
 				84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */,
 				844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */,
+				845174CC1D50A87B0080D71C /* UIAlertDialog.m in Sources */,
 				844F427E1D47A3C500E80A2D /* MGUser.m in Sources */,
 				84FB0D831D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld in Sources */,
 				844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */,

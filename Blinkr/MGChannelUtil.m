@@ -15,7 +15,7 @@
     
     NSString *channelString = nil;
     
-    if (pSenderId > pRecieverId) {
+    if (pSenderId < pRecieverId) {
         
         channelString = [NSString stringWithFormat:@"%ld_%ld", pSenderId, pRecieverId];
         

@@ -17,6 +17,7 @@
 #import "Global.h"
 #import <MagicalRecord/MagicalRecord.h>
 #import <MagicalRecord/MagicalRecord+ShorthandMethods.h>
+#import "UIAlertDialog.h"
 
 #define ACCESS_TOKEN_KEY @"access_token_key"
 #define FIREBASE_TOKEN_KEY @"firebase_token_key"
