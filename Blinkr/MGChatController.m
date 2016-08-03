@@ -13,7 +13,7 @@
 #import "Chat.h"
 #import "Message.h"
 #import "UIImageView+AFNetworking.h"
-
+#import "MGUserProfileViewController.h"
 @import Firebase;
 
 @interface MGChatController ()
@@ -43,7 +43,7 @@
     if (self.channel == nil) {
         self.channel = [MGChannelUtil getChannelWithSenderId:[self.senderId integerValue] recieverId:_receiverId ? _receiverId : _receiverUser.id_];
     }
-    self.title = self.chatName ? self.chatName : self.receiverUser.name;
+    
     [self setupBubbles];
     
     // No avatars
@@ -61,10 +61,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-
+    self.title = self.chatName ? self.chatName : self.receiverUser.name;
+    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [button targetForAction:@selector(receiverBtnPressed) withSender:self];
+    [button addTarget:self
+               action:@selector(receiverBtnPressed)
+     forControlEvents:UIControlEventTouchUpInside];
     
     [button setImage:[UIImage imageNamed:@"user"] forState:UIControlStateNormal];
 
@@ -96,9 +99,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     
-    
-    
+    self.title = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -110,7 +117,9 @@
 
 - (void)receiverBtnPressed {
     
-    
+    MGUserProfileViewController *vc = VIEW_CONTROLLER(@"MGUserProfileViewController");
+    vc.userId = _receiverId ? _receiverId : _receiverUser.id_;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Private methods
@@ -127,7 +136,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.ZZZ"];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
     
     NSDate *date = [dateFormatter dateFromString:dateString];
     
@@ -148,17 +157,20 @@
         
         [self finishReceivingMessage];
         
-        Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@ AND text = %@", _channel, snapshot.value[@"message"]]];
+        Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@ AND dateString = %@", _channel, snapshot.value[@"date"]]];
         
         if (lMessage) {
             [MGNetworkManager deleteNotificationWithID:lMessage.id_.integerValue withCompletion:^(id object, NSError *error) {
                 
-                if (object) {
+                if (error==nil) {
                     [lMessage MR_deleteEntity];
+                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
                     NSInteger badgesCount = [[[self.tabBarController.tabBar.items objectAtIndex:2] badgeValue] integerValue];
-                    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:[NSString stringWithFormat:@"%ld", --badgesCount]];
+                    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: --badgesCount];
+                    NSString *badgeValue = --badgesCount > 0 ? [NSString stringWithFormat:@"%ld", badgesCount] : nil;
+                    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
+                    
                 }
-                
             }];
         }
         
@@ -298,7 +310,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.ZZZ"];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
     
     NSDictionary *messageItem = @{
                                   @"author": senderDisplayName,
@@ -321,7 +333,8 @@
                              @"sender_id": senderId,
                              @"title": @"Message notification",
                              @"text": text,
-                             @"channel": _channel
+                             @"channel": _channel,
+                             @"date": [dateFormatter stringFromDate:date]
                              };
     
     [MGNetworkManager sendMessangerNotificationWihtParams:params withCompletion:^(id object, NSError *error) {

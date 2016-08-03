@@ -10,7 +10,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SAMHUDView.h"
-#import "Message.h"
 @import FirebaseAuth;
 @import Firebase;
 
@@ -37,9 +36,6 @@
     [self.checkBox setSelected:YES];
     [self chekBoxBtnPressed:self.checkBox];
     
-    NSArray *messagesArray = [Message MR_findAll];
-    
-    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:[NSString stringWithFormat:@"%ld", [messagesArray count]]];
 }
 
 - (void)viewDidLoad {

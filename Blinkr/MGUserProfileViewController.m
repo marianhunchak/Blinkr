@@ -11,6 +11,7 @@
 #import "HCSStarRatingView.h"
 #import "MGUser.h"
 #import "UIView+Layer.h"
+#import "MGChatController.h"
 
 @interface MGUserProfileViewController ()
 
@@ -39,37 +40,15 @@
     self.tableView.estimatedRowHeight = 100.f;
     self.tableView.tableFooterView = [UIView new];
 
-    UIBarButtonItem *sendMessageBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"mail"]
+    UIBarButtonItem *sendMessageBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"email"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(sendMessageBtnPressed)];
     self.navigationItem.rightBarButtonItem = sendMessageBtn;
     
-    self.navigationItem.title = _user.name;
+    [self setUserInfo:_user];
+    [self.tableView reloadData];
     
-    _nameLabel.text = _user.name;
-    _ratingView.value = _user.rate;
-    _emailTextView.text = _user.email;
-    _phoneNumberTextView.text = _user.phoneNumber;
-    _teslaModelLabel.text = _user.teslaModel == nil ? @"Car model" : _user.teslaModel;
-    _licensePlateLabel.text = _user.licensePlate;
-    _facebookLinkTextView.text = _user.facebookLink;
-    _bioTextView.text = _user.bio == nil ? @"User bio" : _user.bio;
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:_user.imageURL];
-    
-    [self.userImageView setImageWithURLRequest:request placeholderImage:nil
-     
-    success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-        
-        self.userImageView.image = image;
-        
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-        
-        NSLog(@"Error: %@", error);
-        
-    }];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,11 +58,69 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    if (_userId && _user == nil) {
+        [self getUserInfo];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.navigationItem.title = @"";
 }
 
 
 #pragma mark - API
 
+
+- (void) getUserInfo {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [MGNetworkManager getUserWithID:_userId withCompletion:^(id object, NSError *error) {
+    
+        if (object) {
+        
+            [weakSelf setUserInfo:object];
+            weakSelf.user = object;
+            [weakSelf.tableView reloadData];
+        }
+
+    }];
+    
+}
+
+#pragma mark - Private methods 
+
+- (void) setUserInfo:(MGUser *) user {
+    
+    self.navigationItem.title = user.name;
+    
+    _nameLabel.text = user.name;
+    _ratingView.value = user.rate;
+    _emailTextView.text = user.email;
+    _phoneNumberTextView.text = user.phoneNumber;
+    _teslaModelLabel.text = user.teslaModel == nil ? @"Car model" : user.teslaModel;
+    _licensePlateLabel.text = user.licensePlate;
+    _facebookLinkTextView.text = user.facebookLink;
+    _bioTextView.text = user.bio == nil ? @"User bio" : user.bio;
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:user.imageURL];
+    
+    [self.userImageView setImageWithURLRequest:request placeholderImage:nil
+     
+                                       success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                                           
+                                           self.userImageView.image = image;
+                                           
+                                       } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+                                           
+                                           NSLog(@"Error: %@", error);
+                                           
+                                       }];
+    
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -129,6 +166,11 @@
 
 - (void) sendMessageBtnPressed {
     
+    if (_user) {
+        MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
+        vc.receiverUser = _user;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 

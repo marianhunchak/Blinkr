@@ -32,6 +32,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     return manager;
 }
 
+#pragma mark - Authorzation
 
 + (void)loginWithFacebookToken:(NSString *)facebookToken
                 firebaseToken:(NSString *)fiToken
@@ -69,6 +70,8 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     
 }
 
+#pragma mark - MyProfile
+
 + (void)updateMyProfileWithID:(NSInteger)userID
                    parameters:(NSDictionary *)params
                withCompletion:(ObjectCompletionBlock)completionBlock {
@@ -88,6 +91,8 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     }];
     
 }
+
+#pragma mark - Users
 
 + (void) searchUsersWithString:(NSString *) searchString
                 withCompletion:(ArrayCompletionBlock)completionBlock {
@@ -117,6 +122,26 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     }];
     
 }
+
++ (void) getUserWithID:(NSInteger)userId withCompletion:(ObjectCompletionBlock)completionBlock {
+    
+    NSString *path = [NSString stringWithFormat:@"users/%ld", userId];
+    
+    [[MGNetworkManager manager] GET:path parameters:nil progress:nil
+     
+                            success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                
+                                completionBlock([MGUser initWithDict:responseObject], nil);
+                                
+                            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                
+                                completionBlock(nil, error);
+                                
+                            }];
+    
+}
+
+#pragma mark - Radar
 
 + (void)updateCurrentUserLocationWithLatitude:(double)latitude
                                     longitude:(double)longitude
@@ -169,6 +194,8 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     }];
 }
 
+#pragma mark - Notifications
+
 + (void)sendMessangerNotificationWihtParams:(NSDictionary *)params
                              withCompletion:(ObjectCompletionBlock)completionBlock {
 
@@ -200,7 +227,9 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
                 
                 for (NSDictionary *lnotifDict in responseObject) {
                     
-                    [responseArray addObject:[Message initWithNotificationDict:lnotifDict]];
+                [Message initWithNotificationDict:lnotifDict];
+                    
+//                    [responseArray addObject: lMessage];
                 }
                 
                 completionBlock(responseArray, nil);

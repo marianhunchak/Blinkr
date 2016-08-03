@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		020137DDF8AACAC2A19798EC /* libPods-Blinkr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0F0953A0F71AA274C124D7 /* libPods-Blinkr.a */; };
+		84318A9A1D52253A00E713CC /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318A971D52253A00E713CC /* Message+CoreDataProperties.m */; };
+		84318A9B1D52253A00E713CC /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318A991D52253A00E713CC /* Message.m */; };
 		843F3ACF1D46204E00F4CE03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3ACE1D46204E00F4CE03 /* main.m */; };
 		843F3AD21D46204E00F4CE03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3AD11D46204E00F4CE03 /* AppDelegate.m */; };
 		843F3ADB1D46204E00F4CE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843F3AD91D46204E00F4CE03 /* Main.storyboard */; };
@@ -28,8 +30,6 @@
 		843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B481D467F5700F4CE03 /* UIView+Layer.m */; };
 		843F3B4C1D467F6100F4CE03 /* NSString+ValidateValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */; };
 		8444BD2C1D4F8621009BB3C4 /* MGChannelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD2B1D4F8621009BB3C4 /* MGChannelUtil.m */; };
-		8444BD311D4F9B10009BB3C4 /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD2E1D4F9B10009BB3C4 /* Message+CoreDataProperties.m */; };
-		8444BD321D4F9B10009BB3C4 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD301D4F9B10009BB3C4 /* Message.m */; };
 		8444BD391D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD361D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m */; };
 		8444BD3A1D4F9BA5009BB3C4 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD381D4F9BA5009BB3C4 /* Chat.m */; };
 		844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */; };
@@ -52,6 +52,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84318A961D52253A00E713CC /* Message+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+CoreDataProperties.h"; sourceTree = "<group>"; };
+		84318A971D52253A00E713CC /* Message+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+CoreDataProperties.m"; sourceTree = "<group>"; };
+		84318A981D52253A00E713CC /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		84318A991D52253A00E713CC /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		843F3ACA1D46204E00F4CE03 /* Blinkr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blinkr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843F3ACE1D46204E00F4CE03 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		843F3AD01D46204E00F4CE03 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,10 +96,6 @@
 		843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateValue.m"; sourceTree = "<group>"; };
 		8444BD2A1D4F8621009BB3C4 /* MGChannelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGChannelUtil.h; sourceTree = "<group>"; };
 		8444BD2B1D4F8621009BB3C4 /* MGChannelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGChannelUtil.m; sourceTree = "<group>"; };
-		8444BD2D1D4F9B10009BB3C4 /* Message+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+CoreDataProperties.h"; sourceTree = "<group>"; };
-		8444BD2E1D4F9B10009BB3C4 /* Message+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+CoreDataProperties.m"; sourceTree = "<group>"; };
-		8444BD2F1D4F9B10009BB3C4 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		8444BD301D4F9B10009BB3C4 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		8444BD351D4F9BA5009BB3C4 /* Chat+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chat+CoreDataProperties.h"; sourceTree = "<group>"; };
 		8444BD361D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chat+CoreDataProperties.m"; sourceTree = "<group>"; };
 		8444BD371D4F9BA5009BB3C4 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
@@ -389,10 +389,10 @@
 		8444BD331D4F9B87009BB3C4 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				8444BD2D1D4F9B10009BB3C4 /* Message+CoreDataProperties.h */,
-				8444BD2E1D4F9B10009BB3C4 /* Message+CoreDataProperties.m */,
-				8444BD2F1D4F9B10009BB3C4 /* Message.h */,
-				8444BD301D4F9B10009BB3C4 /* Message.m */,
+				84318A961D52253A00E713CC /* Message+CoreDataProperties.h */,
+				84318A971D52253A00E713CC /* Message+CoreDataProperties.m */,
+				84318A981D52253A00E713CC /* Message.h */,
+				84318A991D52253A00E713CC /* Message.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -636,16 +636,16 @@
 				843F3B431D467F4200F4CE03 /* NSDictionary+Accessors.m in Sources */,
 				843F3AD21D46204E00F4CE03 /* AppDelegate.m in Sources */,
 				843F3ACF1D46204E00F4CE03 /* main.m in Sources */,
+				84318A9A1D52253A00E713CC /* Message+CoreDataProperties.m in Sources */,
 				843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */,
-				8444BD311D4F9B10009BB3C4 /* Message+CoreDataProperties.m in Sources */,
 				843F3B0A1D46407400F4CE03 /* MGBlinkrController.m in Sources */,
 				843F3B031D46359D00F4CE03 /* MGNetworkManager.m in Sources */,
 				8444BD2C1D4F8621009BB3C4 /* MGChannelUtil.m in Sources */,
+				84318A9B1D52253A00E713CC /* Message.m in Sources */,
 				844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */,
 				843F3AE91D46259200F4CE03 /* SignInController.m in Sources */,
 				8444BD391D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m in Sources */,
 				843F3B101D46491500F4CE03 /* MGSearchController.m in Sources */,
-				8444BD321D4F9B10009BB3C4 /* Message.m in Sources */,
 				844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */,
 				843F3B401D467F2F00F4CE03 /* HCSStarRatingView.m in Sources */,
 				843F3B461D467F4F00F4CE03 /* NSData+Base64.m in Sources */,

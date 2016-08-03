@@ -2,7 +2,7 @@
 //  Message.h
 //  Blinkr
 //
-//  Created by Admin on 8/1/16.
+//  Created by Admin on 8/3/16.
 //  Copyright © 2016 Midgets. All rights reserved.
 //
 
@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Message : NSManagedObject
 
-+ (instancetype)initWithNotificationDict:(NSDictionary *)dict;
-
++ (void)initWithNotificationDict:(NSDictionary *)dict;
++ (void)initWithRecievedNotification:(NSDictionary *)dict;
 @end
 
 NS_ASSUME_NONNULL_END

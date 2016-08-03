@@ -22,6 +22,8 @@
 + (void)searchUsersWithString:(NSString *) searchString
                 withCompletion:(ArrayCompletionBlock)completionBlock;
 
++ (void) getUserWithID:(NSInteger)userId withCompletion:(ObjectCompletionBlock)completionBlock;
+
 + (void)updateCurrentUserLocationWithLatitude:(double)latitude
                                     longitude:(double)longitude
                                withCompletion:(ObjectCompletionBlock)completionBlock;

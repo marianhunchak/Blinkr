@@ -35,6 +35,20 @@ static NSString *cellIdentifier = @"messageCell";
     
     self.tableView.estimatedRowHeight = 100.f;
     self.tableView.tableFooterView = [UIView new];
+    
+//        [Message MR_truncateAll];
+//        [Chat MR_truncateAll];
+//    
+//        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+//    
+//    [MGNetworkManager deleteNotificationWithID:185 withCompletion:^(id object, NSError *error) {
+//        
+//        if (error==nil) {
+//            
+//        }
+//    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived) name:@"notification_received" object:nil];
 
 }
 
@@ -50,7 +64,9 @@ static NSString *cellIdentifier = @"messageCell";
     [MGNetworkManager getAllNotificationsWithCompletion:^(NSArray *array, NSError *error) {
         if (array) {
             
-            for (Message *lMessage in array) {
+            NSArray *messagesArray = [Message MR_findAll];
+            
+            for (Message *lMessage in messagesArray) {
                 
                 Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", lMessage.channel]];
                 
@@ -67,6 +83,9 @@ static NSString *cellIdentifier = @"messageCell";
             [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
             self.chatsArray = [Chat MR_findAll];
             [self.tableView reloadData];
+            
+            NSString *badgeValue = [messagesArray count] > 0 ? [NSString stringWithFormat:@"%ld", [messagesArray count]] : nil;
+            [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
         }
     }];
     
@@ -75,6 +94,13 @@ static NSString *cellIdentifier = @"messageCell";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Notifications
+
+- (void) notificationReceived {
+    
+    [self viewWillAppear:NO];
 }
 
 #pragma mark - Private methods
@@ -100,6 +126,14 @@ static NSString *cellIdentifier = @"messageCell";
     cell.userNameLabel.text = lChat.chatName;
     cell.channel = lChat.channel;
     [cell.userImageView setImageWithURL:[NSURL URLWithString:lChat.chatImageURL] placeholderImage:[UIImage imageNamed:@"user"]];
+    
+    Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@", lChat.channel]];
+    
+    if (lMessage) {
+        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.5];
+    } else {
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+    }
     
     return cell;
 }

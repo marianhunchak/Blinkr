@@ -35,7 +35,7 @@
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         
-        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.ZZZ"];
+        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
         
         NSDate *date = [dateFormatter dateFromString:snapshot.value[@"date"]];
         

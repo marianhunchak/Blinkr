@@ -2,7 +2,7 @@
 //  Message+CoreDataProperties.m
 //  Blinkr
 //
-//  Created by Admin on 8/1/16.
+//  Created by Admin on 8/3/16.
 //  Copyright © 2016 Midgets. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,11 +15,11 @@
 
 @dynamic channel;
 @dynamic id_;
-@dynamic receiver_id;
 @dynamic sender_id;
-@dynamic text;
-@dynamic title;
 @dynamic senderName;
 @dynamic senderPictureURL;
+@dynamic text;
+@dynamic title;
+@dynamic dateString;
 
 @end

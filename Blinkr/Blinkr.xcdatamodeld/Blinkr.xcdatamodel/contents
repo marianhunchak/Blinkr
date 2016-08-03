@@ -9,8 +9,8 @@
     </entity>
     <entity name="Message" representedClassName="Message" syncable="YES">
         <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id_" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="receiver_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sender_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="senderName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="senderPictureURL" optional="YES" attributeType="String" syncable="YES"/>

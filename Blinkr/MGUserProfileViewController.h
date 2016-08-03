@@ -13,5 +13,6 @@
 @interface MGUserProfileViewController : UITableViewController
 
 @property (strong, nonatomic) MGUser *user;
+@property (assign, nonatomic) NSUInteger userId;
 
 @end

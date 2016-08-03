@@ -14,7 +14,8 @@
 #import "MGNetworkManager.h"
 #import "MGMapAnnotation.h"
 #import "MGUserView.h"
-
+#import "Message.h"
+#import "Chat.h"
 @interface MGBlinkrController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
 
@@ -48,7 +49,7 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     self.mapView.showsUserLocation = YES;
     
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 2.0
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 10.0
                                                   target: self
                                                 selector:@selector(onTick)
                                                 userInfo: nil repeats:YES];
@@ -79,6 +80,12 @@
         
         
     }];
+    
+//    NSArray *messagesArray = [Message MR_findAll];
+//    
+
+//
+//    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:[NSString stringWithFormat:@"%ld", [messagesArray count]]];
     
     }
 
