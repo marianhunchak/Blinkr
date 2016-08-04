@@ -2,7 +2,7 @@
 //  Message+CoreDataProperties.h
 //  Blinkr
 //
-//  Created by Admin on 8/3/16.
+//  Created by Admin on 8/4/16.
 //  Copyright © 2016 Midgets. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,14 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Message (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *channel;
-@property (nullable, nonatomic, retain) NSNumber *id_;
-@property (nullable, nonatomic, retain) NSNumber *sender_id;
-@property (nullable, nonatomic, retain) NSString *senderName;
-@property (nullable, nonatomic, retain) NSString *senderPictureURL;
+@property (nullable, nonatomic, retain) NSString *pathKey;
+@property (nullable, nonatomic, retain) NSString *author;
+@property (nullable, nonatomic, retain) NSString *date;
 @property (nullable, nonatomic, retain) NSString *text;
-@property (nullable, nonatomic, retain) NSString *title;
-@property (nullable, nonatomic, retain) NSString *dateString;
+@property (nullable, nonatomic, retain) NSString *channel;
+@property (nullable, nonatomic, retain) NSString *senderId;
 
 @end
 

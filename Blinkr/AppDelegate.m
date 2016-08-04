@@ -11,7 +11,6 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import <MagicalRecord/MagicalRecord+ShorthandMethods.h>
 #import "NSDictionary+Accessors.h"
-#import "Message.h"
 
 @import Firebase;
 @import FirebaseInstanceID;
@@ -70,7 +69,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Print message ID.
     NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
     
-//    [Message initWithRecievedNotification:userInfo];
+    [Notification initWithRecievedNotification:userInfo];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"notification_received" object:nil];
     

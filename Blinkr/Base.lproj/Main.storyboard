@@ -144,7 +144,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController id="49e-Tb-3d3" customClass="MGTabBarController" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
@@ -187,7 +187,7 @@
                             <outlet property="delegate" destination="Gq1-hB-Z19" id="9pI-UN-tSI"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Search" image="searchItem" id="REN-HW-RTD"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="searchItem" selectedImage="searchItem(Active)" id="REN-HW-RTD"/>
                     <navigationItem key="navigationItem" title="Root View Controller" id="mSc-dc-Nyr"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
@@ -246,7 +246,7 @@
                             <constraint firstItem="XRm-I4-KS5" firstAttribute="top" secondItem="yMa-oj-Dyz" secondAttribute="bottom" constant="99" id="yAi-9n-AaB"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Messages" image="messagesItem" id="liO-2a-12X"/>
+                    <tabBarItem key="tabBarItem" title="Messages" image="messagesItem" selectedImage="messagesItem(Active)" id="liO-2a-12X"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="tableView" destination="fp4-jJ-hM2" id="yrc-pW-0Bg"/>
@@ -341,7 +341,7 @@
                             <constraint firstAttribute="trailing" secondItem="W8p-Lc-5BA" secondAttribute="trailing" id="sdP-EJ-7Cr"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Blinkr" image="blinkrItem" id="4Ob-Lb-WEh"/>
+                    <tabBarItem key="tabBarItem" title="Radar" image="radarItem" selectedImage="radarItem(Active)" id="4Ob-Lb-WEh"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
@@ -639,7 +639,7 @@
                             <outlet property="delegate" destination="8Xn-uN-VK9" id="MEH-WH-msU"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Profile" image="profileItem" id="PSb-ni-k2H"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profileItem" selectedImage="profileItem(Active)" id="PSb-ni-k2H"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
@@ -1450,7 +1450,6 @@
     </scenes>
     <resources>
         <image name="bio" width="30" height="31"/>
-        <image name="blinkrItem" width="26" height="26"/>
         <image name="carModel" width="44" height="32"/>
         <image name="checkBoxOff.png" width="18" height="18"/>
         <image name="checkBoxOn.png" width="18" height="18"/>
@@ -1458,11 +1457,16 @@
         <image name="fcebookLink" width="18" height="36"/>
         <image name="licensePlate" width="38" height="19"/>
         <image name="logoIcon" width="100" height="100"/>
-        <image name="messagesItem" width="22" height="22"/>
+        <image name="messagesItem" width="32" height="32"/>
+        <image name="messagesItem(Active)" width="32" height="32"/>
         <image name="noMessagesImage" width="147" height="147"/>
         <image name="phoneNumber" width="30" height="29"/>
-        <image name="profileItem" width="22" height="22"/>
-        <image name="searchItem" width="22" height="22"/>
+        <image name="profileItem" width="32" height="32"/>
+        <image name="profileItem(Active)" width="32" height="32"/>
+        <image name="radarItem" width="24" height="24"/>
+        <image name="radarItem(Active)" width="24" height="24"/>
+        <image name="searchItem" width="32" height="32"/>
+        <image name="searchItem(Active)" width="32" height="32"/>
         <image name="takePhoto" width="64" height="64"/>
         <image name="userName" width="64" height="64"/>
     </resources>

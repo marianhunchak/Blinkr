@@ -11,7 +11,6 @@
 #import "MGMessageCell.h"
 #import "MGNetworkManager.h"
 #import "Chat.h"
-#import "Message.h"
 #import "UIImageView+AFNetworking.h"
 
 @import Firebase;
@@ -36,7 +35,7 @@ static NSString *cellIdentifier = @"messageCell";
     self.tableView.estimatedRowHeight = 100.f;
     self.tableView.tableFooterView = [UIView new];
     
-//        [Message MR_truncateAll];
+//        [Notification MR_truncateAll];
 //        [Chat MR_truncateAll];
 //    
 //        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
@@ -64,19 +63,19 @@ static NSString *cellIdentifier = @"messageCell";
     [MGNetworkManager getAllNotificationsWithCompletion:^(NSArray *array, NSError *error) {
         if (array) {
             
-            NSArray *messagesArray = [Message MR_findAll];
+            NSArray *messagesArray = [Notification MR_findAll];
             
-            for (Message *lMessage in messagesArray) {
+            for (Notification *lNotification in messagesArray) {
                 
-                Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", lMessage.channel]];
+                Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", lNotification.channel]];
                 
                 if (!lChat) {
                     
                     lChat = [Chat MR_createEntity];
-                    lChat.channel = lMessage.channel;
-                    lChat.chatName = lMessage.senderName;
-                    lChat.receiverId = lMessage.sender_id;
-                    lChat.chatImageURL = lMessage.senderPictureURL;
+                    lChat.channel = lNotification.channel;
+                    lChat.chatName = lNotification.senderName;
+                    lChat.receiverId = lNotification.sender_id;
+                    lChat.chatImageURL = lNotification.senderPictureURL;
                 }
             }
             
@@ -95,6 +94,8 @@ static NSString *cellIdentifier = @"messageCell";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+
+
 
 #pragma mark - Notifications
 
@@ -127,10 +128,10 @@ static NSString *cellIdentifier = @"messageCell";
     cell.channel = lChat.channel;
     [cell.userImageView setImageWithURL:[NSURL URLWithString:lChat.chatImageURL] placeholderImage:[UIImage imageNamed:@"user"]];
     
-    Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@", lChat.channel]];
+    Notification *lNotification = [Notification MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@", lChat.channel]];
     
-    if (lMessage) {
-        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.5];
+    if (lNotification) {
+        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.5];
     } else {
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }

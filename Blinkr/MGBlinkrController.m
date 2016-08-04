@@ -14,8 +14,8 @@
 #import "MGNetworkManager.h"
 #import "MGMapAnnotation.h"
 #import "MGUserView.h"
-#import "Message.h"
 #import "Chat.h"
+
 @interface MGBlinkrController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
 

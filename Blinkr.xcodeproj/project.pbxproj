@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		020137DDF8AACAC2A19798EC /* libPods-Blinkr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA0F0953A0F71AA274C124D7 /* libPods-Blinkr.a */; };
-		84318A9A1D52253A00E713CC /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318A971D52253A00E713CC /* Message+CoreDataProperties.m */; };
-		84318A9B1D52253A00E713CC /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318A991D52253A00E713CC /* Message.m */; };
+		84318AA01D534F9200E713CC /* Notification+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318A9D1D534F9200E713CC /* Notification+CoreDataProperties.m */; };
+		84318AA11D534F9200E713CC /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318A9F1D534F9200E713CC /* Notification.m */; };
+		84318AA71D5351B400E713CC /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318AA41D5351B400E713CC /* Message+CoreDataProperties.m */; };
+		84318AA81D5351B400E713CC /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318AA61D5351B400E713CC /* Message.m */; };
+		84318AAB1D5360BD00E713CC /* MGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318AAA1D5360BD00E713CC /* MGTabBarController.m */; };
 		843F3ACF1D46204E00F4CE03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3ACE1D46204E00F4CE03 /* main.m */; };
 		843F3AD21D46204E00F4CE03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3AD11D46204E00F4CE03 /* AppDelegate.m */; };
 		843F3ADB1D46204E00F4CE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843F3AD91D46204E00F4CE03 /* Main.storyboard */; };
@@ -52,10 +55,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		84318A961D52253A00E713CC /* Message+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+CoreDataProperties.h"; sourceTree = "<group>"; };
-		84318A971D52253A00E713CC /* Message+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+CoreDataProperties.m"; sourceTree = "<group>"; };
-		84318A981D52253A00E713CC /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		84318A991D52253A00E713CC /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		84318A9C1D534F9200E713CC /* Notification+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Notification+CoreDataProperties.h"; sourceTree = "<group>"; };
+		84318A9D1D534F9200E713CC /* Notification+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Notification+CoreDataProperties.m"; sourceTree = "<group>"; };
+		84318A9E1D534F9200E713CC /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
+		84318A9F1D534F9200E713CC /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
+		84318AA31D5351B400E713CC /* Message+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+CoreDataProperties.h"; sourceTree = "<group>"; };
+		84318AA41D5351B400E713CC /* Message+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+CoreDataProperties.m"; sourceTree = "<group>"; };
+		84318AA51D5351B400E713CC /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		84318AA61D5351B400E713CC /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		84318AA91D5360BD00E713CC /* MGTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTabBarController.h; sourceTree = "<group>"; };
+		84318AAA1D5360BD00E713CC /* MGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTabBarController.m; sourceTree = "<group>"; };
 		843F3ACA1D46204E00F4CE03 /* Blinkr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blinkr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843F3ACE1D46204E00F4CE03 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		843F3AD01D46204E00F4CE03 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -154,6 +163,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		84318AA21D534FD400E713CC /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				84318A9C1D534F9200E713CC /* Notification+CoreDataProperties.h */,
+				84318A9D1D534F9200E713CC /* Notification+CoreDataProperties.m */,
+				84318A9E1D534F9200E713CC /* Notification.h */,
+				84318A9F1D534F9200E713CC /* Notification.m */,
+			);
+			name = Notification;
+			sourceTree = "<group>";
+		};
 		843F3AC11D46204E00F4CE03 = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +259,8 @@
 				84FB0D751D4A4D9600AF0C92 /* ChatController */,
 				843F3B4D1D4680CC00F4CE03 /* MyProfileViewController */,
 				844F42871D47B72C00E80A2D /* UserProfileViewController */,
+				84318AA91D5360BD00E713CC /* MGTabBarController.h */,
+				84318AAA1D5360BD00E713CC /* MGTabBarController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -389,10 +411,10 @@
 		8444BD331D4F9B87009BB3C4 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				84318A961D52253A00E713CC /* Message+CoreDataProperties.h */,
-				84318A971D52253A00E713CC /* Message+CoreDataProperties.m */,
-				84318A981D52253A00E713CC /* Message.h */,
-				84318A991D52253A00E713CC /* Message.m */,
+				84318AA31D5351B400E713CC /* Message+CoreDataProperties.h */,
+				84318AA41D5351B400E713CC /* Message+CoreDataProperties.m */,
+				84318AA51D5351B400E713CC /* Message.h */,
+				84318AA61D5351B400E713CC /* Message.m */,
 			);
 			name = Message;
 			sourceTree = "<group>";
@@ -477,6 +499,7 @@
 		84FB0D801D4BA87D00AF0C92 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				84318AA21D534FD400E713CC /* Notification */,
 				8444BD341D4F9B98009BB3C4 /* Chat */,
 				8444BD331D4F9B87009BB3C4 /* Message */,
 				84FB0D811D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld */,
@@ -530,6 +553,9 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 327RWWLVED;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -634,14 +660,15 @@
 				845174C51D509E2D0080D71C /* MGOptionsController.m in Sources */,
 				843F3B361D467B3A00F4CE03 /* MGMessagesController.m in Sources */,
 				843F3B431D467F4200F4CE03 /* NSDictionary+Accessors.m in Sources */,
+				84318AAB1D5360BD00E713CC /* MGTabBarController.m in Sources */,
 				843F3AD21D46204E00F4CE03 /* AppDelegate.m in Sources */,
 				843F3ACF1D46204E00F4CE03 /* main.m in Sources */,
-				84318A9A1D52253A00E713CC /* Message+CoreDataProperties.m in Sources */,
+				84318AA11D534F9200E713CC /* Notification.m in Sources */,
 				843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */,
 				843F3B0A1D46407400F4CE03 /* MGBlinkrController.m in Sources */,
 				843F3B031D46359D00F4CE03 /* MGNetworkManager.m in Sources */,
+				84318AA01D534F9200E713CC /* Notification+CoreDataProperties.m in Sources */,
 				8444BD2C1D4F8621009BB3C4 /* MGChannelUtil.m in Sources */,
-				84318A9B1D52253A00E713CC /* Message.m in Sources */,
 				844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */,
 				843F3AE91D46259200F4CE03 /* SignInController.m in Sources */,
 				8444BD391D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m in Sources */,
@@ -650,6 +677,7 @@
 				843F3B401D467F2F00F4CE03 /* HCSStarRatingView.m in Sources */,
 				843F3B461D467F4F00F4CE03 /* NSData+Base64.m in Sources */,
 				8444BD3A1D4F9BA5009BB3C4 /* Chat.m in Sources */,
+				84318AA71D5351B400E713CC /* Message+CoreDataProperties.m in Sources */,
 				843F3B3D1D467F0600F4CE03 /* MGFetchUserInfo.m in Sources */,
 				84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */,
 				844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */,
@@ -657,6 +685,7 @@
 				844F427E1D47A3C500E80A2D /* MGUser.m in Sources */,
 				84FB0D831D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld in Sources */,
 				844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */,
+				84318AA81D5351B400E713CC /* Message.m in Sources */,
 				844F42861D47B72500E80A2D /* MGUserProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

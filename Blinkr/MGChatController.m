@@ -11,9 +11,9 @@
 #import "MGNetworkManager.h"
 #import "MGChannelUtil.h"
 #import "Chat.h"
-#import "Message.h"
 #import "UIImageView+AFNetworking.h"
 #import "MGUserProfileViewController.h"
+#import "Message.h"
 @import Firebase;
 
 @interface MGChatController ()
@@ -52,9 +52,11 @@
     self.inputToolbar.contentView.leftBarButtonItem = nil;
     [self observeMessages];
     
+    [self setEditing:YES];
     
-    
-    
+    [JSQMessagesCollectionViewCell registerMenuAction:@selector(deleteMessage:)];
+    [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:@"Unsend"
+                                                                                      action:@selector(deleteMessage:)] ];
 
 }
 
@@ -94,6 +96,15 @@
                                        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                                            
                                        }];
+    
+    NSArray *messagesArray = [Message MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
+    
+    for (Message *lMessage in messagesArray) {
+        
+        [self addMessageWithSenderID:lMessage.senderId text:lMessage.text senderName:lMessage.author dateString:lMessage.date];
+    }
+    
+    [self.collectionView reloadData];
     
 }
 
@@ -153,18 +164,44 @@
     
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"] senderName:snapshot.value[@"author"] dateString:snapshot.value[@"date"]];
+        Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"pathKey == %@ AND date == %@", snapshot.key, snapshot.value[@"date"]]];
         
-        [self finishReceivingMessage];
+        if (lMessage == nil) {
+            
+            [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"] senderName:snapshot.value[@"author"] dateString:snapshot.value[@"date"]];
+            [self finishReceivingMessage];
+            
+            Message *lMessage = [Message MR_createEntity];
+            
+            lMessage.pathKey = snapshot.key;
+            lMessage.channel = _channel;
+            lMessage.senderId = snapshot.value[@"senderId"];
+            lMessage.text = snapshot.value[@"message"];
+            lMessage.author = snapshot.value[@"author"];
+            lMessage.date = snapshot.value[@"date"];
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+            
+        }
         
-        Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@ AND dateString = %@", _channel, snapshot.value[@"date"]]];
+        [self deleteNotficationWhithChannel:_channel date:snapshot.value[@"date"]];
+
+    }];
+}
+
+- (void)deleteNotficationWhithChannel:(NSString *)pChannel date:(NSString *)pDate {
+    
+    if (self.isViewLoaded && self.view.window != nil && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         
-        if (lMessage) {
-            [MGNetworkManager deleteNotificationWithID:lMessage.id_.integerValue withCompletion:^(id object, NSError *error) {
+        Notification *lNotification = [Notification MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@ AND dateString = %@", pChannel, pDate]];
+        
+        if (lNotification) {
+            [MGNetworkManager deleteNotificationWithID:lNotification.id_.integerValue withCompletion:^(id object, NSError *error) {
                 
                 if (error==nil) {
-                    [lMessage MR_deleteEntity];
+                    
+                    [lNotification MR_deleteEntity];
                     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+                    
                     NSInteger badgesCount = [[[self.tabBarController.tabBar.items objectAtIndex:2] badgeValue] integerValue];
                     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: --badgesCount];
                     NSString *badgeValue = --badgesCount > 0 ? [NSString stringWithFormat:@"%ld", badgesCount] : nil;
@@ -173,8 +210,8 @@
                 }
             }];
         }
-        
-    }];
+    }
+    
 }
 
 #pragma mark - JSQMessagesCollectionViewDataSource
@@ -252,6 +289,85 @@
      */
     return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
 }
+
+- (void)collectionView:(JSQMessagesCollectionView *)collectionView didDeleteMessageAtIndexPath:(NSIndexPath *)indexPath {
+
+    
+    [self.messages removeObjectAtIndex:indexPath.row];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    
+    [super collectionView:collectionView canPerformAction:action forItemAtIndexPath:indexPath withSender:sender];
+    
+    JSQMessage *lMessage = _messages[indexPath.item];
+    
+    if ([lMessage.senderId isEqualToString:self.senderId]) {
+        
+        return action == @selector(copy:) || action == @selector(deleteMessage:);
+        
+    } else {
+        
+        return action == @selector(copy:);
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    
+    if (action == @selector(deleteMessage:)) {
+        
+        JSQMessage *lMessage = _messages[indexPath.item];
+        
+        [self deleteMessage:lMessage];
+    }
+    
+    [super collectionView:collectionView performAction:action forItemAtIndexPath:indexPath withSender:sender];
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    
+    if (action == @selector(deleteMessage:)) {
+        return NO;
+    }
+    
+    return [super canPerformAction:action withSender:sender];
+}
+
+- (void)deleteMessage:(JSQMessage *)pMessage {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    
+    Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@ AND date == %@ ", _channel,[dateFormatter stringFromDate:pMessage.date]]];
+    
+    if (lMessage) {
+        
+        
+        [self.messages removeObject:pMessage];
+        [lMessage MR_deleteEntity];
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+        [self.collectionView reloadData];
+//        FIRDatabaseReference *messageRef = [[_ref child:_channel] child:lMessage.pathKey];
+        
+        
+//        [messageRef removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+//            
+//            if (!error) {
+//                
+//            }
+//            else {
+//
+//            }
+//            
+//        }];
+    }
+    
+    
+   
+}
+
 #pragma mark - JSQMessages collection view flow layout delegate
 
 #pragma mark - Adjusting cell label heights
@@ -272,7 +388,7 @@
     if (indexPath.item % 3 == 0) {
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
-    
+
     return 0.0f;
 }
 
@@ -311,6 +427,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
     
     NSDictionary *messageItem = @{
                                   @"author": senderDisplayName,
@@ -345,7 +462,7 @@
     
     if (!lChat) {
         
-        lChat = [Chat MR_createEntity];
+        lChat = [Chat MR_createEntity];\
         lChat.channel = _channel;
         lChat.chatName = _receiverUser.name;
         lChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);

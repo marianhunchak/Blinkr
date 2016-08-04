@@ -10,7 +10,6 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "MGUser.h"
-#import "Message.h"
 
 static NSString *mainURL = @"http://159.203.188.80/api/v1/";
 
@@ -227,7 +226,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
                 
                 for (NSDictionary *lnotifDict in responseObject) {
                     
-                [Message initWithNotificationDict:lnotifDict];
+                [Notification initWithNotificationDict:lnotifDict];
                     
 //                    [responseArray addObject: lMessage];
                 }

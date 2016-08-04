@@ -1,5 +1,5 @@
 //
-//  Message+CoreDataProperties.m
+//  Notification+CoreDataProperties.m
 //  Blinkr
 //
 //  Created by Admin on 8/4/16.
@@ -9,15 +9,17 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "Message+CoreDataProperties.h"
+#import "Notification+CoreDataProperties.h"
 
-@implementation Message (CoreDataProperties)
+@implementation Notification (CoreDataProperties)
 
-@dynamic pathKey;
-@dynamic author;
-@dynamic date;
-@dynamic text;
 @dynamic channel;
-@dynamic senderId;
+@dynamic id_;
+@dynamic sender_id;
+@dynamic senderName;
+@dynamic senderPictureURL;
+@dynamic text;
+@dynamic title;
+@dynamic dateString;
 
 @end
