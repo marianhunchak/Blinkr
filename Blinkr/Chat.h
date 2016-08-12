@@ -2,7 +2,7 @@
 //  Chat.h
 //  Blinkr
 //
-//  Created by Admin on 8/1/16.
+//  Created by Admin on 8/12/16.
 //  Copyright © 2016 Midgets. All rights reserved.
 //
 

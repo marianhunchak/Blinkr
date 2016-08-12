@@ -15,19 +15,7 @@
     
     Notification *lOldNotification = [Notification MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"id_ == %@", [dict numberForKey:@"id"]]];
     
-    if (lOldNotification) {
-        
-        lOldNotification.id_ = [dict numberForKey:@"id"];
-        lOldNotification.sender_id = [dict[@"sender"] numberForKey:@"id"];
-        lOldNotification.senderName = [dict[@"sender"] stringForKey:@"name"];
-        lOldNotification.senderPictureURL = [dict[@"sender"] stringForKey:@"picture_url"];
-        lOldNotification.title = [dict stringForKey:@"title"];
-        lOldNotification.text = [dict stringForKey:@"text"];
-        lOldNotification.channel = [dict stringForKey:@"channel"];
-        lOldNotification.dateString = [dict stringForKey:@"date"];
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-        
-    } else {
+    if (!lOldNotification) {
         
         Notification *lNotification = [Notification MR_createEntity];
         
@@ -44,7 +32,7 @@
     }
 }
 
-+ (void)initWithRecievedNotification:(NSDictionary *)dict {
++ (Notification *)initWithRecievedNotification:(NSDictionary *)dict {
     
     Notification *lOldNotification = [Notification MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"id_ == %@", [dict numberForKey:@"id"]]];
     
@@ -62,7 +50,11 @@
         lNotification.dateString = [dict stringForKey:@"date"];
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
         
+        return lNotification;
+        
     }
+    
+    return lOldNotification;
 }
 
 

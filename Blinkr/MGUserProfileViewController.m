@@ -40,7 +40,7 @@
     self.tableView.estimatedRowHeight = 100.f;
     self.tableView.tableFooterView = [UIView new];
 
-    UIBarButtonItem *sendMessageBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"email"]
+    UIBarButtonItem *sendMessageBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"chatItem"]
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(sendMessageBtnPressed)];

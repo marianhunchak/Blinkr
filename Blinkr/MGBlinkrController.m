@@ -15,6 +15,12 @@
 #import "MGMapAnnotation.h"
 #import "MGUserView.h"
 #import "Chat.h"
+#import "MGFileManager.h"
+#import "Profile.h"
+@import GLKit;
+#define degreesToRadians(x) (M_PI * x / 180.0)
+#define radiansToDegrees(x) (x * 180.0 / M_PI)
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
 @interface MGBlinkrController () <MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -25,7 +31,11 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSMutableArray *userViewsArray;
 @property (strong, nonatomic) MKUserLocation *userLocation;
+
 @end
+
+CGFloat xKoef = 0;
+CGFloat yKoef = 0;
 
 @implementation MGBlinkrController
 
@@ -39,6 +49,13 @@
     self.userImageView.layer.borderWidth = 2.0;
     self.userImageView.layer.borderColor = RGBHColor(0xFF6600).CGColor;
     
+    
+    xKoef = 0.124274 / CGRectGetMinX(_userImageView.frame);
+    yKoef = 0.124274 / CGRectGetMinY(_userImageView.frame);
+    
+    UITapGestureRecognizer *tapOnUserImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnUserImageView)];
+    [self.userImageView addGestureRecognizer:tapOnUserImageView];
+    
     [self.mapView setDelegate:self];
     [self.radarView startAnimation];
     
@@ -49,13 +66,14 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     self.mapView.showsUserLocation = YES;
     
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 10.0
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 5.0
                                                   target: self
                                                 selector:@selector(onTick)
                                                 userInfo: nil repeats:YES];
     [self getNearestUsers];
     
-    
+//    [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -65,29 +83,40 @@
     self.tabBarController.navigationItem.titleView = titleImageView;
     [self.radarView startAnimation];
     
-    NSURL *imageURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] stringForKey:PROFILE_PICTURE_URL]];
+    Profile *lProfile = [Profile MR_findFirst];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
-    
-    [self.userImageView setImageWithURLRequest:request placeholderImage:nil
-     
-    success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+    if ([lProfile.pictureURL hasPrefix:@"http"]) {
         
-        self.userImageView.image = image;
+        __weak typeof(self) weakSelf = self;
         
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:lProfile.pictureURL]];
         
+        [self.userImageView setImageWithURLRequest:request placeholderImage:nil
+         
+                                          success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                                              
+                                              weakSelf.userImageView.image = image;
+                                              lProfile.pictureURL = [MGFileManager writeProfileImageToDocuments:image];
+                                              
+                                          } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+                                              
+                                          }];
         
+    } else {
         
-    }];
-    
-//    NSArray *messagesArray = [Message MR_findAll];
-//    
-
-//
-//    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:[NSString stringWithFormat:@"%ld", [messagesArray count]]];
+        self.userImageView.image = [MGFileManager getProfileImageFromDocuments];
+    }
     
     }
+
+#pragma mark - Actions 
+
+- (void)tappedOnUserImageView {
+    
+    [self.tabBarController.delegate tabBarController:self.tabBarController shouldSelectViewController:[[self.tabBarController viewControllers] objectAtIndex:2]];
+    [self.tabBarController setSelectedIndex:3];
+    
+}
 
 - (void) getNearestUsers {
     
@@ -103,6 +132,10 @@
             
             [_userViewsArray removeAllObjects];
             
+             CLLocationDirection mapAngle = self.mapView.camera.heading;
+            
+            NSLog(@"MapAngle = %f", mapAngle);
+            
             for (NSDictionary* dict in array) {
                 CLLocationCoordinate2D coordinate;
                 
@@ -116,24 +149,64 @@
                 coordinate.latitude = [dict[@"latitude"]doubleValue];
                 coordinate.longitude = [dict[@"longitude"]doubleValue];
                 
+                float heading = [self getHeadingForDirectionFromCoordinate:self.userLocation.coordinate toCoordinate:coordinate];
+                
+                NSLog(@"Heading = %f", heading);
+                
                 MGUserView *userView = [MGUserView loadUserView];
                 userView.imageURLString = dict[@"picture"][@"small_picture_url"];
                 
-                userView.frame = CGRectMake(0, 0, 50, 50);
+                [self setFrameForUserView:userView WithDicr:dict];
                 
-                userView.center = [self.mapView convertCoordinate:coordinate toPointToView:self.view];
                 userView.layer.cornerRadius = userView.frame.size.width / 2.0;
-                userView.layer.masksToBounds = YES;
                 
                 [_userViewsArray addObject:userView];
                 
                 [self.view addSubview:userView];
-                
-                
-                
             }
         }
     }];
+}
+
+- (void) setFrameForUserView:(MGUserView *)userView WithDicr:(NSDictionary *)dict {
+    
+    float cosX = cos(GLKMathDegreesToRadians([dict[@"bearing"] integerValue]));
+    
+    float sinY = sin(GLKMathDegreesToRadians([dict[@"bearing"] integerValue]));
+    
+    double distance = [dict[@"distance"]doubleValue];
+    
+    userView.frame = CGRectMake(0, 0, 50, 50);
+    
+    userView.center = CGPointMake(_userImageView.center.x + (distance / xKoef * cosX) + [self signOfInteger:cosX] * (_userImageView.frame.size.width / 2.0),
+                                  _userImageView.center.y + (distance / yKoef * sinY) + [self signOfInteger:sinY] * (_userImageView.frame.size.width / 2.0));
+    
+}
+
+- (int)signOfInteger:(float)integer {
+    
+    if (integer < 0) {
+        return -1;
+    }
+    
+    return 1;
+    
+}
+
+- (float)getHeadingForDirectionFromCoordinate:(CLLocationCoordinate2D)fromLoc toCoordinate:(CLLocationCoordinate2D)toLoc
+{
+    float fLat = degreesToRadians(fromLoc.latitude);
+    float fLng = degreesToRadians(fromLoc.longitude);
+    float tLat = degreesToRadians(toLoc.latitude);
+    float tLng = degreesToRadians(toLoc.longitude);
+    
+    float degree = radiansToDegrees(atan2(sin(tLng-fLng)*cos(tLat), cos(fLat)*sin(tLat)-sin(fLat)*cos(tLat)*cos(tLng-fLng)));
+    
+    if (degree >= 0) {
+        return degree;
+    } else {
+        return 360+degree;
+    }
 }
 
 - (void)onTick {
@@ -168,23 +241,23 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    
+
     [MGNetworkManager updateCurrentUserLocationWithLatitude:userLocation.coordinate.latitude longitude:userLocation.coordinate.longitude withCompletion:nil];
-    
-    
-    
-    
+
     self.userLocation = userLocation;
-    MKCoordinateRegion region;
-    MKCoordinateSpan span;
-    span.latitudeDelta = 0.001;
-    span.longitudeDelta = 0.001;
-    CLLocationCoordinate2D location;
-    location.latitude = self.mapView.userLocation.coordinate.latitude;
-    location.longitude = self.mapView.userLocation.coordinate.longitude;
-    region.span = span;
-    region.center = location;
-    [self.mapView setRegion:region animated:NO];
+    
+//    [self.mapView setCenterCoordinate:userLocation.coordinate animated:NO];
+    
+//    MKCoordinateRegion region;
+//    MKCoordinateSpan span;
+//    span.latitudeDelta = 0.05;
+//    span.longitudeDelta = 0.05;
+//    CLLocationCoordinate2D location;
+//    location.latitude = self.userLocation.coordinate.latitude;
+//    location.longitude = self.userLocation.coordinate.longitude;
+//    region.span = span;
+//    region.center = location;
+//    [self.mapView setRegion:region animated:NO];
     
 }
 

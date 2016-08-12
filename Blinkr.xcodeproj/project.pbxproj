@@ -13,6 +13,12 @@
 		84318AA71D5351B400E713CC /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318AA41D5351B400E713CC /* Message+CoreDataProperties.m */; };
 		84318AA81D5351B400E713CC /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318AA61D5351B400E713CC /* Message.m */; };
 		84318AAB1D5360BD00E713CC /* MGTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84318AAA1D5360BD00E713CC /* MGTabBarController.m */; };
+		843862FA1D5B2E220040627B /* Profile+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 843862F71D5B2E220040627B /* Profile+CoreDataProperties.m */; };
+		843862FB1D5B2E220040627B /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = 843862F91D5B2E220040627B /* Profile.m */; };
+		843862FE1D5B33A20040627B /* MGFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 843862FD1D5B33A20040627B /* MGFileManager.m */; };
+		843863041D5B54A10040627B /* NSString+EncodeString.m in Sources */ = {isa = PBXBuildFile; fileRef = 843863031D5B54A10040627B /* NSString+EncodeString.m */; };
+		843863071D5B7E1C0040627B /* MGTermsOfUseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843863061D5B7E1C0040627B /* MGTermsOfUseController.m */; };
+		8438C3B51D5CDC1400F7AB29 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8438C3B41D5CDC1400F7AB29 /* GLKit.framework */; };
 		843F3ACF1D46204E00F4CE03 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3ACE1D46204E00F4CE03 /* main.m */; };
 		843F3AD21D46204E00F4CE03 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3AD11D46204E00F4CE03 /* AppDelegate.m */; };
 		843F3ADB1D46204E00F4CE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843F3AD91D46204E00F4CE03 /* Main.storyboard */; };
@@ -33,8 +39,6 @@
 		843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B481D467F5700F4CE03 /* UIView+Layer.m */; };
 		843F3B4C1D467F6100F4CE03 /* NSString+ValidateValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */; };
 		8444BD2C1D4F8621009BB3C4 /* MGChannelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD2B1D4F8621009BB3C4 /* MGChannelUtil.m */; };
-		8444BD391D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD361D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m */; };
-		8444BD3A1D4F9BA5009BB3C4 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD381D4F9BA5009BB3C4 /* Chat.m */; };
 		844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */; };
 		844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42781D479E7300E80A2D /* MGUserCell.m */; };
 		844F427B1D479E7300E80A2D /* MGUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F42791D479E7300E80A2D /* MGUserCell.xib */; };
@@ -47,6 +51,11 @@
 		844F42901D47C72500E80A2D /* MGUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F428F1D47C72500E80A2D /* MGUserView.xib */; };
 		845174C51D509E2D0080D71C /* MGOptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845174C41D509E2D0080D71C /* MGOptionsController.m */; };
 		845174CC1D50A87B0080D71C /* UIAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 845174CB1D50A87B0080D71C /* UIAlertDialog.m */; };
+		8453A5171D5DBD0800D191C8 /* MGRateUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8453A5161D5DBD0800D191C8 /* MGRateUserView.m */; };
+		8453A5191D5DBD2800D191C8 /* MGRateUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8453A5181D5DBD2800D191C8 /* MGRateUserView.xib */; };
+		84F550EF1D58DF2000A3DB11 /* front_page_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F550EE1D58DF2000A3DB11 /* front_page_1.png */; };
+		84F5D36F1D5E08D30066D870 /* Chat+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5D36C1D5E08D30066D870 /* Chat+CoreDataProperties.m */; };
+		84F5D3701D5E08D30066D870 /* Chat.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F5D36E1D5E08D30066D870 /* Chat.m */; };
 		84FB0D6E1D4A23C200AF0C92 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */; };
 		84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D771D4A4DB500AF0C92 /* MGChatController.m */; };
 		84FB0D7E1D4A679900AF0C92 /* MGMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0D7C1D4A679900AF0C92 /* MGMessageCell.m */; };
@@ -65,6 +74,17 @@
 		84318AA61D5351B400E713CC /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		84318AA91D5360BD00E713CC /* MGTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTabBarController.h; sourceTree = "<group>"; };
 		84318AAA1D5360BD00E713CC /* MGTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTabBarController.m; sourceTree = "<group>"; };
+		843862F61D5B2E220040627B /* Profile+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Profile+CoreDataProperties.h"; sourceTree = "<group>"; };
+		843862F71D5B2E220040627B /* Profile+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Profile+CoreDataProperties.m"; sourceTree = "<group>"; };
+		843862F81D5B2E220040627B /* Profile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Profile.h; sourceTree = "<group>"; };
+		843862F91D5B2E220040627B /* Profile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Profile.m; sourceTree = "<group>"; };
+		843862FC1D5B33A20040627B /* MGFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGFileManager.h; sourceTree = "<group>"; };
+		843862FD1D5B33A20040627B /* MGFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGFileManager.m; sourceTree = "<group>"; };
+		843863021D5B54A10040627B /* NSString+EncodeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EncodeString.h"; sourceTree = "<group>"; };
+		843863031D5B54A10040627B /* NSString+EncodeString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EncodeString.m"; sourceTree = "<group>"; };
+		843863051D5B7E1C0040627B /* MGTermsOfUseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTermsOfUseController.h; sourceTree = "<group>"; };
+		843863061D5B7E1C0040627B /* MGTermsOfUseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTermsOfUseController.m; sourceTree = "<group>"; };
+		8438C3B41D5CDC1400F7AB29 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		843F3ACA1D46204E00F4CE03 /* Blinkr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blinkr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		843F3ACE1D46204E00F4CE03 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		843F3AD01D46204E00F4CE03 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -105,10 +125,6 @@
 		843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateValue.m"; sourceTree = "<group>"; };
 		8444BD2A1D4F8621009BB3C4 /* MGChannelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGChannelUtil.h; sourceTree = "<group>"; };
 		8444BD2B1D4F8621009BB3C4 /* MGChannelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGChannelUtil.m; sourceTree = "<group>"; };
-		8444BD351D4F9BA5009BB3C4 /* Chat+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chat+CoreDataProperties.h"; sourceTree = "<group>"; };
-		8444BD361D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chat+CoreDataProperties.m"; sourceTree = "<group>"; };
-		8444BD371D4F9BA5009BB3C4 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
-		8444BD381D4F9BA5009BB3C4 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		844F42741D4795B900E80A2D /* MGEditMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGEditMyProfileViewController.h; sourceTree = "<group>"; };
 		844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGEditMyProfileViewController.m; sourceTree = "<group>"; };
 		844F42771D479E7300E80A2D /* MGUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserCell.h; sourceTree = "<group>"; };
@@ -129,6 +145,14 @@
 		845174C41D509E2D0080D71C /* MGOptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOptionsController.m; sourceTree = "<group>"; };
 		845174CA1D50A87B0080D71C /* UIAlertDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlertDialog.h; sourceTree = "<group>"; };
 		845174CB1D50A87B0080D71C /* UIAlertDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlertDialog.m; sourceTree = "<group>"; };
+		8453A5151D5DBD0800D191C8 /* MGRateUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRateUserView.h; sourceTree = "<group>"; };
+		8453A5161D5DBD0800D191C8 /* MGRateUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRateUserView.m; sourceTree = "<group>"; };
+		8453A5181D5DBD2800D191C8 /* MGRateUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGRateUserView.xib; sourceTree = "<group>"; };
+		84F550EE1D58DF2000A3DB11 /* front_page_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = front_page_1.png; sourceTree = "<group>"; };
+		84F5D36B1D5E08D30066D870 /* Chat+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Chat+CoreDataProperties.h"; sourceTree = "<group>"; };
+		84F5D36C1D5E08D30066D870 /* Chat+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Chat+CoreDataProperties.m"; sourceTree = "<group>"; };
+		84F5D36D1D5E08D30066D870 /* Chat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chat.h; sourceTree = "<group>"; };
+		84F5D36E1D5E08D30066D870 /* Chat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chat.m; sourceTree = "<group>"; };
 		84FB0D6D1D4A23C200AF0C92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84FB0D761D4A4DB500AF0C92 /* MGChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGChatController.h; sourceTree = "<group>"; };
 		84FB0D771D4A4DB500AF0C92 /* MGChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGChatController.m; sourceTree = "<group>"; };
@@ -146,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8438C3B51D5CDC1400F7AB29 /* GLKit.framework in Frameworks */,
 				843F3B0D1D4641F900F4CE03 /* MapKit.framework in Frameworks */,
 				020137DDF8AACAC2A19798EC /* libPods-Blinkr.a in Frameworks */,
 			);
@@ -172,6 +197,61 @@
 				84318A9F1D534F9200E713CC /* Notification.m */,
 			);
 			name = Notification;
+			sourceTree = "<group>";
+		};
+		843862E91D5B0D7D0040627B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				843862F61D5B2E220040627B /* Profile+CoreDataProperties.h */,
+				843862F71D5B2E220040627B /* Profile+CoreDataProperties.m */,
+				843862F81D5B2E220040627B /* Profile.h */,
+				843862F91D5B2E220040627B /* Profile.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		843862FF1D5B33A70040627B /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				843862FC1D5B33A20040627B /* MGFileManager.h */,
+				843862FD1D5B33A20040627B /* MGFileManager.m */,
+			);
+			name = FileManager;
+			sourceTree = "<group>";
+		};
+		843863001D5B33B30040627B /* StarRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				843F3B3E1D467F2F00F4CE03 /* HCSStarRatingView.h */,
+				843F3B3F1D467F2F00F4CE03 /* HCSStarRatingView.m */,
+			);
+			name = StarRatingView;
+			sourceTree = "<group>";
+		};
+		843863011D5B33CE0040627B /* RadarView */ = {
+			isa = PBXGroup;
+			children = (
+				843F3B141D464E9600F4CE03 /* CCMRadarView.swift */,
+			);
+			name = RadarView;
+			sourceTree = "<group>";
+		};
+		843863081D5B7E410040627B /* TermsOfUseController */ = {
+			isa = PBXGroup;
+			children = (
+				843863051D5B7E1C0040627B /* MGTermsOfUseController.h */,
+				843863061D5B7E1C0040627B /* MGTermsOfUseController.m */,
+			);
+			name = TermsOfUseController;
+			sourceTree = "<group>";
+		};
+		843863091D5B7E550040627B /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				84318AA91D5360BD00E713CC /* MGTabBarController.h */,
+				84318AAA1D5360BD00E713CC /* MGTabBarController.m */,
+			);
+			name = TabBarController;
 			sourceTree = "<group>";
 		};
 		843F3AC11D46204E00F4CE03 = {
@@ -241,6 +321,7 @@
 		843F3AF31D462F3700F4CE03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84F5D36A1D5DE76E0066D870 /* MGRateUserView */,
 				84FB0D7A1D4A674900AF0C92 /* MessageCell */,
 				84FB0D791D4A673D00AF0C92 /* MGUserView */,
 				844F428E1D47C6FE00E80A2D /* MGUserCell */,
@@ -251,6 +332,7 @@
 		843F3AF41D462F3C00F4CE03 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				843863091D5B7E550040627B /* TabBarController */,
 				845174C21D509E0E0080D71C /* OptionsController */,
 				843F3B071D46402C00F4CE03 /* SignInController */,
 				843F3B0B1D46407800F4CE03 /* BlinkrController */,
@@ -259,8 +341,7 @@
 				84FB0D751D4A4D9600AF0C92 /* ChatController */,
 				843F3B4D1D4680CC00F4CE03 /* MyProfileViewController */,
 				844F42871D47B72C00E80A2D /* UserProfileViewController */,
-				84318AA91D5360BD00E713CC /* MGTabBarController.h */,
-				84318AAA1D5360BD00E713CC /* MGTabBarController.m */,
+				843863081D5B7E410040627B /* TermsOfUseController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -280,6 +361,7 @@
 		843F3AF61D462F7000F4CE03 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				84F550EE1D58DF2000A3DB11 /* front_page_1.png */,
 				844F42821D47B4E300E80A2D /* checkBoxOn.png */,
 				844F427F1D47B14D00E80A2D /* checkBoxOff.png */,
 				843F3ADC1D46204E00F4CE03 /* Assets.xcassets */,
@@ -327,6 +409,8 @@
 		843F3AFB1D462FD700F4CE03 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				843863021D5B54A10040627B /* NSString+EncodeString.h */,
+				843863031D5B54A10040627B /* NSString+EncodeString.m */,
 				843F3B471D467F5700F4CE03 /* UIView+Layer.h */,
 				843F3B481D467F5700F4CE03 /* UIView+Layer.m */,
 				843F3B411D467F4200F4CE03 /* NSDictionary+Accessors.h */,
@@ -369,11 +453,11 @@
 		843F3B121D464E7F00F4CE03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				843862FF1D5B33A70040627B /* FileManager */,
+				843863011D5B33CE0040627B /* RadarView */,
+				843863001D5B33B30040627B /* StarRatingView */,
 				845174CD1D50A8830080D71C /* UIAlertDialog */,
 				8444BD291D4F839F009BB3C4 /* ChannelUtil */,
-				843F3B3E1D467F2F00F4CE03 /* HCSStarRatingView.h */,
-				843F3B3F1D467F2F00F4CE03 /* HCSStarRatingView.m */,
-				843F3B141D464E9600F4CE03 /* CCMRadarView.swift */,
 				843F3B131D464E9500F4CE03 /* Blinkr-Bridging-Header.h */,
 			);
 			name = Utils;
@@ -422,10 +506,10 @@
 		8444BD341D4F9B98009BB3C4 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				8444BD351D4F9BA5009BB3C4 /* Chat+CoreDataProperties.h */,
-				8444BD361D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m */,
-				8444BD371D4F9BA5009BB3C4 /* Chat.h */,
-				8444BD381D4F9BA5009BB3C4 /* Chat.m */,
+				84F5D36B1D5E08D30066D870 /* Chat+CoreDataProperties.h */,
+				84F5D36C1D5E08D30066D870 /* Chat+CoreDataProperties.m */,
+				84F5D36D1D5E08D30066D870 /* Chat.h */,
+				84F5D36E1D5E08D30066D870 /* Chat.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -467,6 +551,16 @@
 			name = UIAlertDialog;
 			sourceTree = "<group>";
 		};
+		84F5D36A1D5DE76E0066D870 /* MGRateUserView */ = {
+			isa = PBXGroup;
+			children = (
+				8453A5151D5DBD0800D191C8 /* MGRateUserView.h */,
+				8453A5161D5DBD0800D191C8 /* MGRateUserView.m */,
+				8453A5181D5DBD2800D191C8 /* MGRateUserView.xib */,
+			);
+			name = MGRateUserView;
+			sourceTree = "<group>";
+		};
 		84FB0D751D4A4D9600AF0C92 /* ChatController */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +593,7 @@
 		84FB0D801D4BA87D00AF0C92 /* DB */ = {
 			isa = PBXGroup;
 			children = (
+				843862E91D5B0D7D0040627B /* Profile */,
 				84318AA21D534FD400E713CC /* Notification */,
 				8444BD341D4F9B98009BB3C4 /* Chat */,
 				8444BD331D4F9B87009BB3C4 /* Message */,
@@ -510,6 +605,7 @@
 		8E91DD9D96E80C97A708892C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8438C3B41D5CDC1400F7AB29 /* GLKit.framework */,
 				843F3B0C1D4641F900F4CE03 /* MapKit.framework */,
 				FA0F0953A0F71AA274C124D7 /* libPods-Blinkr.a */,
 			);
@@ -588,11 +684,13 @@
 			files = (
 				844F42831D47B4E300E80A2D /* checkBoxOn.png in Resources */,
 				84FB0D6E1D4A23C200AF0C92 /* GoogleService-Info.plist in Resources */,
+				8453A5191D5DBD2800D191C8 /* MGRateUserView.xib in Resources */,
 				844F42801D47B14D00E80A2D /* checkBoxOff.png in Resources */,
 				84FB0D7F1D4A679900AF0C92 /* MGMessageCell.xib in Resources */,
 				843F3AE01D46204E00F4CE03 /* LaunchScreen.storyboard in Resources */,
 				844F42901D47C72500E80A2D /* MGUserView.xib in Resources */,
 				843F3ADD1D46204E00F4CE03 /* Assets.xcassets in Resources */,
+				84F550EF1D58DF2000A3DB11 /* front_page_1.png in Resources */,
 				844F427B1D479E7300E80A2D /* MGUserCell.xib in Resources */,
 				843F3ADB1D46204E00F4CE03 /* Main.storyboard in Resources */,
 			);
@@ -671,17 +769,23 @@
 				8444BD2C1D4F8621009BB3C4 /* MGChannelUtil.m in Sources */,
 				844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */,
 				843F3AE91D46259200F4CE03 /* SignInController.m in Sources */,
-				8444BD391D4F9BA5009BB3C4 /* Chat+CoreDataProperties.m in Sources */,
+				843863071D5B7E1C0040627B /* MGTermsOfUseController.m in Sources */,
 				843F3B101D46491500F4CE03 /* MGSearchController.m in Sources */,
 				844F428A1D47C52900E80A2D /* MGMapAnnotation.m in Sources */,
+				843862FB1D5B2E220040627B /* Profile.m in Sources */,
+				843863041D5B54A10040627B /* NSString+EncodeString.m in Sources */,
 				843F3B401D467F2F00F4CE03 /* HCSStarRatingView.m in Sources */,
 				843F3B461D467F4F00F4CE03 /* NSData+Base64.m in Sources */,
-				8444BD3A1D4F9BA5009BB3C4 /* Chat.m in Sources */,
+				84F5D3701D5E08D30066D870 /* Chat.m in Sources */,
+				843862FE1D5B33A20040627B /* MGFileManager.m in Sources */,
 				84318AA71D5351B400E713CC /* Message+CoreDataProperties.m in Sources */,
+				8453A5171D5DBD0800D191C8 /* MGRateUserView.m in Sources */,
 				843F3B3D1D467F0600F4CE03 /* MGFetchUserInfo.m in Sources */,
+				843862FA1D5B2E220040627B /* Profile+CoreDataProperties.m in Sources */,
 				84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */,
 				844F428D1D47C6F900E80A2D /* MGUserView.m in Sources */,
 				845174CC1D50A87B0080D71C /* UIAlertDialog.m in Sources */,
+				84F5D36F1D5E08D30066D870 /* Chat+CoreDataProperties.m in Sources */,
 				844F427E1D47A3C500E80A2D /* MGUser.m in Sources */,
 				84FB0D831D4BA8CF00AF0C92 /* Blinkr.xcdatamodeld in Sources */,
 				844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */,

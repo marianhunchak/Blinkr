@@ -18,4 +18,6 @@
 @property (strong, nonatomic) NSString *chatImageURL;
 @property (strong, nonatomic) MGUser *receiverUser;
 
+- (void)deleteNotficationWhithChannel:(NSString *)pChannel;
+
 @end

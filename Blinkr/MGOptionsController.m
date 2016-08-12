@@ -12,6 +12,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "UIImageView+AFNetworking.h"
 #import <MessageUI/MessageUI.h>
+#import "Profile.h"
+#import "MGTermsOfUseController.h"
 
 @interface MGOptionsController () <MFMailComposeViewControllerDelegate>
 
@@ -84,17 +86,15 @@
 
 - (void)showEditProfileController {
     
-    MGEditMyProfileViewController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGEditMyProfileViewController"];
-    //    editMyProfileViewController.userInfo = _userInfo;
-    //    editMyProfileViewController.userImage = _profileImage.image;
+    MGEditMyProfileViewController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGEditMyProfileViewController"];;
     [self.navigationController pushViewController:editMyProfileViewController animated:YES];
     
 }
 
 - (void)showTermsOfUseController {
     
-//    MGEditMyProfileViewController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGEditMyProfileViewController"];
-//    [self.navigationController pushViewController:editMyProfileViewController animated:YES];
+    MGTermsOfUseController *termsOfUseVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MGTermsOfUseController"];
+    [self.navigationController pushViewController:termsOfUseVC animated:YES];
     
 }
 
@@ -106,7 +106,7 @@
         mail.mailComposeDelegate = self;
         [mail setSubject:@"Blinkr support"];
         [mail setMessageBody:@"" isHTML:NO];
-        [mail setToRecipients:@[@"arizemail@gmail.com"]];
+        [mail setToRecipients:@[@"support@blinkr.me"]];
         
         [self presentViewController:mail animated:YES completion:NULL];
     }
@@ -122,12 +122,27 @@
     
     [alerDialog addButtonWithTitle:@"YES" andHandler:^(NSInteger buttonIndex) {
         
-        [FBSDKAccessToken setCurrentAccessToken:nil];
-        FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
-        [loginManager logOut];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ACCESS_TOKEN_KEY];
-        [self.navigationController popToRootViewControllerAnimated:NO];
-        
+        [MGNetworkManager logOutWithCompletion:^(id object, NSError *error) {
+            
+            if (!error) {
+                
+                [FBSDKAccessToken setCurrentAccessToken:nil];
+                FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+                [loginManager logOut];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:ACCESS_TOKEN_KEY];
+                [self.navigationController popToRootViewControllerAnimated:NO];
+                [[Profile MR_findFirst] MR_deleteEntity];
+                [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+            } else {
+                
+                UIAlertDialog *alerDialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Error" andMessage:@"Something went wrong!"];
+                
+                [alerDialog addButtonWithTitle:@"Close" andHandler:nil];
+                
+                [alerDialog showInViewController:self];
+            }
+            
+        }];
     }];
     
     [alerDialog addButtonWithTitle:@"NO" andHandler:nil];

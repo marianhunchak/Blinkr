@@ -11,6 +11,7 @@
 #import "MGNetworkManager.h"
 #import "MGUserProfileViewController.h"
 #import "MGChatController.h"
+#import "NSString+EncodeString.h"
 
 @interface MGSearchController () <UISearchBarDelegate, MGUserCellDelegate>
 
@@ -36,8 +37,9 @@ static NSString *cellReuseIdentifier = @"userCell";
     _searchBar.searchBarStyle = UISearchBarStyleMinimal;
     _searchBar.placeholder = @"Search";
     
-    UINib *nib = [UINib nibWithNibName:@"MGUserCell" bundle:nil];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setDefaultTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    UINib *nib = [UINib nibWithNibName:@"MGUserCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:cellReuseIdentifier];
     self.tableView.tableFooterView = [UIView new];
     
@@ -143,7 +145,7 @@ static NSString *cellReuseIdentifier = @"userCell";
     
     __weak typeof(self) weakSelf = self;
     
-    [MGNetworkManager searchUsersWithString:searchString withCompletion:^(NSArray *array, NSError *error) {
+    [MGNetworkManager searchUsersWithString:[searchString encodeUrlString] withCompletion:^(NSArray *array, NSError *error) {
         
         if (array) {
             

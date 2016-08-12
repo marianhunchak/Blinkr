@@ -14,15 +14,22 @@
 #import "UIImageView+AFNetworking.h"
 #import "MGUserProfileViewController.h"
 #import "Message.h"
+#import "HCSStarRatingView.h"
+#import "MGRateUserView.h"
+#import "NSDictionary+Accessors.h"
 @import Firebase;
 
 @interface MGChatController ()
 
 @property (strong, nonatomic) NSMutableArray *messages;
+@property (strong, nonatomic) NSMutableArray *messagesKeys;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageView;
 @property (strong, nonatomic) JSQMessagesBubbleImage *incomingBubbleImageView;
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (strong, nonatomic) UIImageView *receiverImageView;
+@property (strong, nonatomic) HCSStarRatingView *ratingView;
+@property (strong, nonatomic) MGRateUserView *rateUserView;
+@property (strong, nonatomic) Chat *currentChat;
 
 @end
 
@@ -37,6 +44,7 @@
 //    self.showLoadEarlierMessagesHeader = YES;
     
     _messages = [NSMutableArray array];
+    _messagesKeys = [NSMutableArray array];
     
     self.senderId = [NSString stringWithFormat:@"%ld", [[NSUserDefaults standardUserDefaults] integerForKey:PROFILE_ID_KEY]];
     self.senderDisplayName = [[NSUserDefaults standardUserDefaults] stringForKey:PROFILE_NAME_KEY];
@@ -50,20 +58,58 @@
     self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
     self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
     self.inputToolbar.contentView.leftBarButtonItem = nil;
-    [self observeMessages];
     
+    _ratingView = [[HCSStarRatingView alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
+    
+    _ratingView.maximumValue = 5;
+    _ratingView.minimumValue = 0;
+    _ratingView.backgroundColor = [UIColor clearColor];
+    _ratingView.tintColor = [UIColor redColor];
+    _ratingView.allowsHalfStars = YES;
+    _ratingView.accurateHalfStars = YES;
+    _ratingView.userInteractionEnabled = NO;
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.userInteractionEnabled = YES;
+    
+    [button setFrame:CGRectMake(0, 0, 120, 30)];
+    [button addTarget:self
+               action:@selector(ratingBtnPressed)
+     forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = button;
+    _ratingView.frame = button.frame;
+    [button  addSubview:_ratingView];
+
     [self setEditing:YES];
     
-    [JSQMessagesCollectionViewCell registerMenuAction:@selector(deleteMessage:)];
+    [JSQMessagesCollectionViewCell registerMenuAction:@selector(deleteMessage:withKey:)];
     [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:@"Unsend"
-                                                                                      action:@selector(deleteMessage:)] ];
+                                                                                      action:@selector(deleteMessage:withKey:)] ];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived) name:@"notification_received" object:nil];
 
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.title = self.chatName ? self.chatName : self.receiverUser.name;
+//    self.title = self.chatName ? self.chatName : self.receiverUser.name;
+    
+    _currentChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
+    
+    if (!_currentChat) {
+        _currentChat = [Chat MR_createEntity];
+    }
+    
+    _currentChat.channel = _channel;
+    _currentChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);
+
+    if (_receiverUser) {
+        _currentChat.chatName = _receiverUser.name;
+        _currentChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
+    }
+    
+    _ratingView.value = _currentChat.receiverRate.floatValue;
+    
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -97,20 +143,12 @@
                                            
                                        }];
     
-    NSArray *messagesArray = [Message MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
-    
-    for (Message *lMessage in messagesArray) {
-        
-        [self addMessageWithSenderID:lMessage.senderId text:lMessage.text senderName:lMessage.author dateString:lMessage.date];
-    }
-    
-    [self.collectionView reloadData];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
+    [self observeMessages];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -131,6 +169,30 @@
     MGUserProfileViewController *vc = VIEW_CONTROLLER(@"MGUserProfileViewController");
     vc.userId = _receiverId ? _receiverId : _receiverUser.id_;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)ratingBtnPressed {
+    
+    _rateUserView = [MGRateUserView loadRateUserView];
+    
+    _rateUserView.starRatingView.value = [_currentChat.receiverRate floatValue];
+    
+    UIAlertView *alert;
+    
+    if (_rateUserView.starRatingView.value != 0) {
+        
+        NSString *title = [NSString stringWithFormat:@"You have already rated %@", self.chatName ? self.chatName : self.receiverUser.name];
+        alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
+        
+    } else {
+        
+        NSString *title = [NSString stringWithFormat:@"Please rate %@", self.chatName ? self.chatName : self.receiverUser.name];
+        alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rate", nil];
+        [alert setValue:_rateUserView forKey:@"accessoryView"];
+    }
+    
+    alert.delegate = self;
+    [alert show];
 }
 
 #pragma mark - Private methods
@@ -157,50 +219,71 @@
 }
 
 - (void) observeMessages {
-    // 1
     
     FIRDatabaseReference *chatRef = [_ref child:_channel];
-    FIRDatabaseQuery *messagesQuery = [chatRef queryLimitedToLast:25];
+    FIRDatabaseQuery *messagesQuery = [[chatRef queryLimitedToLast:25] queryOrderedByKey];
     
-    [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [messagesQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"pathKey == %@ AND date == %@", snapshot.key, snapshot.value[@"date"]]];
+        self.messagesKeys = [NSMutableArray array];
+        self.messages = [NSMutableArray array];
         
-        if (lMessage == nil) {
+        NSDictionary *snapshotDict = snapshot.value;
+        
+        if (![snapshotDict isKindOfClass:[NSNull class]]) {
             
-            [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"] senderName:snapshot.value[@"author"] dateString:snapshot.value[@"date"]];
-            [self finishReceivingMessage];
+            NSSortDescriptor *sortDesc = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
             
-            Message *lMessage = [Message MR_createEntity];
+            NSArray *dictionaryKeys = [[snapshotDict allKeys] sortedArrayUsingDescriptors:@[sortDesc]];
             
-            lMessage.pathKey = snapshot.key;
-            lMessage.channel = _channel;
-            lMessage.senderId = snapshot.value[@"senderId"];
-            lMessage.text = snapshot.value[@"message"];
-            lMessage.author = snapshot.value[@"author"];
-            lMessage.date = snapshot.value[@"date"];
-            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-            
+            for (NSString *key  in dictionaryKeys) {
+                
+                [self.messagesKeys addObject:key];
+                
+                NSDictionary *messageDict = [snapshotDict objectForKey:key];
+                
+                [self addMessageWithSenderID:messageDict[@"senderId"] text:messageDict[@"message"] senderName:messageDict[@"author"] dateString:messageDict[@"date"]];
+                
+                [self finishReceivingMessage];
+            }
+
         }
         
-        [self deleteNotficationWhithChannel:_channel date:snapshot.value[@"date"]];
-
+        [self deleteNotficationWhithChannel:_channel];
     }];
 }
 
-- (void)deleteNotficationWhithChannel:(NSString *)pChannel date:(NSString *)pDate {
+- (void) observeDeletingMessages {
+    
+    FIRDatabaseReference *chatRef = [_ref child:_channel];
+    FIRDatabaseQuery *messagesQuery = [[chatRef queryLimitedToLast:25] queryOrderedByKey];
+    
+    [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        [self addMessageWithSenderID:snapshot.value[@"senderId"] text:snapshot.value[@"message"] senderName:snapshot.value[@"author"] dateString:snapshot.value[@"date"]];
+        [self.messagesKeys addObject:snapshot.key];
+        [self finishReceivingMessage];
+        
+        [self deleteNotficationWhithChannel:_channel];
+        
+    }];
+}
+
+- (void)deleteNotficationWhithChannel:(NSString *)pChannel {
     
     if (self.isViewLoaded && self.view.window != nil && [UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         
-        Notification *lNotification = [Notification MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@ AND dateString = %@", pChannel, pDate]];
+        NSArray *lNotificationsArray = [Notification MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"channel = %@", pChannel]];
         
-        if (lNotification) {
+        for (Notification *lNotification in lNotificationsArray) {
+            
             [MGNetworkManager deleteNotificationWithID:lNotification.id_.integerValue withCompletion:^(id object, NSError *error) {
                 
-                if (error==nil) {
+                NSHTTPURLResponse  *response = [error.userInfo objectForKey:@"com.alamofire.serialization.response.error.response"];
+                
+                if ([response statusCode] != 0 || !error) {
                     
                     [lNotification MR_deleteEntity];
-                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
                     
                     NSInteger badgesCount = [[[self.tabBarController.tabBar.items objectAtIndex:2] badgeValue] integerValue];
                     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: --badgesCount];
@@ -212,6 +295,13 @@
         }
     }
     
+}
+
+#pragma mark - Notifications
+
+- (void) notificationReceived {
+    
+    [self deleteNotficationWhithChannel:_channel];
 }
 
 #pragma mark - JSQMessagesCollectionViewDataSource
@@ -304,7 +394,7 @@
     
     if ([lMessage.senderId isEqualToString:self.senderId]) {
         
-        return action == @selector(copy:) || action == @selector(deleteMessage:);
+        return action == @selector(copy:) || action == @selector(deleteMessage:withKey:);
         
     } else {
         
@@ -314,11 +404,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
-    if (action == @selector(deleteMessage:)) {
+    if (action == @selector(deleteMessage:withKey:)) {
         
         JSQMessage *lMessage = _messages[indexPath.item];
-        
-        [self deleteMessage:lMessage];
+        NSString *messageKey = _messagesKeys[indexPath.item];
+
+        [self deleteMessage:lMessage withKey:messageKey];
     }
     
     [super collectionView:collectionView performAction:action forItemAtIndexPath:indexPath withSender:sender];
@@ -326,46 +417,29 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     
-    if (action == @selector(deleteMessage:)) {
+    if (action == @selector(deleteMessage:withKey:)) {
         return NO;
     }
     
     return [super canPerformAction:action withSender:sender];
 }
 
-- (void)deleteMessage:(JSQMessage *)pMessage {
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    
-    Message *lMessage = [Message MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@ AND date == %@ ", _channel,[dateFormatter stringFromDate:pMessage.date]]];
-    
-    if (lMessage) {
+- (void)deleteMessage:(JSQMessage *)pMessage withKey:(NSString *) pMessageKey {
         
-        
-        [self.messages removeObject:pMessage];
-        [lMessage MR_deleteEntity];
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-        [self.collectionView reloadData];
-//        FIRDatabaseReference *messageRef = [[_ref child:_channel] child:lMessage.pathKey];
-        
-        
-//        [messageRef removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-//            
-//            if (!error) {
-//                
-//            }
-//            else {
-//
-//            }
-//            
-//        }];
-    }
-    
-    
-   
+        FIRDatabaseReference *messageRef = [[_ref child:_channel] child:pMessageKey];
+
+        [messageRef removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+            
+            if (!error) {
+//                [self.messages removeObject:pMessage];
+//                [self.messagesKeys removeObject:pMessageKey];
+//                [self.collectionView reloadData];
+            }
+            else {
+
+            }
+            
+        }];
 }
 
 #pragma mark - JSQMessages collection view flow layout delegate
@@ -457,21 +531,37 @@
     [MGNetworkManager sendMessangerNotificationWihtParams:params withCompletion:^(id object, NSError *error) {
  
     }];
-    
-    Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
-    
-    if (!lChat) {
-        
-        lChat = [Chat MR_createEntity];\
-        lChat.channel = _channel;
-        lChat.chatName = _receiverUser.name;
-        lChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);
-        lChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
-    }
-    
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-    
-    
+
+    _currentChat.channel = _channel;
+    _currentChat.chatName = _receiverUser.name;
+    _currentChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);
+    _currentChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
+    _currentChat.lastMessageDate = [dateFormatter stringFromDate:date];
+
 }
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    if (buttonIndex == 1) {
+        
+        __weak typeof(self) weakSelf = self;
+        
+        NSDictionary *params = @{
+                                 @"rating": @(_rateUserView.starRatingView.value),
+                                 @"user_id": _receiverId ? @(_receiverId) : @(_receiverUser.id_)
+                                 };
+        
+        [MGNetworkManager rateUserWithParams:params completion:^(id object, NSError *error) {
+            
+            if (!error) {
+                weakSelf.currentChat.receiverRate = @(_rateUserView.starRatingView.value);
+                weakSelf.ratingView.value = _rateUserView.starRatingView.value;
+            }
+        }];
+    }
+}
+
 
 @end

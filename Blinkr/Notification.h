@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Notification : NSManagedObject
 
 + (void)initWithNotificationDict:(NSDictionary *)dict;
-+ (void)initWithRecievedNotification:(NSDictionary *)dict;
++ (Notification *)initWithRecievedNotification:(NSDictionary *)dict;
 
 @end
 

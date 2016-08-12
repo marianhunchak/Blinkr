@@ -12,6 +12,9 @@
 #import "MGFetchUserInfo.h"
 #import "SAMHUDView.h"
 #import "NSData+Base64.h"
+#import "Profile.h"
+#import "UIImageView+AFNetworking.h"
+#import "MGFileManager.h"
 
 @interface MGEditMyProfileViewController () <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate, UITextViewDelegate, UITextFieldDelegate>
 
@@ -89,18 +92,41 @@
 
 - (void) setProperty {
     
-    self.emailTextField.text = _userInfo.email;
-    self.nameTextField.text = _userInfo.name;
-    self.phoneNumberTextField.text = _userInfo.phoneNumber;
-    self.facebookLinkTextField.text = _userInfo.facebookLink;
-    self.profileImage.image = _userImage;
-    self.teslaModelTextField.text = _userInfo.teslaModel;
-    self.licensePlateTextField.text = _userInfo.licensePlate;
-    self.bioTextView.text = _userInfo.bio;
-    _showEmailSwitch.on = _userInfo.showEmail;
-    _showPhoneSwitch.on = _userInfo.showPhoneNumber;
-    _showLicensePlateSwitch.on = _userInfo.showLicensePlate;
-    _showFacebookUrlSwitch.on = _userInfo.showFacebookLink;
+    Profile *lProfile = [Profile MR_findFirst];
+    
+    self.emailTextField.text = lProfile.email;
+    self.nameTextField.text = lProfile.name;
+    self.phoneNumberTextField.text = lProfile.phone_number;
+    self.facebookLinkTextField.text = lProfile.facebook_link;
+    self.teslaModelTextField.text = lProfile.car_model;
+    self.licensePlateTextField.text = lProfile.license_plate;
+    self.bioTextView.text = lProfile.bio;
+    _showEmailSwitch.on = [lProfile.show_email boolValue];
+    _showPhoneSwitch.on = [lProfile.show_phone_number boolValue];
+    _showLicensePlateSwitch.on = [lProfile.show_license_plate boolValue];
+    _showFacebookUrlSwitch.on = [lProfile.show_facebook_link boolValue];
+    
+    if ([lProfile.pictureURL hasPrefix:@"http"]) {
+        
+        __weak typeof(self) weakSelf = self;
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:lProfile.pictureURL]];
+        
+        [self.profileImage setImageWithURLRequest:request placeholderImage:nil
+         
+                                          success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+                                              
+                                              weakSelf.profileImage.image = image;
+                                              lProfile.pictureURL = [MGFileManager writeProfileImageToDocuments:image];
+                                              
+                                          } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+                                              
+                                          }];
+        
+    } else {
+        
+        self.profileImage.image = [MGFileManager getProfileImageFromDocuments];
+    }
     [_bioTextView scrollRangeToVisible:NSMakeRange(0, 0)];
  
 }
@@ -219,11 +245,10 @@
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:json];
     
-    if (_profileImage.image != nil && ![_profileImage.image isEqual:_userImage]) {
+    if (_profileImage.image != nil && ![_profileImage.image isEqual:[MGFileManager getProfileImageFromDocuments]]) {
         NSData *imageData = UIImageJPEGRepresentation(_profileImage.image, 0.5);
         NSString *imageDataEncodedeString = [imageData base64EncodedString];
-        
-        
+
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"HH:mm:ss"];
         
@@ -244,6 +269,8 @@
         if (object) {
             
             [hd completeAndDismissWithTitle:@"Saved"];
+            [MGFileManager writeProfileImageToDocuments:self.profileImage.image];
+            [Profile updateProfileWithDict:params];
             [[NSNotificationCenter defaultCenter] postNotificationName:PROFILE_UPDATED_KEY object:nil];
             [self.navigationController popViewControllerAnimated:YES];
             

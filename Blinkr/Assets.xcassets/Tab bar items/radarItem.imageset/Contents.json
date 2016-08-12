@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "radar.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "radar (3).png",
+      "filename" : "radar 65.png",
       "scale" : "2x"
     },
     {

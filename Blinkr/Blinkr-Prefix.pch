@@ -19,6 +19,7 @@
 #import <MagicalRecord/MagicalRecord+ShorthandMethods.h>
 #import "UIAlertDialog.h"
 #import "Notification.h"
+#import "HCSStarRatingView.h"
 
 #define ACCESS_TOKEN_KEY @"access_token_key"
 #define FIREBASE_TOKEN_KEY @"firebase_token_key"

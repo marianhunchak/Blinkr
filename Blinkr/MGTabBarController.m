@@ -7,6 +7,7 @@
 //
 
 #import "MGTabBarController.h"
+#import "MGMessagesController.h"
 
 @interface MGTabBarController ()
 
@@ -18,6 +19,7 @@
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived) name:@"notification_received" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tappedOnNotification:) name:@"tapped_on_notification" object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -49,6 +51,18 @@
     
 }
 
+- (void) tappedOnNotification:(NSNotification *) notification {
+    
+    Notification *lNotification = [notification object];
+    
+    [self.delegate tabBarController:self shouldSelectViewController:[[self viewControllers] objectAtIndex:2]];
+    [self setSelectedIndex:2];
+    
+    MGMessagesController *vc = [[self viewControllers] objectAtIndex:2];
+    [vc openChatWithNotification:lNotification];
+    
+}
+
 - (void) setBadgeValueForTabBarItem {
     
     NSArray *lNotificationsArray = [Notification MR_findAll];
@@ -56,5 +70,10 @@
     [[self.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
 }
 
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    return YES;
+}
 
 @end

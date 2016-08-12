@@ -35,17 +35,12 @@ static NSString *cellIdentifier = @"messageCell";
     self.tableView.estimatedRowHeight = 100.f;
     self.tableView.tableFooterView = [UIView new];
     
-//        [Notification MR_truncateAll];
-//        [Chat MR_truncateAll];
-//    
-//        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-//    
-//    [MGNetworkManager deleteNotificationWithID:185 withCompletion:^(id object, NSError *error) {
-//        
-//        if (error==nil) {
-//            
-//        }
-//    }];
+    [MGNetworkManager getAllNotificationsWithCompletion:^(NSArray *array, NSError *error) {
+        if (array) {
+            
+            [self saveContext];
+        }
+    }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived) name:@"notification_received" object:nil];
 
@@ -59,36 +54,7 @@ static NSString *cellIdentifier = @"messageCell";
     self.tabBarController.navigationItem.title = @"Messages";
     
     self.chatsArray = [Chat MR_findAll];
-    
-    [MGNetworkManager getAllNotificationsWithCompletion:^(NSArray *array, NSError *error) {
-        if (array) {
-            
-            NSArray *messagesArray = [Notification MR_findAll];
-            
-            for (Notification *lNotification in messagesArray) {
-                
-                Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", lNotification.channel]];
-                
-                if (!lChat) {
-                    
-                    lChat = [Chat MR_createEntity];
-                    lChat.channel = lNotification.channel;
-                    lChat.chatName = lNotification.senderName;
-                    lChat.receiverId = lNotification.sender_id;
-                    lChat.chatImageURL = lNotification.senderPictureURL;
-                }
-            }
-            
-            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-            self.chatsArray = [Chat MR_findAll];
-            [self.tableView reloadData];
-            
-            NSString *badgeValue = [messagesArray count] > 0 ? [NSString stringWithFormat:@"%ld", [messagesArray count]] : nil;
-            [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
-        }
-    }];
-    
-    
+    [self saveContext];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -101,13 +67,43 @@ static NSString *cellIdentifier = @"messageCell";
 
 - (void) notificationReceived {
     
-    [self viewWillAppear:NO];
+    [self saveContext];
+}
+
+- (void) tappedOnNotification {
+    
+    MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
+    self.tabBarController.navigationItem.title = @"";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Private methods
 
 - (void)saveContext {
     
+    NSArray *messagesArray = [Notification MR_findAll];
+    
+    for (Notification *lNotification in messagesArray) {
+        
+        Chat *lChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", lNotification.channel]];
+        
+        if (!lChat) {
+            lChat = [Chat MR_createEntity];
+        }
+        
+        lChat.channel = lNotification.channel;
+        lChat.chatName = lNotification.senderName;
+        lChat.receiverId = lNotification.sender_id;
+        lChat.chatImageURL = lNotification.senderPictureURL;
+        lChat.lastMessageDate = lNotification.dateString;
+    }
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    self.chatsArray = [Chat MR_findAllSortedBy:@"lastMessageDate" ascending:NO];
+    [self.tableView reloadData];
+    
+    NSString *badgeValue = [messagesArray count] > 0 ? [NSString stringWithFormat:@"%ld", [messagesArray count]] : nil;
+    [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
     
 }
 
@@ -157,6 +153,20 @@ static NSString *cellIdentifier = @"messageCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return UITableViewAutomaticDimension;
+}
+
+- (void)openChatWithNotification:(Notification *)notification {
+    
+    MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
+    vc.channel = notification.channel;
+    vc.receiverId = [notification.sender_id integerValue];
+    vc.chatName = notification.senderName;
+    vc.chatImageURL = notification.senderPictureURL;
+    self.tabBarController.navigationItem.title = @"";
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    
+    [vc deleteNotficationWhithChannel:notification.channel];
 }
 
 

@@ -11,6 +11,9 @@
 #import <MagicalRecord/MagicalRecord.h>
 #import <MagicalRecord/MagicalRecord+ShorthandMethods.h>
 #import "NSDictionary+Accessors.h"
+#import "SignInController.h"
+#import "MGTabBarController.h"
+#import "MGMessagesController.h"
 
 @import Firebase;
 @import FirebaseInstanceID;
@@ -54,6 +57,36 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshNotification:)
                                                  name:kFIRInstanceIDTokenRefreshNotification object:nil];
     
+    if (launchOptions != nil) {
+        // Launched from push notification
+        NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+
+        Notification *lNotification = [Notification initWithRecievedNotification:notification];
+        
+        self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.window.backgroundColor = [UIColor whiteColor];
+        // Create a nav/vc pair using the custom ViewController class
+        
+        UINavigationController *navigationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"navigationController"];
+//        navigationVC.navigationBar.tintColor = UIColor.whiteColor()
+        SignInController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SignInController"];
+        
+        // Push the vc onto the nav
+        [navigationVC setViewControllers:@[vc] animated:NO];
+        // Set the window’s root view controller
+        self.window.rootViewController = navigationVC;
+        
+        MGTabBarController *tabBar = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"MGTabBarController"];
+        
+        [navigationVC pushViewController:tabBar animated:NO];
+        
+        // Present the window
+        [self.window makeKeyAndVisible];
+        
+        [tabBar.delegate tabBarController:tabBar shouldSelectViewController:[[tabBar viewControllers] objectAtIndex:2]];
+        [tabBar setSelectedIndex:2];
+    }
+    
     
     return YES;
 }
@@ -62,24 +95,41 @@
 // [START receive_message]
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    // If you are receiving a notification message while your app is in the background,
-    // this callback will not be fired till the user taps on the notification launching the application.
-    // TODO: Handle data of notification
+    
+    Notification *lNotification = [Notification initWithRecievedNotification:userInfo];
     
     // Print message ID.
-    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
     
-    [Notification initWithRecievedNotification:userInfo];
+    if (application.applicationState == UIApplicationStateInactive) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"tapped_on_notification" object:lNotification];
+    }
+    
+    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
+
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [userInfo[@"aps"] integerForKey:@"badge"]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"notification_received" object:nil];
     
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [userInfo[@"aps"] integerForKey:@"badge"]];
-    // Pring full message.
     NSLog(@"%@", userInfo);
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
 // [END receive_message]
+
+// With "FirebaseAppDelegateProxyEnabled": NO
+//- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//    
+//    [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:FIRInstanceIDAPNSTokenTypeSandbox];
+//    
+//    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+//    
+//    if (refreshedToken != nil ) {
+//        
+//        [[NSUserDefaults standardUserDefaults] setObject:refreshedToken forKey:FIREBASE_TOKEN_KEY];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }
+//
+//}
 
 // [START refresh_token]
 - (void)tokenRefreshNotification:(NSNotification *)notification {
@@ -94,6 +144,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [MGNetworkManager refreshFirebaseToken:refreshedToken withCompletion:^(id object, NSError *error) {
+            
         }];
         
     }
@@ -137,8 +188,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     [[FIRMessaging messaging] disconnect];
     NSLog(@"Disconnected from FCM");
@@ -156,7 +207,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 @end

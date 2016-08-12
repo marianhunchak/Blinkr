@@ -12,7 +12,6 @@
 
 
 + (NSString *) storyboardID;
-- (void) fetchUserProfile;
 
 
 @end

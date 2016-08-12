@@ -10,6 +10,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SAMHUDView.h"
+#import "Profile.h"
+#import "MGTermsOfUseController.h"
 @import FirebaseAuth;
 @import Firebase;
 
@@ -92,7 +94,7 @@
 
 - (void)  loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
     
-    if(error == nil) {
+    if (error == nil && result.token) {
         
         
         NSString *facebookToken = [[FBSDKAccessToken currentAccessToken] tokenString];
@@ -104,7 +106,7 @@
                                          credentialWithAccessToken:facebookToken];
         
         
-        SAMHUDView *hd = [[SAMHUDView alloc] initWithTitle:@"Authorization..." loading:YES];
+        SAMHUDView *hd = [[SAMHUDView alloc] initWithTitle:@"" loading:YES];
         [hd show];
         
         [[FIRAuth auth] signInWithCredential:credential
@@ -113,6 +115,9 @@
                                           NSLog(@"Login failed. %@", error);
                                           
                                           [hd failAndDismissWithTitle:[error localizedDescription]];
+                                          [FBSDKAccessToken setCurrentAccessToken:nil];
+                                          FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+                                          [loginManager logOut];
                                           
                                       } else {
                                           
@@ -126,11 +131,15 @@
                                               
                                               if (object) {
                                                   
-                                                  [hd completeAndDismissWithTitle:@"Authorized"];
+                                                  [Profile initWithDict:object];
+                                                  [hd completeAndDismissWithTitle:@""];
                                                   [self pushController];
                                                   
                                               } else {
                                                   
+                                                  [FBSDKAccessToken setCurrentAccessToken:nil];
+                                                  FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+                                                  [loginManager logOut];
                                                   [hd failAndDismissWithTitle:[error localizedDescription]];
                                               }
                                               
@@ -169,9 +178,10 @@
 
 - (IBAction)termsOfUseBtnPressed:(id)sender {
     
-//    MGTermsOfUseController *termsOfUseVC = VIEW_CONTROLLER(@"MGTermsOfUseController");
-//    
+    MGTermsOfUseController *termsOfUseVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MGTermsOfUseController"];
+    
 //    [self.navigationController presentViewController:termsOfUseVC animated:YES completion:nil];
+    [self.navigationController pushViewController:termsOfUseVC animated:YES];
 }
 
 

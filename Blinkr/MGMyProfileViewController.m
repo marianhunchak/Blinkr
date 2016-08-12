@@ -13,6 +13,8 @@
 #import "UIView+Layer.h"
 #import "MGOptionsController.h"
 #import "UIImageView+AFNetworking.h"
+#import "Profile.h"
+#import "MGFileManager.h"
 
 @interface MGMyProfileViewController ()
 
@@ -40,7 +42,7 @@
     [super viewDidLoad];
     
     
-    [self fetchUserProfile];
+    [self configureUserInterface];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(profileUpdatedHandling:) name:PROFILE_UPDATED_KEY object:nil];
     
@@ -104,58 +106,52 @@
 
 #pragma mark - self API
 
-- (void) fetchUserProfile {
+- (void)configureUserInterface {
     
-    NSString *facebookToken = [[NSUserDefaults standardUserDefaults] stringForKey:FACEBOOK_TOKEN_KEY];
-
-    [MGNetworkManager loginWithFacebookToken:facebookToken firebaseToken:@"" withCompletion:^(id object, NSError *error) {
-        
-        if (object) {
-            [self setLabelTextWithDict:object];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-        
-    }];
+    Profile *lProfile = [Profile MR_findFirst];
     
-}
+    self.emailLabel.text = ![lProfile.email isEqualToString:@""] ? lProfile.email : @"Email";
 
-- (void) setLabelTextWithDict:(NSDictionary *)dcit {
+    self.firstNameLabel.text = ![lProfile.name isEqualToString:@""] ? lProfile.name : @"Name";
+
+    self.bioLabel.text = ![lProfile.bio isEqualToString:@""] ? lProfile.bio : @"Bio";
+
+    self.phoneNumberLabel.text = ![lProfile.phone_number isEqualToString:@""] ? lProfile.phone_number : @"Phone number";
+
+    self.modelTeslaLabel.text = ![lProfile.car_model isEqualToString:@""] ? lProfile.car_model : @"Car model";
+
+    self.licansePlateLabel.text = ![lProfile.license_plate isEqualToString:@""] ? lProfile.license_plate : @"License plate";
+
+    self.facebookLinkLabel.text = ![lProfile.facebook_link isEqualToString:@""] ? lProfile.facebook_link : @"Facebook link";
     
-    _userInfo = [[MGFetchUserInfo alloc] initWithServerRespons:dcit];
-    
-    self.emailLabel.text = _userInfo.email ? _userInfo.email : @"Email";
-
-    self.firstNameLabel.text = _userInfo.name ? _userInfo.name : @"Name";
-
-    self.bioLabel.text = _userInfo.bio ? _userInfo.bio : @"Bio";
-
-    self.phoneNumberLabel.text = _userInfo.phoneNumber ? _userInfo.phoneNumber : @"Phone number";
-
-    self.modelTeslaLabel.text = _userInfo.teslaModel ? _userInfo.teslaModel : @"Car model";
-
-    self.licansePlateLabel.text = _userInfo.licensePlate ? _userInfo.licensePlate : @"License plate";
-
-    self.facebookLinkLabel.text = _userInfo.facebookLink ? _userInfo.facebookLink : @"Facebook link";
-    
-    self.ratingView.value = _userInfo.rate;
+    self.ratingView.value = [lProfile.rate floatValue];
     
     [self.tableView reloadData];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:_userInfo.imageURL];
     
-    __weak typeof(self) weakSelf = self;
+    if ([lProfile.pictureURL hasPrefix:@"http"]) {
+        
+        __weak typeof(self) weakSelf = self;
+        
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:lProfile.pictureURL]];
+        
+        [self.profileImage setImageWithURLRequest:request placeholderImage:nil
     
-    [weakSelf.profileImage setImageWithURLRequest:request
-                                     placeholderImage:nil
-                                              success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-
-                                                  weakSelf.profileImage.image = image;
-                                                  
-                                              }
-                                              failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-                                                  NSLog(@"%@",error.localizedDescription);
-                                              } ];
+        success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+            
+            weakSelf.profileImage.image = image;
+            lProfile.pictureURL = [MGFileManager writeProfileImageToDocuments:image];
+            
+        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+            
+        }];
+        
+    } else {
+        
+        self.profileImage.image = [MGFileManager getProfileImageFromDocuments];
+    }
+    
+    
 
 }
 
@@ -164,8 +160,6 @@
 - (void)showOptionsController:(UIBarButtonItem *) sender {
     
     MGOptionsController *editMyProfileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MGOptionsController"];
-//    editMyProfileViewController.userInfo = _userInfo;
-//    editMyProfileViewController.userImage = _profileImage.image;
     [self.navigationController pushViewController:editMyProfileViewController animated:YES];
 }
 
@@ -173,7 +167,7 @@
 
 - (void) profileUpdatedHandling:(NSNotification *) notification {
     
-    [self fetchUserProfile];
+    [self configureUserInterface];
 }
 
 

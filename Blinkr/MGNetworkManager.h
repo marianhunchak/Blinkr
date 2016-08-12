@@ -15,6 +15,8 @@
                  firebaseToken:(NSString *)firebaseToken
                 withCompletion:(ObjectCompletionBlock)completionBlock;
 
++ (void)logOutWithCompletion:(ObjectCompletionBlock)completionBlock;
+
 + (void)updateMyProfileWithID:(NSInteger)userID
                    parameters:(NSDictionary *)params
                withCompletion:(ObjectCompletionBlock)completionBlock;
@@ -22,7 +24,9 @@
 + (void)searchUsersWithString:(NSString *) searchString
                 withCompletion:(ArrayCompletionBlock)completionBlock;
 
-+ (void) getUserWithID:(NSInteger)userId withCompletion:(ObjectCompletionBlock)completionBlock;
++ (void)getUserWithID:(NSInteger)userId withCompletion:(ObjectCompletionBlock)completionBlock;
+
++ (void)rateUserWithParams:(NSDictionary *)params completion:(ObjectCompletionBlock)completionBlock;
 
 + (void)updateCurrentUserLocationWithLatitude:(double)latitude
                                     longitude:(double)longitude
@@ -38,7 +42,7 @@
 + (void)refreshFirebaseToken:(NSString *) firebaseToken
               withCompletion:(ObjectCompletionBlock)completionBlock;
 
-+ (void)deleteNotificationWithID:(NSInteger) notificationID
-                  withCompletion:(ObjectCompletionBlock)completionBlock;
++ (NSURLSessionDataTask *)deleteNotificationWithID:(NSInteger) notificationID
+                                    withCompletion:(ObjectCompletionBlock)completionBlock;
 
 @end

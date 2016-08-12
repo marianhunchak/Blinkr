@@ -69,6 +69,25 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     
 }
 
++ (void)logOutWithCompletion:(ObjectCompletionBlock)completionBlock {
+
+    [[MGNetworkManager manager] POST:@"logout" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (completionBlock) {
+            completionBlock(responseObject, nil);
+            NSLog(@"Response object - %@", responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        completionBlock(nil, error);
+
+        NSLog(@"Error - %@", [error localizedDescription]);
+        
+    }];
+    
+}
+
 #pragma mark - MyProfile
 
 + (void)updateMyProfileWithID:(NSInteger)userID
@@ -140,25 +159,41 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     
 }
 
++ (void)rateUserWithParams:(NSDictionary *)params completion:(ObjectCompletionBlock)completionBlock {
+    
+    [[MGNetworkManager manager] POST:@"rate_user" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (completionBlock) {
+            completionBlock(responseObject, nil);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        completionBlock(nil, error);
+
+    }];
+    
+}
+
 #pragma mark - Radar
 
 + (void)updateCurrentUserLocationWithLatitude:(double)latitude
                                     longitude:(double)longitude
                                withCompletion:(ObjectCompletionBlock)completionBlock {
     
-    NSDictionary *params = @{@"latitude": @(latitude),
-                             @"longitude": @(longitude)};
+    NSDictionary *params = @{@"latitude": [NSNumber numberWithFloat:latitude],
+                             @"longitude": [NSNumber numberWithFloat:longitude]};
     
     [[MGNetworkManager manager] POST:@"update_location" parameters:params progress:nil
      
     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
-            NSLog(@"Response object - %@", responseObject);
+        NSLog(@"Update location response - %@", responseObject);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         
-        NSLog(@"Error - %@", [error localizedDescription]);
+        NSLog(@"Update location error - %@", [error localizedDescription]);
         
     }];
     
@@ -175,13 +210,6 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
         if (completionBlock) {
             
             NSLog(@"Response object - %@", responseObject);
-            
-//            NSMutableArray *responseArray = [NSMutableArray array];
-//            
-//            for (NSDictionary *lUserDict in responseObject) {
-//                
-//                [responseArray addObject:[MGUser initWithDict:lUserDict]];
-//            }
             
             completionBlock(responseObject, nil);
         }
@@ -262,12 +290,12 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     
 }
 
-+ (void)deleteNotificationWithID:(NSInteger) notificationID
++ (NSURLSessionDataTask *)deleteNotificationWithID:(NSInteger) notificationID
                   withCompletion:(ObjectCompletionBlock)completionBlock {
     
     NSString *requestString = [NSString stringWithFormat:@"notifications/%ld", notificationID];
     
-    [[MGNetworkManager manager] DELETE:requestString parameters:nil
+    return [[MGNetworkManager manager] DELETE:requestString parameters:nil
      
     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

@@ -11,4 +11,6 @@
 
 @interface MGMessagesController : UIViewController
 
+- (void)openChatWithNotification:(Notification *)notification;
+
 @end
