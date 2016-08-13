@@ -104,7 +104,7 @@
     _teslaModelLabel.text = user.teslaModel == nil ? @"Car model" : user.teslaModel;
     _licensePlateLabel.text = user.licensePlate;
     _facebookLinkTextView.text = user.facebookLink;
-    _bioTextView.text = user.bio == nil ? @"User bio" : user.bio;
+    _bioTextView.text = user.bio == nil ? @"Bio" : user.bio;
     
     NSURLRequest *request = [NSURLRequest requestWithURL:user.imageURL];
     

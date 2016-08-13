@@ -207,7 +207,10 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    
+    [MGNetworkManager clearCurrenUserLocation];
 }
 
 @end

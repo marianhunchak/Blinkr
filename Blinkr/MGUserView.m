@@ -10,7 +10,6 @@
 #import "UIImageView+AFNetworking.h"
 
 @interface MGUserView ()
-@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 
 @end
 
@@ -26,6 +25,8 @@
     newUserView.layer.borderColor = [newUserView randomColor].CGColor;
     newUserView.layer.masksToBounds = YES;
     
+    
+    
     return newUserView;
 }
 
@@ -37,7 +38,10 @@
     
     NSURL *imageURL = [NSURL URLWithString:imageURLString];
     
-    [_userImageView setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"user"]];
+    [self setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"user"]];
+    
+    UITapGestureRecognizer *tapOnOtherUserImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnUserView)];
+    [self addGestureRecognizer:tapOnOtherUserImageView];
 }
 
 - (UIColor *)randomColor {
@@ -49,6 +53,12 @@
     return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
 
-
+- (void)tappedOnUserView {
+    
+    if (self.delegate) {
+        [self.delegate userViewDelegateTappedOnUserView:self];
+    }
+    
+}
 
 @end

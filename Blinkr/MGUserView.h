@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MGUserView : UIView
+@class MGUserView;
+
+@protocol MGUserViewDelegate <NSObject>
+
+- (void)userViewDelegateTappedOnUserView:(MGUserView *)selectedUserView;
+
+@end
+
+@interface MGUserView : UIImageView
+
+@property (strong, nonatomic) NSString *imageURLString;
+@property (assign, nonatomic) NSInteger selectedUserID;
+@property (weak, nonatomic) id <MGUserViewDelegate> delegate;
 
 + (instancetype)loadUserView;
-@property(strong, nonatomic) NSString *imageURLString;
 
 @end

@@ -199,6 +199,18 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     
 }
 
++ (void)clearCurrenUserLocation {
+    
+    [[MGNetworkManager manager] GET:@"clear_location" parameters:nil progress:nil
+     
+                            success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                                
+                            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                                
+                            }];
+}
+
+
 + (void)getNearestUsersWithRadius:(NSInteger)radius withCompletion:(ArrayCompletionBlock)completionBlock {
     
     NSString *path = [NSString stringWithFormat:@"near_users?radius=%lu", (long)radius];

@@ -39,6 +39,8 @@
 		843F3B491D467F5700F4CE03 /* UIView+Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B481D467F5700F4CE03 /* UIView+Layer.m */; };
 		843F3B4C1D467F6100F4CE03 /* NSString+ValidateValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */; };
 		8444BD2C1D4F8621009BB3C4 /* MGChannelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8444BD2B1D4F8621009BB3C4 /* MGChannelUtil.m */; };
+		8447CED51D5F51B3002CEC2C /* MGUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8447CED41D5F51B3002CEC2C /* MGUserInfoView.m */; };
+		8447CED81D5F51D6002CEC2C /* MGUserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8447CED71D5F51D6002CEC2C /* MGUserInfoView.xib */; };
 		844F42761D4795B900E80A2D /* MGEditMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */; };
 		844F427A1D479E7300E80A2D /* MGUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 844F42781D479E7300E80A2D /* MGUserCell.m */; };
 		844F427B1D479E7300E80A2D /* MGUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 844F42791D479E7300E80A2D /* MGUserCell.xib */; };
@@ -125,6 +127,9 @@
 		843F3B4B1D467F6100F4CE03 /* NSString+ValidateValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ValidateValue.m"; sourceTree = "<group>"; };
 		8444BD2A1D4F8621009BB3C4 /* MGChannelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGChannelUtil.h; sourceTree = "<group>"; };
 		8444BD2B1D4F8621009BB3C4 /* MGChannelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGChannelUtil.m; sourceTree = "<group>"; };
+		8447CED31D5F51B3002CEC2C /* MGUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserInfoView.h; sourceTree = "<group>"; };
+		8447CED41D5F51B3002CEC2C /* MGUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGUserInfoView.m; sourceTree = "<group>"; };
+		8447CED71D5F51D6002CEC2C /* MGUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MGUserInfoView.xib; sourceTree = "<group>"; };
 		844F42741D4795B900E80A2D /* MGEditMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGEditMyProfileViewController.h; sourceTree = "<group>"; };
 		844F42751D4795B900E80A2D /* MGEditMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGEditMyProfileViewController.m; sourceTree = "<group>"; };
 		844F42771D479E7300E80A2D /* MGUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGUserCell.h; sourceTree = "<group>"; };
@@ -321,6 +326,7 @@
 		843F3AF31D462F3700F4CE03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8447CED61D5F51B7002CEC2C /* MGUserInfoView */,
 				84F5D36A1D5DE76E0066D870 /* MGRateUserView */,
 				84FB0D7A1D4A674900AF0C92 /* MessageCell */,
 				84FB0D791D4A673D00AF0C92 /* MGUserView */,
@@ -514,6 +520,16 @@
 			name = Chat;
 			sourceTree = "<group>";
 		};
+		8447CED61D5F51B7002CEC2C /* MGUserInfoView */ = {
+			isa = PBXGroup;
+			children = (
+				8447CED31D5F51B3002CEC2C /* MGUserInfoView.h */,
+				8447CED41D5F51B3002CEC2C /* MGUserInfoView.m */,
+				8447CED71D5F51D6002CEC2C /* MGUserInfoView.xib */,
+			);
+			name = MGUserInfoView;
+			sourceTree = "<group>";
+		};
 		844F42871D47B72C00E80A2D /* UserProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,6 +699,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				844F42831D47B4E300E80A2D /* checkBoxOn.png in Resources */,
+				8447CED81D5F51D6002CEC2C /* MGUserInfoView.xib in Resources */,
 				84FB0D6E1D4A23C200AF0C92 /* GoogleService-Info.plist in Resources */,
 				8453A5191D5DBD2800D191C8 /* MGRateUserView.xib in Resources */,
 				844F42801D47B14D00E80A2D /* checkBoxOff.png in Resources */,
@@ -780,6 +797,7 @@
 				843862FE1D5B33A20040627B /* MGFileManager.m in Sources */,
 				84318AA71D5351B400E713CC /* Message+CoreDataProperties.m in Sources */,
 				8453A5171D5DBD0800D191C8 /* MGRateUserView.m in Sources */,
+				8447CED51D5F51B3002CEC2C /* MGUserInfoView.m in Sources */,
 				843F3B3D1D467F0600F4CE03 /* MGFetchUserInfo.m in Sources */,
 				843862FA1D5B2E220040627B /* Profile+CoreDataProperties.m in Sources */,
 				84FB0D781D4A4DB500AF0C92 /* MGChatController.m in Sources */,

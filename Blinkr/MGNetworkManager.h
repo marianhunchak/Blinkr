@@ -32,6 +32,8 @@
                                     longitude:(double)longitude
                                withCompletion:(ObjectCompletionBlock)completionBlock;
 
++ (void)clearCurrenUserLocation;
+
 + (void)getNearestUsersWithRadius:(NSInteger)radius withCompletion:(ArrayCompletionBlock)completionBlock;
 
 + (void)sendMessangerNotificationWihtParams:(NSDictionary *)params

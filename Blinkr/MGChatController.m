@@ -181,12 +181,12 @@
     
     if (_rateUserView.starRatingView.value != 0) {
         
-        NSString *title = [NSString stringWithFormat:@"You have already rated %@", self.chatName ? self.chatName : self.receiverUser.name];
+        NSString *title = [NSString stringWithFormat:@"You have already rated %@.", self.chatName ? self.chatName : self.receiverUser.name];
         alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
         
     } else {
         
-        NSString *title = [NSString stringWithFormat:@"Please rate %@", self.chatName ? self.chatName : self.receiverUser.name];
+        NSString *title = [NSString stringWithFormat:@"Please rate %@.", self.chatName ? self.chatName : self.receiverUser.name];
         alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Rate", nil];
         [alert setValue:_rateUserView forKey:@"accessoryView"];
     }
@@ -533,10 +533,13 @@
     }];
 
     _currentChat.channel = _channel;
-    _currentChat.chatName = _receiverUser.name;
     _currentChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);
-    _currentChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
     _currentChat.lastMessageDate = [dateFormatter stringFromDate:date];
+    
+    if (_receiverUser) {
+        _currentChat.chatName = _receiverUser.name;
+        _currentChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
+    }
 
 }
 

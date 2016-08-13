@@ -17,25 +17,30 @@
 #import "Chat.h"
 #import "MGFileManager.h"
 #import "Profile.h"
+#import "MGUserInfoView.h"
+#import "MGChatController.h"
+#import "MGUserProfileViewController.h"
 @import GLKit;
 #define degreesToRadians(x) (M_PI * x / 180.0)
 #define radiansToDegrees(x) (x * 180.0 / M_PI)
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 
-@interface MGBlinkrController () <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface MGBlinkrController () <MKMapViewDelegate, CLLocationManagerDelegate, MGUserViewDelegate, MGUserInfoViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (strong, nonatomic) IBOutlet CCMRadarView *radarView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSMutableArray *userViewsArray;
 @property (strong, nonatomic) MKUserLocation *userLocation;
+@property (strong, nonatomic) MGUserInfoView *infoView;
+@property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *usersViewsArray;
 
 @end
 
 CGFloat xKoef = 0;
 CGFloat yKoef = 0;
+CGFloat viliblePostionForInfoView;
 
 @implementation MGBlinkrController
 
@@ -43,7 +48,7 @@ CGFloat yKoef = 0;
     [super viewDidLoad];
     
     
-    _userViewsArray = [NSMutableArray array];
+
     self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2.0;
     self.userImageView.layer.masksToBounds = YES;
     self.userImageView.layer.borderWidth = 2.0;
@@ -55,6 +60,10 @@ CGFloat yKoef = 0;
     
     UITapGestureRecognizer *tapOnUserImageView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedOnUserImageView)];
     [self.userImageView addGestureRecognizer:tapOnUserImageView];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapOnView)];
+    [self.view addGestureRecognizer:tapGesture];
+
     
     [self.mapView setDelegate:self];
     [self.radarView startAnimation];
@@ -73,7 +82,18 @@ CGFloat yKoef = 0;
     [self getNearestUsers];
     
 //    [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading];
-
+    
+    _infoView = [MGUserInfoView loadUserInfoView];
+    _infoView.delegate = self;
+    _infoView.frame = CGRectMake(0.f,
+                                 self.view.frame.size.height,
+                                 self.view.frame.size.width,
+                                 90.f);
+    
+    viliblePostionForInfoView = _infoView.frame.origin.y - (_infoView.frame.size.height + self.tabBarController.tabBar.frame.size.height + self.tabBarController.navigationController.navigationBar.frame.size.height + 20.f);
+    
+    [self.radarView startAnimation];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,6 +101,7 @@ CGFloat yKoef = 0;
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blinkr"]];
     self.tabBarController.navigationItem.titleView = titleImageView;
+    self.tabBarController.navigationItem.title = @"";
     [self.radarView startAnimation];
     
     Profile *lProfile = [Profile MR_findFirst];
@@ -107,34 +128,84 @@ CGFloat yKoef = 0;
         self.userImageView.image = [MGFileManager getProfileImageFromDocuments];
     }
     
-    }
+    [self.radarView startAnimation];
+    
+}
 
-#pragma mark - Actions 
+#pragma mark - MGUserViewDelegate
+
+- (void)userViewDelegateTappedOnUserView:(MGUserView *)selectedUserView {
+    
+    _infoView.userID = selectedUserView.selectedUserID;
+    
+    [self.view addSubview:_infoView];
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _infoView.frame = CGRectMake(0,
+                                     viliblePostionForInfoView,
+                                     _infoView.frame.size.width,
+                                     _infoView.frame.size.height);
+    }];
+    
+}
+
+#pragma mark - MGUserInfoViewDelegate
+
+- (void)userInfoViewDelegateSendMessageBtnPressed:(MGUser *)user {
+    
+    MGChatController *vc = VIEW_CONTROLLER(@"MGChatController");
+    vc.receiverUser = user;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (void)userInfoViewDelegateUserButtonPresed:(MGUser *)user {
+    
+    
+    MGUserProfileViewController *vc = VIEW_CONTROLLER(@"MGUserProfileViewController");
+    vc.user = user;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+#pragma mark - Actions
 
 - (void)tappedOnUserImageView {
     
     [self.tabBarController.delegate tabBarController:self.tabBarController shouldSelectViewController:[[self.tabBarController viewControllers] objectAtIndex:2]];
     [self.tabBarController setSelectedIndex:3];
+ 
+}
+
+- (void)handleTapOnView {
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _infoView.frame = CGRectMake(0,
+                                     self.view.frame.size.height,
+                                     _infoView.frame.size.width,
+                                     _infoView.frame.size.height);
+    }];
     
 }
 
-- (void) getNearestUsers {
+- (void)getNearestUsers {
     
-    [MGNetworkManager getNearestUsersWithRadius:10 withCompletion:^(NSArray *array, NSError *error) {
+    [MGNetworkManager getNearestUsersWithRadius:100000 withCompletion:^(NSArray *array, NSError *error) {
         
         if (array) {
             
-            for (MGUserView *lUserView in _userViewsArray) {
+            for (MGUserView *lUserView in _usersViewsArray) {
                 
-                [lUserView removeFromSuperview];
+                lUserView.image = nil;
+                lUserView.hidden = YES;
                 
             }
-            
-            [_userViewsArray removeAllObjects];
             
              CLLocationDirection mapAngle = self.mapView.camera.heading;
             
             NSLog(@"MapAngle = %f", mapAngle);
+            
+            NSInteger counter = 0;
             
             for (NSDictionary* dict in array) {
                 CLLocationCoordinate2D coordinate;
@@ -153,16 +224,19 @@ CGFloat yKoef = 0;
                 
                 NSLog(@"Heading = %f", heading);
                 
-                MGUserView *userView = [MGUserView loadUserView];
+                MGUserView *userView = _usersViewsArray[counter];
+                userView.hidden = NO;
+                userView.delegate = self;
+                userView.selectedUserID = [dict[@"id"] integerValue];
                 userView.imageURLString = dict[@"picture"][@"small_picture_url"];
+                            
                 
-                [self setFrameForUserView:userView WithDicr:dict];
+//                [self setFrameForUserView:userView WithDicr:dict];
                 
                 userView.layer.cornerRadius = userView.frame.size.width / 2.0;
+                userView.layer.masksToBounds = YES;
                 
-                [_userViewsArray addObject:userView];
-                
-                [self.view addSubview:userView];
+                counter++;
             }
         }
     }];

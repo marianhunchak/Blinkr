@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) NSArray *chatsArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *noMessagesView;
 
 @end
 
@@ -53,7 +54,7 @@ static NSString *cellIdentifier = @"messageCell";
     self.tabBarController.navigationItem.titleView = nil;
     self.tabBarController.navigationItem.title = @"Messages";
     
-    self.chatsArray = [Chat MR_findAll];
+//    self.chatsArray = [Chat MR_findAll];
     [self saveContext];
 }
 
@@ -100,8 +101,14 @@ static NSString *cellIdentifier = @"messageCell";
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     self.chatsArray = [Chat MR_findAllSortedBy:@"lastMessageDate" ascending:NO];
-    [self.tableView reloadData];
     
+    if ([_chatsArray count] == 0) {
+        _noMessagesView.hidden = NO;
+    } else {
+        _noMessagesView.hidden = YES;
+        [self.tableView reloadData];
+    }
+
     NSString *badgeValue = [messagesArray count] > 0 ? [NSString stringWithFormat:@"%ld", [messagesArray count]] : nil;
     [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
     

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MGUserInfoView">
+            <rect key="frame" x="0.0" y="0.0" width="408" height="87"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fw3-cf-7S0">
+                    <rect key="frame" x="8" y="8" width="72" height="72"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="fw3-cf-7S0" secondAttribute="height" multiplier="1:1" id="IdS-Eh-faB"/>
+                        <constraint firstAttribute="width" constant="72" id="zW6-ps-yFd"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61R-nU-Oy4">
+                    <rect key="frame" x="93" y="8" width="179" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="zR2-y0-xCZ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hi0-Vv-2Rt" customClass="HCSStarRatingView">
+                    <rect key="frame" x="88" y="33" width="111" height="20"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.97254901959999995" green="0.34509803919999998" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="111" id="h52-yN-xkv"/>
+                        <constraint firstAttribute="height" constant="20" id="x3f-Ag-VrB"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="value">
+                            <real key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="YES"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="accurateHalfStars" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kN-gw-VMg">
+                    <rect key="frame" x="293" y="26" width="107" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="33" id="Qan-XK-GWS"/>
+                        <constraint firstAttribute="width" constant="107" id="RG6-zz-D8s"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                    <state key="normal" title="SEND MESSAGE">
+                        <color key="titleColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="sendMessageBtnPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="D8e-84-mPQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zPS-wx-1G9">
+                    <rect key="frame" x="0.0" y="1" width="86" height="86"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="86" id="qy7-xB-vDS"/>
+                        <constraint firstAttribute="height" constant="86" id="uh8-84-ggv"/>
+                    </constraints>
+                    <connections>
+                        <action selector="userBtnPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="p2u-ie-egd"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-qd-olV">
+                    <rect key="frame" x="88" y="54" width="188" height="26"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="26" id="VLg-Ag-AAY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="61R-nU-Oy4" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="13" id="31i-5g-tx6"/>
+                <constraint firstItem="iVb-qd-olV" firstAttribute="top" secondItem="Hi0-Vv-2Rt" secondAttribute="bottom" constant="1" id="6bj-9J-MhH"/>
+                <constraint firstItem="Hi0-Vv-2Rt" firstAttribute="top" secondItem="61R-nU-Oy4" secondAttribute="bottom" constant="4" id="ArP-VC-HFq"/>
+                <constraint firstAttribute="bottom" secondItem="zPS-wx-1G9" secondAttribute="bottom" id="ENh-Ou-are"/>
+                <constraint firstAttribute="trailing" secondItem="2kN-gw-VMg" secondAttribute="trailing" constant="8" id="HHd-iY-mvA"/>
+                <constraint firstItem="61R-nU-Oy4" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.44" id="HmZ-3d-ufw"/>
+                <constraint firstItem="fw3-cf-7S0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="M78-aQ-RTn"/>
+                <constraint firstItem="zPS-wx-1G9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="Ps2-3j-M6n"/>
+                <constraint firstItem="fw3-cf-7S0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SPU-Rd-HeJ"/>
+                <constraint firstItem="61R-nU-Oy4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UNk-Jm-kh0"/>
+                <constraint firstItem="zPS-wx-1G9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vvq-Gy-AiE"/>
+                <constraint firstItem="iVb-qd-olV" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="8" id="e1R-uh-0OY"/>
+                <constraint firstItem="Hi0-Vv-2Rt" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="8" id="fUA-Wy-Kbz"/>
+                <constraint firstItem="2kN-gw-VMg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-1" id="qbL-1H-da0"/>
+                <constraint firstItem="iVb-qd-olV" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.46" id="yyF-Co-m1z"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="sendMessageBtn" destination="2kN-gw-VMg" id="qBQ-Ax-bpT"/>
+                <outlet property="userImageView" destination="fw3-cf-7S0" id="Op3-CM-Tw8"/>
+                <outlet property="userNameLabel" destination="61R-nU-Oy4" id="2aE-Rh-rrX"/>
+                <outlet property="userPhoneTextView" destination="iVb-qd-olV" id="aGE-fw-fWL"/>
+                <outlet property="userRatingView" destination="Hi0-Vv-2Rt" id="o6u-qH-a9n"/>
+            </connections>
+            <point key="canvasLocation" x="456" y="10.5"/>
+        </view>
+    </objects>
+</document>
