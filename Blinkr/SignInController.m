@@ -17,14 +17,18 @@
 
 #define SBSI_GO_TO_TabBarController @"showTabBarController"
 
-@interface SignInController () <FBSDKLoginButtonDelegate>
+@interface SignInController () <FBSDKLoginButtonDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 #pragma mark - Properties
 
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIView *viewForHiddenFB;
 @property (weak, nonatomic) IBOutlet UIButton *checkBox;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIImageView *cellImageView;
+@property (nonatomic, retain) NSTimer *myTimer;
+@property (strong, nonatomic) NSArray *imagesNameArray;
 @end
 
 @implementation SignInController
@@ -37,6 +41,17 @@
     
     [self.checkBox setSelected:YES];
     [self chekBoxBtnPressed:self.checkBox];
+
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+                                                    target:self
+                                                  selector:@selector(showNextCollectionItem)
+                                                  userInfo:nil
+                                                   repeats:YES];
+    
+    self.imagesNameArray = @[@"front_page_1.png",
+                             @"front_page_2.png",
+                             @"front_page_3.png",
+                             @"front_page_4.png"];
     
 }
 
@@ -52,6 +67,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (self.myTimer.isValid) {
+        [self.myTimer invalidate];
+        self.myTimer = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -149,10 +169,10 @@
         self.loginButton.userInteractionEnabled = NO;
         self.viewForHiddenFB.hidden = NO;
     } else {
+        
         [UIView animateWithDuration:0.25 animations:^{
             [sender setSelected:YES];
         }];
-        
         
         self.loginButton.userInteractionEnabled = YES;
         self.viewForHiddenFB.hidden = YES;
@@ -164,6 +184,57 @@
     
     MGTermsOfUseController *termsOfUseVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MGTermsOfUseController"];
     [self.navigationController pushViewController:termsOfUseVC animated:YES];
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return 4;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+  
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionCell" forIndexPath:indexPath];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.imagesNameArray[indexPath.item]]];
+    
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    cell.backgroundView = imageView;
+    
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return collectionView.frame.size;
+}
+
+- (void) showNextCollectionItem {
+    
+    NSIndexPath *curentIndexPath = [self.collectionView indexPathsForVisibleItems].firstObject;
+    
+    NSInteger nextItemIndex = curentIndexPath.item + 1;
+    
+    if (nextItemIndex > 3) {
+        nextItemIndex = 0;
+    }
+    
+    NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:nextItemIndex inSection:0];
+    
+    [self.collectionView scrollToItemAtIndexPath:nextIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
+    self.pageControl.currentPage = nextItemIndex;
+    
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    CGFloat pageWidth = scrollView.frame.size.width;
+    self.pageControl.currentPage = (floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1);
 }
 
 

@@ -91,28 +91,17 @@ CGFloat viliblePostionForInfoView;
     
     viliblePostionForInfoView = _infoView.frame.origin.y - (_infoView.frame.size.height + self.tabBarController.tabBar.frame.size.height + self.tabBarController.navigationController.navigationBar.frame.size.height + 20.f);
     
-    [self.radarView startAnimation];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(restartAnimatingRadar) name:START_ANIMATING_RADAR object:nil];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
-//    
-//    if (refreshedToken != nil ) {
-//        
-//        [[NSUserDefaults standardUserDefaults] setObject:refreshedToken forKey:FIREBASE_TOKEN_KEY];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//        [MGNetworkManager refreshFirebaseToken:refreshedToken withCompletion:^(id object, NSError *error) {
-//            
-//        }];
-//    }
-    
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blinkr"]];
     self.tabBarController.navigationItem.titleView = titleImageView;
     self.tabBarController.navigationItem.title = @"";
+    [self.radarView stopAnimation];
     [self.radarView startAnimation];
     
     Profile *lProfile = [Profile MR_findFirst];
@@ -141,6 +130,12 @@ CGFloat viliblePostionForInfoView;
     
     [self.radarView startAnimation];
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.radarView stopAnimation];
 }
 
 #pragma mark - MGUserViewDelegate
@@ -198,6 +193,8 @@ CGFloat viliblePostionForInfoView;
     }];
     
 }
+
+#pragma mark - Private methods
 
 - (void)getNearestUsers {
     
@@ -366,6 +363,15 @@ CGFloat viliblePostionForInfoView;
     }
     
     return aView;
+}
+
+#pragma mark - Notifications
+
+- (void)restartAnimatingRadar {
+    
+    [self.radarView stopAnimation];
+    
+    [self.radarView startAnimation];
 }
 
 

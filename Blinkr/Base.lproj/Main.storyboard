@@ -107,23 +107,55 @@
                                     <constraint firstAttribute="height" constant="44" id="i8U-XT-v7i"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="front_page_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dif-2w-pZM">
-                                <rect key="frame" x="8" y="72" width="398" height="555"/>
-                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="txz-cM-DKW">
+                                <rect key="frame" x="12" y="72" width="390" height="519"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Tbt-o1-0Fh">
+                                    <size key="itemSize" width="397" height="481"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collectionCell" id="BZe-Hp-9Gp">
+                                        <rect key="frame" x="0.0" y="19" width="397" height="481"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="397" height="481"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Qka-JN-nq6" id="Grn-Hz-WDa"/>
+                                    <outlet property="delegate" destination="Qka-JN-nq6" id="vB0-NJ-T83"/>
+                                </connections>
+                            </collectionView>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="t5f-D6-OSW">
+                                <rect key="frame" x="12" y="590" width="390" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="lb3-yS-rvy"/>
+                                </constraints>
+                                <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ZgA-hp-yJY" firstAttribute="top" secondItem="Y0U-0T-AMY" secondAttribute="bottom" constant="8" id="3Dx-5h-hcY"/>
-                            <constraint firstItem="Dif-2w-pZM" firstAttribute="leading" secondItem="e6c-j3-8i8" secondAttribute="leading" constant="8" id="85d-V9-c7T"/>
-                            <constraint firstItem="Dif-2w-pZM" firstAttribute="top" secondItem="Yrv-VV-e18" secondAttribute="bottom" constant="8" id="BYm-yL-cTl"/>
+                            <constraint firstItem="AHc-jX-gAg" firstAttribute="top" secondItem="txz-cM-DKW" secondAttribute="bottom" constant="50" id="4vK-lP-POp"/>
+                            <constraint firstItem="txz-cM-DKW" firstAttribute="top" secondItem="Yrv-VV-e18" secondAttribute="bottom" constant="8" id="7DE-gI-eOF"/>
+                            <constraint firstAttribute="trailing" secondItem="t5f-D6-OSW" secondAttribute="trailing" constant="12" id="Cen-UB-8Hr"/>
                             <constraint firstItem="Y0U-0T-AMY" firstAttribute="centerX" secondItem="e6c-j3-8i8" secondAttribute="centerX" id="E1W-p2-Hzx"/>
                             <constraint firstItem="Y0U-0T-AMY" firstAttribute="top" secondItem="P70-F9-kac" secondAttribute="bottom" constant="3" id="Fre-3L-wvY"/>
-                            <constraint firstAttribute="trailing" secondItem="Dif-2w-pZM" secondAttribute="trailing" constant="8" id="Q4O-ZB-6xq"/>
+                            <constraint firstItem="txz-cM-DKW" firstAttribute="leading" secondItem="e6c-j3-8i8" secondAttribute="leading" constant="12" id="Qrk-Qc-0G6"/>
                             <constraint firstItem="AHc-jX-gAg" firstAttribute="centerX" secondItem="e6c-j3-8i8" secondAttribute="centerX" id="UDf-KN-6eb"/>
-                            <constraint firstItem="AHc-jX-gAg" firstAttribute="top" secondItem="Dif-2w-pZM" secondAttribute="bottom" constant="14" id="h5c-UL-UzL"/>
+                            <constraint firstItem="t5f-D6-OSW" firstAttribute="leading" secondItem="e6c-j3-8i8" secondAttribute="leading" constant="12" id="Vph-lt-8y2"/>
+                            <constraint firstItem="AHc-jX-gAg" firstAttribute="top" secondItem="t5f-D6-OSW" secondAttribute="bottom" constant="14" id="WlT-AA-Kti"/>
                             <constraint firstItem="P70-F9-kac" firstAttribute="centerX" secondItem="e6c-j3-8i8" secondAttribute="centerX" id="jlM-UC-lZV"/>
                             <constraint firstItem="Y0U-0T-AMY" firstAttribute="top" secondItem="AHc-jX-gAg" secondAttribute="bottom" constant="3" id="l1x-9Z-1eo"/>
                             <constraint firstItem="Y0U-0T-AMY" firstAttribute="top" secondItem="AHc-jX-gAg" secondAttribute="bottom" constant="3" id="lDL-ms-hH7"/>
+                            <constraint firstAttribute="trailing" secondItem="txz-cM-DKW" secondAttribute="trailing" constant="12" id="rxi-BW-VHt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ELU-ZC-qFq"/>
@@ -131,7 +163,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="checkBox" destination="iLn-Vv-n9G" id="8Jd-nI-XNv"/>
+                        <outlet property="collectionView" destination="txz-cM-DKW" id="xhb-dP-zpE"/>
                         <outlet property="loginButton" destination="P70-F9-kac" id="mbW-eL-ofW"/>
+                        <outlet property="pageControl" destination="t5f-D6-OSW" id="gI6-Wc-Npa"/>
                         <outlet property="viewForHiddenFB" destination="AHc-jX-gAg" id="RG0-b9-tul"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="showTabBarController" animates="NO" id="0zx-ND-9Bc"/>
                     </connections>
@@ -2210,7 +2244,6 @@ The Service is controlled and operated from its facilities in the United States.
         <image name="checkBoxOn.png" width="18" height="18"/>
         <image name="email" width="30" height="23"/>
         <image name="fcebookLink" width="18" height="36"/>
-        <image name="front_page_1.png" width="400" height="512"/>
         <image name="licensePlate" width="38" height="19"/>
         <image name="messagesItem" width="32" height="32"/>
         <image name="messagesItem(Active)" width="32" height="32"/>

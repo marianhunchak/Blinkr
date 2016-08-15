@@ -29,6 +29,7 @@
 #define PROFILE_UPDATED_KEY @"profile_UPDATED_KEY"
 #define PROFILE_ID_KEY @"profile_id_key"
 #define PROFILE_NAME_KEY @"profile_name_key"
+#define START_ANIMATING_RADAR @"startAnimatingRadar"
 
 
 #endif /* Blinkr_Prefix_pch */
