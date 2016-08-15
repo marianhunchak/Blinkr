@@ -40,7 +40,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
     NSString *firebaseToken = [[NSUserDefaults standardUserDefaults] stringForKey:FIREBASE_TOKEN_KEY];
     
     NSDictionary *params = @{@"token": facebookToken,
-                             @"firebase_token": firebaseToken,
+                             @"firebase_token": firebaseToken ? firebaseToken : @"",
                              @"device_type": @"ios"};
     
     [[MGNetworkManager manager] POST:@"login" parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -291,7 +291,7 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
      
                              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                  
-                                 NSLog(@"Response object - %@", responseObject);
+                                 NSLog(@"Token refreshed - %@", responseObject);
                                  
                              } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                  

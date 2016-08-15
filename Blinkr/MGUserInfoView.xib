@@ -13,14 +13,14 @@
             <rect key="frame" x="0.0" y="0.0" width="408" height="87"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fw3-cf-7S0">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fw3-cf-7S0">
                     <rect key="frame" x="8" y="8" width="72" height="72"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="fw3-cf-7S0" secondAttribute="height" multiplier="1:1" id="IdS-Eh-faB"/>
                         <constraint firstAttribute="width" constant="72" id="zW6-ps-yFd"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61R-nU-Oy4">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61R-nU-Oy4">
                     <rect key="frame" x="93" y="8" width="179" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="zR2-y0-xCZ"/>
@@ -45,7 +45,7 @@
                             <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="value">
-                            <real key="value" value="3"/>
+                            <real key="value" value="0.0"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="spacing">
                             <real key="value" value="0.0"/>
@@ -60,7 +60,7 @@
                         <constraint firstAttribute="height" constant="33" id="Qan-XK-GWS"/>
                         <constraint firstAttribute="width" constant="107" id="RG6-zz-D8s"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                     <state key="normal" title="SEND MESSAGE">
                         <color key="titleColor" red="0.99215686270000003" green="0.50588235290000005" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -78,7 +78,7 @@
                         <action selector="userBtnPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="p2u-ie-egd"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Lorem ipsum dolor " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-qd-olV">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-qd-olV">
                     <rect key="frame" x="88" y="54" width="188" height="26"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>

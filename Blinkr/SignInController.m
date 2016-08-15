@@ -47,16 +47,7 @@
     self.loginButton.delegate = self;
     self.loginButton.userInteractionEnabled = NO;
     
-    self.navigationItem.title = @"Sig In";
-    
-//    UIApplication *app = [UIApplication sharedApplication];
-//    CGFloat statusBarHeight = app.statusBarFrame.size.height;
-//    
-//    UIView *statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -statusBarHeight, [UIScreen mainScreen].bounds.size.width, statusBarHeight)];
-//    statusBarView.backgroundColor = [UIColor blackColor];
-//    [self.navigationController.navigationBar addSubview:statusBarView];
-    
-    
+    self.navigationItem.title = @"Sign In";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -98,9 +89,6 @@
         
         
         NSString *facebookToken = [[FBSDKAccessToken currentAccessToken] tokenString];
-
-        
-//        FIRDatabaseReference *rootRef= [[FIRDatabase database] reference];
         
         FIRAuthCredential *credential = [FIRFacebookAuthProvider
                                          credentialWithAccessToken:facebookToken];
@@ -120,10 +108,6 @@
                                           [loginManager logOut];
                                           
                                       } else {
-                                          
-                                          NSLog(@"_____________________%@_________________%@",facebookToken, user.uid);
-                                          
-//                                          [[NSUserDefaults standardUserDefaults] setObject:authData.token forKey:FIREBASE_TOKEN_KEY];
                                           [[NSUserDefaults standardUserDefaults] setObject:facebookToken forKey:FACEBOOK_TOKEN_KEY];
                                           [[NSUserDefaults standardUserDefaults] synchronize];
                                           
@@ -179,8 +163,6 @@
 - (IBAction)termsOfUseBtnPressed:(id)sender {
     
     MGTermsOfUseController *termsOfUseVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MGTermsOfUseController"];
-    
-//    [self.navigationController presentViewController:termsOfUseVC animated:YES completion:nil];
     [self.navigationController pushViewController:termsOfUseVC animated:YES];
 }
 

@@ -22,7 +22,7 @@
 }
 
 - (void)setChannel:(NSString *)channel {
-    _channel = channel;
+    
     
     FIRDatabaseReference *ref = [[FIRDatabase database] reference];
     FIRDatabaseReference *chatRef = [ref child:channel];
@@ -30,20 +30,25 @@
     
     [messagesQuery observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        _messageLabel.text = snapshot.value[@"message"];
-//        _userNameLabel.text = snapshot.value[@"author"];
         
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        
-        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
-        
-        NSDate *date = [dateFormatter dateFromString:snapshot.value[@"date"]];
-        
-        if (date) {
-            _timeLabel.text = [[[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:date] string];
+        if ([_channel isEqualToString:channel]) {
+            _messageLabel.text = snapshot.value[@"message"];
+            //        _userNameLabel.text = snapshot.value[@"author"];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            
+            [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss.SSSZZZ"];
+            
+            NSDate *date = [dateFormatter dateFromString:snapshot.value[@"date"]];
+            
+            if (date) {
+                _timeLabel.text = [[[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:date] string];
+            }
         }
         
     }];
+    
+    _channel = channel;
     
 }
 

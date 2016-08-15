@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>169800226728-lukf6mqobiilh5maoqstbi2jujk00lgf.apps.googleusercontent.com</string>
+	<string>456384645798-o9hs3fbdu1t4mn6onlklno28tgkisolq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.169800226728-lukf6mqobiilh5maoqstbi2jujk00lgf</string>
+	<string>com.googleusercontent.apps.456384645798-o9hs3fbdu1t4mn6onlklno28tgkisolq</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCdUjg2ldyvX1xguwnj9GieUUbZXkcpKNU</string>
+	<string>AIzaSyBrENPo5j9EKmUDa6d1E68qTHIh_zODcCU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>169800226728</string>
+	<string>456384645798</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.midgets.blinkr</string>
+	<string>com.blinkr.me</string>
 	<key>PROJECT_ID</key>
-	<string>blinkr-f8992</string>
+	<string>blinkr-26bd9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>blinkr-f8992.appspot.com</string>
+	<string>blinkr-26bd9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:169800226728:ios:c2327447f4e3e5f8</string>
+	<string>1:456384645798:ios:a7d46f2f3147d0a6</string>
 	<key>DATABASE_URL</key>
-	<string>https://blinkr-f8992.firebaseio.com</string>
+	<string>https://blinkr-26bd9.firebaseio.com</string>
 </dict>
 </plist>

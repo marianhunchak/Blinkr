@@ -21,6 +21,7 @@
 #import "MGChatController.h"
 #import "MGUserProfileViewController.h"
 @import GLKit;
+@import FirebaseInstanceID;
 #define degreesToRadians(x) (M_PI * x / 180.0)
 #define radiansToDegrees(x) (x * 180.0 / M_PI)
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
@@ -29,7 +30,7 @@
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
-@property (strong, nonatomic) IBOutlet CCMRadarView *radarView;
+@property (weak, nonatomic) IBOutlet CCMRadarView *radarView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) MKUserLocation *userLocation;
@@ -46,8 +47,6 @@ CGFloat viliblePostionForInfoView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
 
     self.userImageView.layer.cornerRadius = self.userImageView.frame.size.width / 2.0;
     self.userImageView.layer.masksToBounds = YES;
@@ -75,7 +74,7 @@ CGFloat viliblePostionForInfoView;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
     self.mapView.showsUserLocation = YES;
     
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 5.0
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval: 10.0
                                                   target: self
                                                 selector:@selector(onTick)
                                                 userInfo: nil repeats:YES];
@@ -98,6 +97,18 @@ CGFloat viliblePostionForInfoView;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+//    NSString *refreshedToken = [[FIRInstanceID instanceID] token];
+//    
+//    if (refreshedToken != nil ) {
+//        
+//        [[NSUserDefaults standardUserDefaults] setObject:refreshedToken forKey:FIREBASE_TOKEN_KEY];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//        [MGNetworkManager refreshFirebaseToken:refreshedToken withCompletion:^(id object, NSError *error) {
+//            
+//        }];
+//    }
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blinkr"]];
     self.tabBarController.navigationItem.titleView = titleImageView;
