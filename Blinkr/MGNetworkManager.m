@@ -52,18 +52,13 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
             [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"name"] forKey:PROFILE_NAME_KEY];
             [[NSUserDefaults standardUserDefaults] setInteger:[responseObject[@"id"] integerValue] forKey:PROFILE_ID_KEY];
             
-            NSLog(@"Picture - %@", [[NSUserDefaults standardUserDefaults] objectForKey:PROFILE_PICTURE_URL]);
-            
             [[NSUserDefaults standardUserDefaults] synchronize];
             completionBlock(responseObject, nil);
-            NSLog(@"Response object - %@", responseObject);
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         completionBlock(nil, error);
-        
-        NSLog(@"Error - %@", [error localizedDescription]);
         
     }];
     
@@ -75,14 +70,11 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
         
         if (completionBlock) {
             completionBlock(responseObject, nil);
-            NSLog(@"Response object - %@", responseObject);
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         completionBlock(nil, error);
-
-        NSLog(@"Error - %@", [error localizedDescription]);
         
     }];
     
@@ -221,8 +213,6 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
         
         if (completionBlock) {
             
-            NSLog(@"Response object - %@", responseObject);
-            
             completionBlock(responseObject, nil);
         }
         
@@ -242,13 +232,10 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
      
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
              
-             NSLog(@"Response object - %@", responseObject);
-             
              completionBlock(responseObject, nil);
              
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             
-             NSLog(@"Error - %@", [error localizedDescription]);
+
              completionBlock(nil, error);
              
     }];

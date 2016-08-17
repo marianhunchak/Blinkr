@@ -14,6 +14,7 @@
 #import "MGOptionsController.h"
 #import "UIImageView+AFNetworking.h"
 #import "Profile.h"
+#import "MGUser.h"
 #import "MGFileManager.h"
 
 @interface MGMyProfileViewController ()
@@ -60,6 +61,24 @@
     
     UIBarButtonItem *optionsBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"optionsIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptionsController:)];
     self.tabBarController.navigationItem.rightBarButtonItem = optionsBtn;
+    
+    
+    Profile *currentProfile = [Profile MR_findFirst];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [MGNetworkManager getUserWithID:[currentProfile.id_ integerValue] withCompletion:^(id object, NSError *error) {
+        if (!error) {
+            
+            CGFloat newRating = ((MGUser *)object).rate;
+            
+            if ([currentProfile.rate floatValue] != newRating) {
+                
+                currentProfile.rate = @(newRating);
+                weakSelf.ratingView.value = newRating;
+            }
+        }
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

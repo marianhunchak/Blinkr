@@ -100,6 +100,8 @@ CGFloat viliblePostionForInfoView;
     
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blinkr"]];
     self.tabBarController.navigationItem.titleView = titleImageView;
+    self.tabBarController.navigationItem.titleView.center = CGPointMake(self.view.center.x,
+                                                                        self.tabBarController.navigationItem.titleView.center.y);
     self.tabBarController.navigationItem.title = @"";
     [self.radarView stopAnimation];
     [self.radarView startAnimation];
@@ -134,7 +136,7 @@ CGFloat viliblePostionForInfoView;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     [self.radarView stopAnimation];
 }
 
@@ -209,9 +211,7 @@ CGFloat viliblePostionForInfoView;
                 
             }
             
-             CLLocationDirection mapAngle = self.mapView.camera.heading;
-            
-            NSLog(@"MapAngle = %f", mapAngle);
+//             CLLocationDirection mapAngle = self.mapView.camera.heading;
             
             NSInteger counter = 0;
             
@@ -228,26 +228,32 @@ CGFloat viliblePostionForInfoView;
                 coordinate.latitude = [dict[@"latitude"]doubleValue];
                 coordinate.longitude = [dict[@"longitude"]doubleValue];
                 
-                float heading = [self getHeadingForDirectionFromCoordinate:self.userLocation.coordinate toCoordinate:coordinate];
-                
-                NSLog(@"Heading = %f", heading);
+//                float heading = [self getHeadingForDirectionFromCoordinate:self.userLocation.coordinate toCoordinate:coordinate];
                 
                 MGUserView *userView = _usersViewsArray[counter];
                 userView.hidden = NO;
                 userView.delegate = self;
                 userView.selectedUserID = [dict[@"id"] integerValue];
                 userView.imageURLString = dict[@"picture"][@"small_picture_url"];
-                            
-                
-//                [self setFrameForUserView:userView WithDicr:dict];
                 
                 userView.layer.cornerRadius = userView.frame.size.width / 2.0;
                 userView.layer.masksToBounds = YES;
+                userView.layer.borderWidth = 2.f;
+                userView.layer.borderColor = [self randomColor].CGColor;
                 
                 counter++;
             }
         }
     }];
+}
+
+- (UIColor *)randomColor {
+    
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    
+    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
 
 - (void) setFrameForUserView:(MGUserView *)userView WithDicr:(NSDictionary *)dict {

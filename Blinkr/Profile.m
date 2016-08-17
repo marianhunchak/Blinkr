@@ -13,7 +13,7 @@
 
 + (void)initWithDict:(NSDictionary *)dict {
     
-    Profile *lProfile = [Profile MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"id_ == %@", [dict numberForKey:@"id"]]];
+    Profile *lProfile = [Profile MR_findFirst];
     
     if (!lProfile) {
         lProfile = [Profile MR_createEntity];

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
@@ -49,7 +50,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Phone number" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xr9-Id-eGu">
-                        <rect key="frame" x="83" y="53" width="306" height="25"/>
+                        <rect key="frame" x="106" y="53" width="283" height="25"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="bBc-IJ-jor"/>
@@ -58,6 +59,13 @@
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
                     </textView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phoneNumber" translatesAutoresizingMaskIntoConstraints="NO" id="wwk-yB-eRv">
+                        <rect key="frame" x="87" y="60" width="18" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="1fh-6o-2VQ"/>
+                            <constraint firstAttribute="height" constant="18" id="7Lx-jX-18J"/>
+                        </constraints>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnK-SI-BVi">
                         <rect key="frame" x="277" y="35" width="112" height="25"/>
                         <constraints>
@@ -79,9 +87,11 @@
                     <constraint firstItem="9oa-LI-1UI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Evq-wQ-wdM"/>
                     <constraint firstItem="wR0-ht-ZHe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="NSg-T6-mXP"/>
                     <constraint firstItem="wR0-ht-ZHe" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="8" id="Uzy-07-d4Z"/>
+                    <constraint firstItem="wwk-yB-eRv" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="9" id="WSF-DV-KGk"/>
                     <constraint firstAttribute="trailing" secondItem="gnK-SI-BVi" secondAttribute="trailing" constant="11" id="aA1-ci-BbX"/>
                     <constraint firstItem="gnK-SI-BVi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="dcr-8E-3yp"/>
-                    <constraint firstItem="xr9-Id-eGu" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="5" id="sGp-od-C5A"/>
+                    <constraint firstItem="xr9-Id-eGu" firstAttribute="leading" secondItem="9oa-LI-1UI" secondAttribute="trailing" constant="28" id="sGp-od-C5A"/>
+                    <constraint firstItem="wwk-yB-eRv" firstAttribute="top" secondItem="Wf3-PN-mbR" secondAttribute="bottom" constant="9" id="tYx-4y-gkM"/>
                     <constraint firstItem="xr9-Id-eGu" firstAttribute="top" secondItem="Wf3-PN-mbR" secondAttribute="bottom" constant="2" id="ur0-0L-OAZ"/>
                     <constraint firstAttribute="trailing" secondItem="xr9-Id-eGu" secondAttribute="trailing" constant="11" id="xEC-vY-Jqv"/>
                     <constraint firstAttribute="trailing" secondItem="wR0-ht-ZHe" secondAttribute="trailing" constant="8" id="xL3-Xl-euC"/>
@@ -97,4 +107,7 @@
             <point key="canvasLocation" x="538" y="403"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="phoneNumber" width="30" height="29"/>
+    </resources>
 </document>

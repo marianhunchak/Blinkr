@@ -214,7 +214,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
-//    [self.profileImg bringSubviewToFront:self.selectImageBtn];
     self.profileImage.image = chosenImage;
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
@@ -224,12 +223,58 @@
 }
 
 
-#pragma mark - API put
+#pragma mark - Private methods 
+
+- (BOOL)validateEnteredInfo {
+    
+    NSString *alertTitle = @"Warning";
+    NSString *alertMessage = @"";
+    
+    if ([_nameTextField.text isEqualToString:@""] || _nameTextField.text.length > 50) {
+        alertMessage = @"Name field can`t be empty or longer than 50 characters";
+    } else if (![self isValidEmail:_emailTextField.text]) {
+        alertMessage = @"Please enter valid email";
+    } else if (_phoneNumberTextField.text.length > 30) {
+        alertMessage = @"Phone number field can`t be longer than 30 characters";
+    } else if (_teslaModelTextField.text.length > 40) {
+        alertMessage = @"Car model field can`t be longer than 40 characters";
+    } else if (_licensePlateTextField.text.length > 30) {
+        alertMessage = @"License plate field can`t be longer than 30 characters";
+    } else if (_bioTextView.text.length > 2000) {
+        alertMessage = @"License plate field can`t be longer than 2000 characters";
+    }
+    
+    if ([alertMessage isEqualToString:@""]) {
+        return YES;
+    } else {
+    
+        UIAlertDialog *alerDialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:alertTitle andMessage:alertMessage];
+        [alerDialog addButtonWithTitle:@"OK" andHandler:nil];
+        [alerDialog showInViewController:self];
+
+        return NO;
+    }
+    
+}
+
+-(BOOL)isValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    NSString *stricterFilterString = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
+    NSString *laxString = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
 
 
 #pragma mark - Actions
 
 - (void)saveBtnPresed:(UIBarButtonItem *) sender {
+    
+    if (![self validateEnteredInfo]) {
+        return;
+    }
     
     NSDictionary *json = @{
                            @"name":_nameTextField.text,
@@ -276,7 +321,7 @@
             
         } else {
             
-            [hd failAndDismissWithTitle:error.localizedDescription];
+            [hd failAndDismissWithTitle:@"Something went wrong"];
         }
         
     }];

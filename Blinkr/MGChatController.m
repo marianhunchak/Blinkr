@@ -17,6 +17,7 @@
 #import "HCSStarRatingView.h"
 #import "MGRateUserView.h"
 #import "NSDictionary+Accessors.h"
+#import "SAMHUDView.h"
 @import Firebase;
 
 @interface MGChatController ()
@@ -81,9 +82,9 @@
 
     [self setEditing:YES];
     
-    [JSQMessagesCollectionViewCell registerMenuAction:@selector(deleteMessage:withKey:)];
+    [JSQMessagesCollectionViewCell registerMenuAction:@selector(deleteMessage:withKey:atIndexPath:)];
     [UIMenuController sharedMenuController].menuItems = @[ [[UIMenuItem alloc] initWithTitle:@"Unsend"
-                                                                                      action:@selector(deleteMessage:withKey:)] ];
+                                                                                      action:@selector(deleteMessage:withKey:atIndexPath:)] ];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationReceived) name:@"notification_received" object:nil];
 
@@ -92,7 +93,16 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-//    self.title = self.chatName ? self.chatName : self.receiverUser.name;
+    __weak typeof(self) weakSelf = self;
+    
+    [MGNetworkManager getUserWithID:_receiverId ? _receiverId : _receiverUser.id_ withCompletion:^(id object, NSError *error) {
+        if (!error) {
+            weakSelf.receiverUser = object;
+            weakSelf.ratingView.value = weakSelf.receiverUser.rate;
+            weakSelf.currentChat.chatName = weakSelf.receiverUser.name;
+            weakSelf.currentChat.chatImageURL = [weakSelf.receiverUser.smallImageURL absoluteString];
+        }
+    }];
     
     _currentChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
     
@@ -107,8 +117,6 @@
         _currentChat.chatName = _receiverUser.name;
         _currentChat.chatImageURL = [_receiverUser.smallImageURL absoluteString];
     }
-    
-    _ratingView.value = _currentChat.receiverRate.floatValue;
     
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -175,11 +183,11 @@
     
     _rateUserView = [MGRateUserView loadRateUserView];
     
-    _rateUserView.starRatingView.value = [_currentChat.receiverRate floatValue];
+    _rateUserView.starRatingView.value = 1.f;
     
     UIAlertView *alert;
     
-    if (_rateUserView.starRatingView.value != 0) {
+    if (_receiverUser.isRated) {
         
         NSString *title = [NSString stringWithFormat:@"You have already rated %@.", self.chatName ? self.chatName : self.receiverUser.name];
         alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:self cancelButtonTitle:@"Close" otherButtonTitles:nil];
@@ -223,10 +231,12 @@
     FIRDatabaseReference *chatRef = [_ref child:_channel];
     FIRDatabaseQuery *messagesQuery = [[chatRef queryLimitedToLast:25] queryOrderedByKey];
     
+    __weak typeof(self) weakSelf = self;
+    
     [messagesQuery observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        self.messagesKeys = [NSMutableArray array];
-        self.messages = [NSMutableArray array];
+        weakSelf.messagesKeys = [NSMutableArray array];
+        weakSelf.messages = [NSMutableArray array];
         
         NSDictionary *snapshotDict = snapshot.value;
         
@@ -238,18 +248,23 @@
             
             for (NSString *key  in dictionaryKeys) {
                 
-                [self.messagesKeys addObject:key];
+                [weakSelf.messagesKeys addObject:key];
                 
                 NSDictionary *messageDict = [snapshotDict objectForKey:key];
                 
-                [self addMessageWithSenderID:messageDict[@"senderId"] text:messageDict[@"message"] senderName:messageDict[@"author"] dateString:messageDict[@"date"]];
+                [weakSelf addMessageWithSenderID:messageDict[@"senderId"] text:messageDict[@"message"] senderName:messageDict[@"author"] dateString:messageDict[@"date"]];
                 
-                [self finishReceivingMessage];
+                [weakSelf finishReceivingMessage];
             }
 
+        } else {
+            
+            [weakSelf.currentChat MR_deleteEntity];
+            [weakSelf finishReceivingMessage];
+            
         }
         
-        [self deleteNotficationWhithChannel:_channel];
+        [weakSelf deleteNotficationWhithChannel:_channel];
     }];
 }
 
@@ -394,7 +409,7 @@
     
     if ([lMessage.senderId isEqualToString:self.senderId]) {
         
-        return action == @selector(copy:) || action == @selector(deleteMessage:withKey:);
+        return action == @selector(copy:) || action == @selector(deleteMessage:withKey:atIndexPath:);
         
     } else {
         
@@ -404,12 +419,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     
-    if (action == @selector(deleteMessage:withKey:)) {
+    if (action == @selector(deleteMessage:withKey:atIndexPath:)) {
         
         JSQMessage *lMessage = _messages[indexPath.item];
         NSString *messageKey = _messagesKeys[indexPath.item];
 
-        [self deleteMessage:lMessage withKey:messageKey];
+        [self deleteMessage:lMessage withKey:messageKey atIndexPath:indexPath];
     }
     
     [super collectionView:collectionView performAction:action forItemAtIndexPath:indexPath withSender:sender];
@@ -417,29 +432,35 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     
-    if (action == @selector(deleteMessage:withKey:)) {
+    if (action == @selector(deleteMessage:withKey:atIndexPath:)) {
         return NO;
     }
     
     return [super canPerformAction:action withSender:sender];
 }
 
-- (void)deleteMessage:(JSQMessage *)pMessage withKey:(NSString *) pMessageKey {
+- (void)deleteMessage:(JSQMessage *)pMessage withKey:(NSString *) pMessageKey atIndexPath:(NSIndexPath *)indexPath {
         
-        FIRDatabaseReference *messageRef = [[_ref child:_channel] child:pMessageKey];
+    FIRDatabaseReference *messageRef = [[_ref child:_channel] child:pMessageKey];
+    
+    __weak typeof(self) weakSelf = self;
 
-        [messageRef removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+    [messageRef removeValue];
+//
+//        if (!error) {
+    
+            [weakSelf.collectionView performBatchUpdates:^{
+                [weakSelf.messages removeObject:pMessage];
+                [weakSelf.messagesKeys removeObject:pMessageKey];
+                [weakSelf.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+            } completion:nil];
             
-            if (!error) {
-//                [self.messages removeObject:pMessage];
-//                [self.messagesKeys removeObject:pMessageKey];
-//                [self.collectionView reloadData];
-            }
-            else {
-
-            }
-            
-        }];
+//        }
+//        else {
+//
+//        }
+//        
+//    }];
 }
 
 #pragma mark - JSQMessages collection view flow layout delegate
@@ -531,6 +552,12 @@
     [MGNetworkManager sendMessangerNotificationWihtParams:params withCompletion:^(id object, NSError *error) {
  
     }];
+    
+    _currentChat = [Chat MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"channel == %@", _channel]];
+    
+    if (!_currentChat) {
+        _currentChat = [Chat MR_createEntity];
+    }
 
     _currentChat.channel = _channel;
     _currentChat.receiverId = _receiverId ? @(_receiverId) : @(_receiverUser.id_);
@@ -556,11 +583,17 @@
                                  @"user_id": _receiverId ? @(_receiverId) : @(_receiverUser.id_)
                                  };
         
+        SAMHUDView *hd = [[SAMHUDView alloc] initWithTitle:nil loading:YES];
+        [hd show];
+        
         [MGNetworkManager rateUserWithParams:params completion:^(id object, NSError *error) {
             
             if (!error) {
-                weakSelf.currentChat.receiverRate = @(_rateUserView.starRatingView.value);
-                weakSelf.ratingView.value = _rateUserView.starRatingView.value;
+                weakSelf.ratingView.value = [object floatForKey:@"rating"];
+                weakSelf.receiverUser.isRated = YES;
+                [hd completeAndDismissWithTitle:nil];
+            } else {
+                [hd failAndDismissWithTitle:nil];
             }
         }];
     }

@@ -122,7 +122,7 @@
                                       if (error) {
                                           NSLog(@"Login failed. %@", error);
                                           
-                                          [hd failAndDismissWithTitle:[error localizedDescription]];
+                                          [hd failAndDismissWithTitle:@"Something went wrong"];
                                           [FBSDKAccessToken setCurrentAccessToken:nil];
                                           FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
                                           [loginManager logOut];
@@ -144,7 +144,7 @@
                                                   [FBSDKAccessToken setCurrentAccessToken:nil];
                                                   FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
                                                   [loginManager logOut];
-                                                  [hd failAndDismissWithTitle:[error localizedDescription]];
+                                                  [hd failAndDismissWithTitle:@"Something went wrong"];
                                               }
                                               
                                           }];

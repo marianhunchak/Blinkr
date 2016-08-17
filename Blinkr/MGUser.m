@@ -30,6 +30,7 @@
     lUser.showPhoneNumber = [dict boolForKey:@"show_phone_number"];
     lUser.showLicensePlate = [dict boolForKey:@"show_license_plate"];
     lUser.showFacebookLink = [dict boolForKey:@"show_facebook_link"];
+    lUser.isRated = [dict boolForKey:@"is_rated_by_current_user"];
 
     lUser.imageURL = [NSURL URLWithString:[NSString validateValue:dict[@"picture"][@"url"]]];
     lUser.smallImageURL = [NSURL URLWithString:[NSString validateValue:dict[@"picture"][@"small_picture_url"]]];

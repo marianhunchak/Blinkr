@@ -79,7 +79,7 @@
                     </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-qd-olV">
-                    <rect key="frame" x="88" y="54" width="188" height="26"/>
+                    <rect key="frame" x="110" y="53" width="162" height="26"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="26" id="VLg-Ag-AAY"/>
@@ -88,24 +88,33 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <dataDetectorType key="dataDetectorTypes" phoneNumber="YES"/>
                 </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phoneNumber" translatesAutoresizingMaskIntoConstraints="NO" id="Nzd-Il-RIk">
+                    <rect key="frame" x="93" y="60" width="18" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="CwX-gJ-pk9"/>
+                        <constraint firstAttribute="width" constant="18" id="Kdd-j2-WGK"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="61R-nU-Oy4" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="13" id="31i-5g-tx6"/>
-                <constraint firstItem="iVb-qd-olV" firstAttribute="top" secondItem="Hi0-Vv-2Rt" secondAttribute="bottom" constant="1" id="6bj-9J-MhH"/>
+                <constraint firstItem="iVb-qd-olV" firstAttribute="top" secondItem="Hi0-Vv-2Rt" secondAttribute="bottom" id="6bj-9J-MhH"/>
                 <constraint firstItem="Hi0-Vv-2Rt" firstAttribute="top" secondItem="61R-nU-Oy4" secondAttribute="bottom" constant="4" id="ArP-VC-HFq"/>
+                <constraint firstItem="Nzd-Il-RIk" firstAttribute="top" secondItem="Hi0-Vv-2Rt" secondAttribute="bottom" constant="7" id="BkE-CG-hyI"/>
                 <constraint firstAttribute="bottom" secondItem="zPS-wx-1G9" secondAttribute="bottom" id="ENh-Ou-are"/>
                 <constraint firstAttribute="trailing" secondItem="2kN-gw-VMg" secondAttribute="trailing" constant="8" id="HHd-iY-mvA"/>
                 <constraint firstItem="61R-nU-Oy4" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.44" id="HmZ-3d-ufw"/>
                 <constraint firstItem="fw3-cf-7S0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="M78-aQ-RTn"/>
                 <constraint firstItem="zPS-wx-1G9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="1" id="Ps2-3j-M6n"/>
+                <constraint firstItem="Nzd-Il-RIk" firstAttribute="leading" secondItem="zPS-wx-1G9" secondAttribute="trailing" constant="7" id="Rpk-jJ-9Lo"/>
                 <constraint firstItem="fw3-cf-7S0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SPU-Rd-HeJ"/>
                 <constraint firstItem="61R-nU-Oy4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="UNk-Jm-kh0"/>
                 <constraint firstItem="zPS-wx-1G9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Vvq-Gy-AiE"/>
-                <constraint firstItem="iVb-qd-olV" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="8" id="e1R-uh-0OY"/>
+                <constraint firstItem="iVb-qd-olV" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="30" id="e1R-uh-0OY"/>
                 <constraint firstItem="Hi0-Vv-2Rt" firstAttribute="leading" secondItem="fw3-cf-7S0" secondAttribute="trailing" constant="8" id="fUA-Wy-Kbz"/>
                 <constraint firstItem="2kN-gw-VMg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-1" id="qbL-1H-da0"/>
-                <constraint firstItem="iVb-qd-olV" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.46" id="yyF-Co-m1z"/>
+                <constraint firstItem="iVb-qd-olV" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.46" constant="-25.680000000000007" id="yyF-Co-m1z"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -118,4 +127,7 @@
             <point key="canvasLocation" x="456" y="10.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="phoneNumber" width="30" height="29"/>
+    </resources>
 </document>

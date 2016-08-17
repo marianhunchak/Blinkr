@@ -1219,7 +1219,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="53"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" textAlignment="right" translatesAutoresizingMaskIntoConstraints="NO" id="49x-1u-Aeg">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" translatesAutoresizingMaskIntoConstraints="NO" id="49x-1u-Aeg">
                                                     <rect key="frame" x="65" y="15" width="324" height="37"/>
                                                     <color key="textColor" red="0.1215686275" green="0.1333333333" blue="0.14901960780000001" alpha="0.87" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>

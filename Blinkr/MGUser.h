@@ -23,6 +23,7 @@
 @property (assign, nonatomic) BOOL showEmail;
 @property (assign, nonatomic) BOOL showFacebookLink;
 @property (assign, nonatomic) BOOL showPhoneNumber;
+@property (assign, nonatomic) BOOL isRated;
 @property (copy, nonatomic) NSURL* imageURL;
 @property (copy, nonatomic) NSURL* smallImageURL;
 

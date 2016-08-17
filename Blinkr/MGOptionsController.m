@@ -14,6 +14,7 @@
 #import <MessageUI/MessageUI.h>
 #import "Profile.h"
 #import "MGTermsOfUseController.h"
+#import "SAMHUDView.h"
 
 @interface MGOptionsController () <MFMailComposeViewControllerDelegate>
 
@@ -120,7 +121,13 @@
     
     UIAlertDialog *alerDialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:nil andMessage:@"Are you sure you want to log out?"];
     
+    __weak typeof(self) weakSelf = self;
+    
     [alerDialog addButtonWithTitle:@"YES" andHandler:^(NSInteger buttonIndex) {
+        
+        
+        SAMHUDView *hd = [[SAMHUDView alloc] initWithTitle:@"" loading:YES];
+        [hd show];
         
         [MGNetworkManager logOutWithCompletion:^(id object, NSError *error) {
             
@@ -130,9 +137,12 @@
                 FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
                 [loginManager logOut];
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:ACCESS_TOKEN_KEY];
-                [self.navigationController popToRootViewControllerAnimated:NO];
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                 [[Profile MR_findFirst] MR_deleteEntity];
                 [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+                
+                [hd completeAndDismissWithTitle:nil];
+                
             } else {
                 
                 UIAlertDialog *alerDialog = [[UIAlertDialog alloc] initWithStyle:UIAlertDialogStyleAlert title:@"Error" andMessage:@"Something went wrong!"];
@@ -140,6 +150,8 @@
                 [alerDialog addButtonWithTitle:@"Close" andHandler:nil];
                 
                 [alerDialog showInViewController:self];
+                
+                [hd failAndDismissWithTitle:@"Something went wrong!"];
             }
             
         }];

@@ -17,6 +17,7 @@
 
 @interface MGMessagesController () <UITableViewDataSource, UITableViewDelegate>
 
+#pragma mark - Properties
 @property (strong, nonatomic) NSArray *chatsArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *noMessagesView;
@@ -26,6 +27,8 @@
 static NSString *cellIdentifier = @"messageCell";
 
 @implementation MGMessagesController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -111,6 +114,7 @@ static NSString *cellIdentifier = @"messageCell";
 
     NSString *badgeValue = [messagesArray count] > 0 ? [NSString stringWithFormat:@"%ld", [messagesArray count]] : nil;
     [[self.tabBarController.tabBar.items objectAtIndex:2] setBadgeValue:badgeValue];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = badgeValue.integerValue;
     
 }
 
