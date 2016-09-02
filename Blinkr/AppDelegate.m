@@ -61,7 +61,7 @@
         // Launched from push notification
         NSDictionary *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 
-        Notification *lNotification = [Notification initWithRecievedNotification:notification];
+        [Notification initWithRecievedNotification:notification];
         
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.window.backgroundColor = [UIColor whiteColor];
@@ -104,13 +104,13 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"tapped_on_notification" object:lNotification];
     }
     
-    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
+//    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
 
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: [userInfo[@"aps"] integerForKey:@"badge"]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"notification_received" object:nil];
     
-    NSLog(@"%@", userInfo);
+//    NSLog(@"%@", userInfo);
     
     completionHandler(UIBackgroundFetchResultNewData);
 }
@@ -149,7 +149,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         
     }
 
-    NSLog(@"InstanceID token: %@", refreshedToken);
+//    NSLog(@"InstanceID token: %@", refreshedToken);
     
     // Connect to FCM since connection may have failed when attempted before having a token.
     [self connectToFcm];
@@ -162,9 +162,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"Unable to connect to FCM. %@", error);
+//            NSLog(@"Unable to connect to FCM. %@", error);
         } else {
-            NSLog(@"Connected to FCM.");
+//            NSLog(@"Connected to FCM.");
         }
     }];
 }
@@ -192,7 +192,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
      [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
     
     [[FIRMessaging messaging] disconnect];
-    NSLog(@"Disconnected from FCM");
+//    NSLog(@"Disconnected from FCM");
     
 }
 

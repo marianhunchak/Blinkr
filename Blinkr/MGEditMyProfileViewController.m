@@ -184,7 +184,6 @@
 
     }
     
-    NSLog(@"Content size before = %@" , NSStringFromCGSize(self.tableView.contentSize));
 }
 
 #pragma mark - UIActionSheetDelegate

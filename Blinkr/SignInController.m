@@ -42,16 +42,18 @@
     [self.checkBox setSelected:YES];
     [self chekBoxBtnPressed:self.checkBox];
 
-    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f
+    self.myTimer = [NSTimer scheduledTimerWithTimeInterval:5.0f
                                                     target:self
                                                   selector:@selector(showNextCollectionItem)
                                                   userInfo:nil
                                                    repeats:YES];
     
-    self.imagesNameArray = @[@"front_page_1.png",
-                             @"front_page_2.png",
-                             @"front_page_3.png",
-                             @"front_page_4.png"];
+    self.imagesNameArray = @[@"sign_in-1.png",
+                             @"sign_in-2.png",
+                             @"sign_in-3.png"];
+    
+    _pageControl.numberOfPages = [_imagesNameArray count];
+    _pageControl.hidden = YES;
     
 }
 
@@ -120,7 +122,7 @@
         [[FIRAuth auth] signInWithCredential:credential
                                   completion:^(FIRUser *user, NSError *error) {
                                       if (error) {
-                                          NSLog(@"Login failed. %@", error);
+//                                          NSLog(@"Login failed. %@", error);
                                           
                                           [hd failAndDismissWithTitle:@"Something went wrong"];
                                           [FBSDKAccessToken setCurrentAccessToken:nil];
@@ -190,7 +192,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return 4;
+    return [_imagesNameArray count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -219,7 +221,7 @@
     
     NSInteger nextItemIndex = curentIndexPath.item + 1;
     
-    if (nextItemIndex > 3) {
+    if (nextItemIndex >= [_imagesNameArray count]) {
         nextItemIndex = 0;
     }
     

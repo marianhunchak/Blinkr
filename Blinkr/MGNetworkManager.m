@@ -180,12 +180,12 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
      
     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
-        NSLog(@"Update location response - %@", responseObject);
+//        NSLog(@"Update location response - %@", responseObject);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         
-        NSLog(@"Update location error - %@", [error localizedDescription]);
+//        NSLog(@"Update location error - %@", [error localizedDescription]);
         
     }];
     
@@ -278,12 +278,12 @@ static NSString *mainURL = @"http://159.203.188.80/api/v1/";
      
                              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                                  
-                                 NSLog(@"Token refreshed - %@", responseObject);
+//                                 NSLog(@"Token refreshed - %@", responseObject);
                                  
                              } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                  
                                  
-                                 NSLog(@"Error - %@", [error localizedDescription]);
+//                                 NSLog(@"Error - %@", [error localizedDescription]);
                                  
                              }];
     

@@ -116,7 +116,7 @@
                                            
                                        } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                                            
-                                           NSLog(@"Error: %@", error);
+//                                           NSLog(@"Error: %@", error);
                                            
                                        }];
     
